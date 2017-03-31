@@ -1,10 +1,10 @@
-# angular2-contextmenu
+# ngx-contextmenu
 
 A context menu built with Angular 2 inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](http://plnkr.co/edit/wpJXpEh4zNZ4uCxTURx2?p=preview)
 
 ## Installation
 
-- `npm install angular2-contextmenu`
+- `npm install ngx-contextmenu`
 - import ContextMenuModule into your app module
 
 ## Usage
@@ -80,7 +80,7 @@ public isMenuItemType1(item: any): boolean {
 If you need access to properties in your component from within the `enabled` or `visible` functions, you'll need to pass in a version of the function with `this` bound to your component.
 
 ```html
-<template ... [visible]="isMenuItemOutsideValueBound">
+<ng-template ... [visible]="isMenuItemOutsideValueBound">
 ```
 ```js
 public outsideValue = "something";
@@ -124,7 +124,7 @@ If your `<context-menu>` component is in a different component from your list, y
 ```
 
 ```js
-import { ContextMenuService } from 'angular2-contextmenu';
+import { ContextMenuService } from 'ngx-contextmenu';
 
 @Component({
   ...
@@ -170,7 +170,7 @@ This could be `(keydown)`, `(mouseover)`, or `(myCustomEvent)` as well.
 The html that is generated for the context menu looks like this:
 
 ```html
-<div class="dropdown angular2-contextmenu">
+<div class="dropdown ngx-contextmenu">
   <ul class="dropdown-menu">
     <li>
       <a><!-- the template for each context menu item goes here --></a>
@@ -180,29 +180,29 @@ The html that is generated for the context menu looks like this:
 </div>
 ```
 
-You can key off of the `angular2-contextmenu` class to create your own styles.  Note that the `ul.dropdown-menu` will have inline styles applied for `position`, `display`, `left` and `top` so that it will be positioned at the cursor when you right-click.
+You can key off of the `ngx-contextmenu` class to create your own styles.  Note that the `ul.dropdown-menu` will have inline styles applied for `position`, `display`, `left` and `top` so that it will be positioned at the cursor when you right-click.
 
 ```css
-.angular2-contextmenu .dropdown-menu {
+.ngx-contextmenu .dropdown-menu {
   border: solid 1px chartreuse;
   background-color: darkgreen;
   padding: 0;
 }
-.angular2-contextmenu li {
+.ngx-contextmenu li {
   display: block;
   border-top: solid 1px chartreuse;
   text-transform: uppercase;
   text-align: center;
 }
-.angular2-contextmenu li:first-child {
+.ngx-contextmenu li:first-child {
   border-top:none;
 }
-.angular2-contextmenu a {
+.ngx-contextmenu a {
   color:chartreuse;
   display: block;
   padding: 0.5em 1em;
 }
-.angular2-contextmenu a:hover {
+.ngx-contextmenu a:hover {
   color:darkgreen;
   background-color:chartreuse;
 }
@@ -240,53 +240,3 @@ There is a `(close)` output EventEmitter that you can subscribe to for notificat
 ## CSS Transforms
 
 The context menu will correctly position itself as long as the `<context-menu>` element does not have a parent element that has a complex transform applied to it.  Complex in this case means anything besides a simple 2d translation.  So rotate, skew, stretch, scale, z-axis translation will all cause the context menu to appear in unexpected places.  The common scenario of rendering an element with `transform: translate3d(0px 0px 0px)` in order to trigger the browser's GPU works just fine.
-
-## Deprecated syntax
-
-This alternate, deprecated syntax will continue working until version 1.x.
-
-### Template
-
-```html
-<ul>
-    <li *ngFor="let item of items" (contextmenu)="onContextMenu($event, item)">Right Click: {{item.name}}</li>
-</ul>
-<context-menu></context-menu>
-```
-
-### Component Code
-
-```js
-import { ContextMenuService } from 'angular2-contextmenu';
-
-@Component({
-  ...
-})
-export class MyContextMenuClass {
-  public items = [
-      { name: 'John', otherProperty: 'Foo' },
-      { name: 'Joe', otherProperty: 'Bar' }
-  ];
-
-  constructor(private contextMenuService: ContextMenuService) {}
-
-  public onContextMenu($event: MouseEvent, item: any): void {
-    this.contextMenuService.show.next({
-      actions: [
-        {
-          html: (item) => `Say hi!`,
-          click: (item) => alert('Hi, ' + item.name)
-        },
-        {
-          html: (item) => `Something else`,
-          click: (item) => alert('Or not...')
-        },
-      ],
-      event: $event,
-      item: item,
-    });
-    $event.preventDefault();
-    $event.stopPropagation();
-  }
-}
-```

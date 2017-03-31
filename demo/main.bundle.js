@@ -129,7 +129,7 @@ __decorate([
 ], AppComponent.prototype, "withFunctions", void 0);
 AppComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* Component */])({
-        selector: 'angular2-context-menu-demo',
+        selector: 'ngx-context-menu-demo',
         styles: ["\n.dashboardContainer {\nwidth: 100%;\nheight: 100%;\nposition: fixed;\n}\n\n.componentsContainer {\nposition: fixed;\nbottom: 0;\ntop: 100px;\nwidth: 100%; }\n\n.componentContainer {\noverflow: auto;\nposition: absolute; }\n"],
         template: __webpack_require__(195),
     }),
@@ -205,86 +205,6 @@ var environment = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__injection_injection_service__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenuInjector_service__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__contextMenu_service__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__ = __webpack_require__(138);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-var ContextMenuModule = ContextMenuModule_1 = (function () {
-    function ContextMenuModule() {
-    }
-    ContextMenuModule.forRoot = function (options) {
-        return {
-            ngModule: ContextMenuModule_1,
-            providers: [
-                {
-                    provide: __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["a" /* CONTEXT_MENU_OPTIONS */],
-                    useValue: options,
-                },
-            ],
-        };
-    };
-    return ContextMenuModule;
-}());
-ContextMenuModule = ContextMenuModule_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["b" /* NgModule */])({
-        declarations: [
-            __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
-            __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__["a" /* ContextMenuComponent */],
-            __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
-        ],
-        entryComponents: [
-            __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
-        ],
-        exports: [
-            __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
-            __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__["a" /* ContextMenuComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
-        ],
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_5__angular_common__["a" /* CommonModule */],
-        ],
-        providers: [
-            __WEBPACK_IMPORTED_MODULE_8__contextMenu_service__["a" /* ContextMenuService */],
-            __WEBPACK_IMPORTED_MODULE_2__contextMenuInjector_service__["a" /* ContextMenuInjectorService */],
-            __WEBPACK_IMPORTED_MODULE_1__injection_injection_service__["a" /* InjectionService */],
-        ],
-    })
-], ContextMenuModule);
-
-/* unused harmony default export */ var _unused_webpack_default_export = ContextMenuModule;
-var ContextMenuModule_1;
-//# sourceMappingURL=angular2-contextmenu.js.map
-
-/***/ }),
-
-/***/ 138:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(9);
@@ -342,7 +262,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 139:
+/***/ 138:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -416,6 +336,86 @@ var InjectionRegistry = (function () {
 }());
 
 //# sourceMappingURL=injection-registry.service.js.map
+
+/***/ }),
+
+/***/ 139:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__injection_injection_service__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenuInjector_service__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__contextMenu_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__ = __webpack_require__(137);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+var ContextMenuModule = ContextMenuModule_1 = (function () {
+    function ContextMenuModule() {
+    }
+    ContextMenuModule.forRoot = function (options) {
+        return {
+            ngModule: ContextMenuModule_1,
+            providers: [
+                {
+                    provide: __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["a" /* CONTEXT_MENU_OPTIONS */],
+                    useValue: options,
+                },
+            ],
+        };
+    };
+    return ContextMenuModule;
+}());
+ContextMenuModule = ContextMenuModule_1 = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["b" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
+            __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__["a" /* ContextMenuComponent */],
+            __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
+            __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
+        ],
+        entryComponents: [
+            __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
+        ],
+        exports: [
+            __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
+            __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__["a" /* ContextMenuComponent */],
+            __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_5__angular_common__["a" /* CommonModule */],
+        ],
+        providers: [
+            __WEBPACK_IMPORTED_MODULE_8__contextMenu_service__["a" /* ContextMenuService */],
+            __WEBPACK_IMPORTED_MODULE_2__contextMenuInjector_service__["a" /* ContextMenuInjectorService */],
+            __WEBPACK_IMPORTED_MODULE_1__injection_injection_service__["a" /* InjectionService */],
+        ],
+    })
+], ContextMenuModule);
+
+/* unused harmony default export */ var _unused_webpack_default_export = ContextMenuModule;
+var ContextMenuModule_1;
+//# sourceMappingURL=ngx-contextmenu.js.map
 
 /***/ }),
 
@@ -845,7 +845,7 @@ ContextMenuContentComponent = __decorate([
         styles: [
             ".passive {\n       display: block;\n       padding: 3px 20px;\n       clear: both;\n       font-weight: normal;\n       line-height: @line-height-base;\n       white-space: nowrap;\n     }"
         ],
-        template: "<div class=\"dropdown angular2-contextmenu\">\n      <ul *ngIf=\"item\" #menu [ngStyle]=\"locationCss\" class=\"dropdown-menu\">\n        <li *ngFor=\"let menuItem of menuItems\" [class.disabled]=\"!isMenuItemEnabled(menuItem)\"\n            [class.divider]=\"menuItem.divider\" [class.dropdown-divider]=\"useBootstrap4 && menuItem.divider\"\n            [attr.role]=\"menuItem.divider ? 'separator' : undefined\">\n          <a *ngIf=\"!menuItem.divider && !menuItem.passive\" href [class.dropdown-item]=\"useBootstrap4\"\n            [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\"\n            (click)=\"menuItem.triggerExecute(item, $event); $event.preventDefault(); $event.stopPropagation();\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </a>\n\n          <span (click)=\"stopEvent($event)\" (contextmenu)=\"stopEvent($event)\" class=\"passive\"\n                *ngIf=\"!menuItem.divider && menuItem.passive\" [class.dropdown-item]=\"useBootstrap4\"\n                [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </span>\n        </li>\n      </ul>\n    </div>\n  ",
+        template: "<div class=\"dropdown ngx-contextmenu\">\n      <ul *ngIf=\"item\" #menu [ngStyle]=\"locationCss\" class=\"dropdown-menu\">\n        <li *ngFor=\"let menuItem of menuItems\" [class.disabled]=\"!isMenuItemEnabled(menuItem)\"\n            [class.divider]=\"menuItem.divider\" [class.dropdown-divider]=\"useBootstrap4 && menuItem.divider\"\n            [attr.role]=\"menuItem.divider ? 'separator' : undefined\">\n          <a *ngIf=\"!menuItem.divider && !menuItem.passive\" href [class.dropdown-item]=\"useBootstrap4\"\n            [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\"\n            (click)=\"menuItem.triggerExecute(item, $event); $event.preventDefault(); $event.stopPropagation();\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </a>\n\n          <span (click)=\"stopEvent($event)\" (contextmenu)=\"stopEvent($event)\" class=\"passive\"\n                *ngIf=\"!menuItem.divider && menuItem.passive\" [class.dropdown-item]=\"useBootstrap4\"\n                [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </span>\n        </li>\n      </ul>\n    </div>\n  ",
     }),
     __param(3, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Optional */])()),
     __param(3, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Inject */])(__WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["a" /* CONTEXT_MENU_OPTIONS */])),
@@ -864,7 +864,7 @@ var _a, _b, _c, _d, _e, _f, _g;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__injection_injection_service__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__injection_injection_registry_service__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__injection_injection_registry_service__ = __webpack_require__(138);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuInjectorService; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -913,8 +913,8 @@ var _a;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular2_contextmenu__ = __webpack_require__(137);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__angular2_contextmenu__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngx_contextmenu__ = __webpack_require__(139);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__ngx_contextmenu__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_component__ = __webpack_require__(55);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__contextMenu_component__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenu_service__ = __webpack_require__(27);
