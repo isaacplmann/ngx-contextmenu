@@ -80,7 +80,7 @@ public isMenuItemType1(item: any): boolean {
 If you need access to properties in your component from within the `enabled` or `visible` functions, you'll need to pass in a version of the function with `this` bound to your component.
 
 ```html
-<template ... [visible]="isMenuItemOutsideValueBound">
+<ng-template ... [visible]="isMenuItemOutsideValueBound">
 ```
 ```js
 public outsideValue = "something";
@@ -240,53 +240,3 @@ There is a `(close)` output EventEmitter that you can subscribe to for notificat
 ## CSS Transforms
 
 The context menu will correctly position itself as long as the `<context-menu>` element does not have a parent element that has a complex transform applied to it.  Complex in this case means anything besides a simple 2d translation.  So rotate, skew, stretch, scale, z-axis translation will all cause the context menu to appear in unexpected places.  The common scenario of rendering an element with `transform: translate3d(0px 0px 0px)` in order to trigger the browser's GPU works just fine.
-
-## Deprecated syntax
-
-This alternate, deprecated syntax will continue working until version 1.x.
-
-### Template
-
-```html
-<ul>
-    <li *ngFor="let item of items" (contextmenu)="onContextMenu($event, item)">Right Click: {{item.name}}</li>
-</ul>
-<context-menu></context-menu>
-```
-
-### Component Code
-
-```js
-import { ContextMenuService } from 'angular2-contextmenu';
-
-@Component({
-  ...
-})
-export class MyContextMenuClass {
-  public items = [
-      { name: 'John', otherProperty: 'Foo' },
-      { name: 'Joe', otherProperty: 'Bar' }
-  ];
-
-  constructor(private contextMenuService: ContextMenuService) {}
-
-  public onContextMenu($event: MouseEvent, item: any): void {
-    this.contextMenuService.show.next({
-      actions: [
-        {
-          html: (item) => `Say hi!`,
-          click: (item) => alert('Hi, ' + item.name)
-        },
-        {
-          html: (item) => `Something else`,
-          click: (item) => alert('Or not...')
-        },
-      ],
-      event: $event,
-      item: item,
-    });
-    $event.preventDefault();
-    $event.stopPropagation();
-  }
-}
-```

@@ -1,7 +1,7 @@
 {
   "name": "ngx-contextmenu",
   "version": "1.0.0",
-  "description": "An Angular 2 component to show a context menu on an arbitrary component",
+  "description": "An Angular component to show a context menu on an arbitrary component",
   "keywords": [
     "angular2",
     "contextmenu",
@@ -37,8 +37,8 @@
   },
   "private": false,
   "peerDependencies": {
-    "@angular/common": "^2.4.10",
-    "@angular/core": "^2.4.10"
+    "@angular/common": "^4.0.0",
+    "@angular/core": "^4.0.0"
   },
   "devDependencies": {
     "@angular/cli": "1.0.0-rc.2",
