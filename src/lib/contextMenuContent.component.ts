@@ -41,7 +41,7 @@ export interface MouseLocation {
      }`
   ],
   template:
-  `<div class="dropdown angular2-contextmenu">
+  `<div class="dropdown ngx-contextmenu">
       <ul *ngIf="item" #menu [ngStyle]="locationCss" class="dropdown-menu">
         <li *ngFor="let menuItem of menuItems" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"

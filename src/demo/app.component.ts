@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ContextMenuService, ContextMenuComponent } from '../lib';
 
 @Component({
-  selector: 'angular2-context-menu-demo',
+  selector: 'ngx-context-menu-demo',
   styles: [`
 .dashboardContainer {
 width: 100%;

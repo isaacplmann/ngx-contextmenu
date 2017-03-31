@@ -1,3 +1,17 @@
+<a name="1.0.1"></a>
+# [1.0.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-03-31)
+
+
+### Documentation
+
+* **doc:** Remove references to angular2-contextmenu
+
+
+### BREAKING CHANGES
+
+* **styles:** Styles should reference the `ngx-contextmenu` class instead of `angular2-contextmenu`
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-03-31)
 
