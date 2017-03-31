@@ -1,0 +1,70 @@
+{
+  "name": "ngx-contextmenu",
+  "version": "1.0.0",
+  "description": "An Angular 2 component to show a context menu on an arbitrary component",
+  "keywords": [
+    "angular2",
+    "contextmenu",
+    "angular2-contextmenu",
+    "ngx-contextmenu",
+    "ngx",
+    "ng2",
+    "ng2-contextmenu"
+  ],
+  "author": "Isaac Mann <isaacplmann@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/isaacplmann/ngx-contextmenu.git"
+  },
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "jsnext:main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "npm run build:lib && npm run build:demo",
+    "build:demo": "rimraf dist/demo && ng build",
+    "build:lib": "rimraf dist/lib && ngc && copyfiles package.json README.md LICENSE dist/",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "pub": "npm run pub:lib && npm run pub:demo",
+    "pub:demo": "npm run build:demo && gh-pages -d dist",
+    "pub:lib": "npm run build:lib && npm publish dist",
+    "pack:lib": "npm run build:lib && cd dist && npm pack && copyfiles *.tgz ../ && cd .. && rimraf dist/*.tgz"
+  },
+  "private": false,
+  "peerDependencies": {
+    "@angular/common": "^2.4.10",
+    "@angular/core": "^2.4.10"
+  },
+  "devDependencies": {
+    "@angular/cli": "1.0.0-rc.2",
+    "@angular/common": "^4.0.1",
+    "@angular/compiler-cli": "^4.0.1",
+    "@angular/core": "^4.0.1",
+    "@angular/platform-browser": "^4.0.1",
+    "@angular/platform-browser-dynamic": "^4.0.1",
+    "@angular/router": "^4.0.1",
+    "@types/jasmine": "2.5.47",
+    "@types/node": "~6.0.60",
+    "codelyzer": "~2.0.0",
+    "copyfiles": "^1.2.0",
+    "gh-pages": "0.12.0",
+    "jasmine-core": "~2.5.2",
+    "jasmine-spec-reporter": "~3.2.0",
+    "karma": "~1.4.1",
+    "karma-chrome-launcher": "~2.0.0",
+    "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
+    "karma-jasmine": "~1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "protractor": "~5.1.0",
+    "rimraf": "^2.6.1",
+    "ts-node": "~2.0.0",
+    "tslint": "~4.5.0",
+    "typescript": "~2.2.2"
+  }
+}
