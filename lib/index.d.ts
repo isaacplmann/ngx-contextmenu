@@ -1,0 +1,4 @@
+export { ContextMenuModule } from './angular2-contextmenu';
+export * from './contextMenu.component';
+export * from './contextMenu.service';
+export * from './contextMenu.options';
