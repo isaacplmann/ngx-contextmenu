@@ -1,438 +1,12 @@
 webpackJsonp([1,4],{
 
-/***/ 128:
-/***/ (function(module, exports) {
-
-function webpackEmptyContext(req) {
-	throw new Error("Cannot find module '" + req + "'.");
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 128;
-
-
-/***/ }),
-
-/***/ 129:
+/***/ 13:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__demo_app_module__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(136);
-
-
-
-
-if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["a" /* enableProdMode */])();
-}
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__demo_app_module__["a" /* AppModule */]);
-//# sourceMappingURL=main.js.map
-
-/***/ }),
-
-/***/ 134:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__(84);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var AppComponent = (function () {
-    function AppComponent(contextMenuService) {
-        this.contextMenuService = contextMenuService;
-        this.items = [
-            {
-                name: 'John',
-                otherProperty: 'Foo',
-                layout: {
-                    height: 90,
-                    left: 0,
-                    top: 0,
-                    width: 98,
-                },
-                actions: [{
-                        enabled: true,
-                        execute: function (item) { return console.log(item); },
-                        html: function (item) { return "John custom: " + item.name; },
-                        visible: true,
-                    }, {
-                        divider: true,
-                        visible: true,
-                    }, {
-                        enabled: true,
-                        execute: function (item) { return console.log(item); },
-                        html: function (item) { return "John custom: " + item.name; },
-                        visible: true,
-                    }],
-            },
-            {
-                name: 'Joe',
-                otherProperty: 'Bar',
-                layout: {
-                    height: 90,
-                    left: 98,
-                    top: 0,
-                    width: 98,
-                },
-                actions: [{
-                        enabled: true,
-                        execute: function (item) { return console.log(item); },
-                        html: function (item) { return "Joe something: " + item.name; },
-                        visible: true,
-                    }],
-            },
-        ];
-        this.outsideValue = 'something';
-    }
-    AppComponent.prototype.onContextMenu = function ($event, item) {
-        this.contextMenuService.show.next({ event: $event, item: item });
-        $event.preventDefault();
-    };
-    AppComponent.prototype.showMessage = function (message) {
-        console.log(message);
-    };
-    AppComponent.prototype.onlyJohn = function (item) {
-        return item.name === 'John';
-    };
-    AppComponent.prototype.onlyJoe = function (item) {
-        return item.name === 'Joe';
-    };
-    return AppComponent;
-}());
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ViewChild */])('basicMenu'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */]) === "function" && _a || Object)
-], AppComponent.prototype, "basicMenu", void 0);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ViewChild */])('enableAndVisible'),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */]) === "function" && _b || Object)
-], AppComponent.prototype, "enableAndVisible", void 0);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ViewChild */])('withFunctions'),
-    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */]) === "function" && _c || Object)
-], AppComponent.prototype, "withFunctions", void 0);
-AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* Component */])({
-        selector: 'ngx-context-menu-demo',
-        styles: ["\n.dashboardContainer {\nwidth: 100%;\nheight: 100%;\nposition: fixed;\n}\n\n.componentsContainer {\nposition: fixed;\nbottom: 0;\ntop: 100px;\nwidth: 100%; }\n\n.componentContainer {\noverflow: auto;\nposition: absolute; }\n"],
-        template: __webpack_require__(195),
-    }),
-    __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["c" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["c" /* ContextMenuService */]) === "function" && _d || Object])
-], AppComponent);
-
-var _a, _b, _c, _d;
-//# sourceMappingURL=app.component.js.map
-
-/***/ }),
-
-/***/ 135:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(134);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-var AppModule = (function () {
-    function AppModule() {
-    }
-    return AppModule;
-}());
-AppModule = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]],
-        declarations: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]],
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_0__angular_common__["a" /* CommonModule */],
-            __WEBPACK_IMPORTED_MODULE_3__lib__["a" /* ContextMenuModule */],
-        ],
-        providers: [],
-    })
-], AppModule);
-
-//# sourceMappingURL=app.module.js.map
-
-/***/ }),
-
-/***/ 136:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
-// The file contents for the current environment will overwrite these during build.
-// The build system defaults to the dev environment which uses `environment.ts`, but if you do
-// `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// The list of which env maps to which file can be found in `.angular-cli.json`.
-// The file contents for the current environment will overwrite these during build.
-var environment = {
-    production: false
-};
-//# sourceMappingURL=environment.js.map
-
-/***/ }),
-
-/***/ 137:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(9);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuAttachDirective; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var ContextMenuAttachDirective = (function () {
-    function ContextMenuAttachDirective(contextMenuService) {
-        this.contextMenuService = contextMenuService;
-    }
-    ContextMenuAttachDirective.prototype.onContextMenu = function (event) {
-        this.contextMenuService.show.next({
-            contextMenu: this.contextMenu,
-            event: event,
-            item: this.contextMenuSubject,
-        });
-        event.preventDefault();
-        event.stopPropagation();
-    };
-    return ContextMenuAttachDirective;
-}());
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["f" /* Input */])(),
-    __metadata("design:type", Object)
-], ContextMenuAttachDirective.prototype, "contextMenuSubject", void 0);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["f" /* Input */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__["a" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__["a" /* ContextMenuComponent */]) === "function" && _a || Object)
-], ContextMenuAttachDirective.prototype, "contextMenu", void 0);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["s" /* HostListener */])('contextmenu', ['$event']),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], ContextMenuAttachDirective.prototype, "onContextMenu", null);
-ContextMenuAttachDirective = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* Directive */])({
-        selector: '[contextMenu]',
-    }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */]) === "function" && _b || Object])
-], ContextMenuAttachDirective);
-
-var _a, _b;
-//# sourceMappingURL=contextMenu.attach.directive.js.map
-
-/***/ }),
-
-/***/ 138:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InjectionRegistry; });
-var InjectionRegistry = (function () {
-    function InjectionRegistry(injectionService) {
-        this.injectionService = injectionService;
-        this.defaults = {};
-        this.components = new Map();
-    }
-    InjectionRegistry.prototype.getByType = function (type) {
-        if (type === void 0) { type = this.type; }
-        return this.components.get(type);
-    };
-    InjectionRegistry.prototype.create = function (bindings) {
-        return this.createByType(this.type, bindings);
-    };
-    InjectionRegistry.prototype.createByType = function (type, bindings) {
-        bindings = this.assignDefaults(bindings);
-        var component = this.injectComponent(type, bindings);
-        this.register(type, component);
-        return component;
-    };
-    InjectionRegistry.prototype.destroy = function (instance) {
-        var compsByType = this.components.get(instance.componentType);
-        if (compsByType) {
-            var idx = compsByType.indexOf(instance);
-            if (idx > -1) {
-                var component = compsByType[idx];
-                component.destroy();
-                compsByType.splice(idx, 1);
-            }
-        }
-    };
-    InjectionRegistry.prototype.destroyAll = function () {
-        this.destroyByType(this.type);
-    };
-    InjectionRegistry.prototype.destroyByType = function (type) {
-        var comps = this.components.get(type);
-        if (comps) {
-            for (var _i = 0, comps_1 = comps; _i < comps_1.length; _i++) {
-                var comp = comps_1[_i];
-                this.destroy(comp);
-            }
-        }
-    };
-    InjectionRegistry.prototype.assignDefaults = function (bindings) {
-        var _a = this.defaults, inputs = _a.inputs, outputs = _a.outputs;
-        if (!bindings.inputs && !bindings.outputs) {
-            bindings = { inputs: bindings };
-        }
-        if (inputs) {
-            bindings.inputs = Object.assign(inputs, bindings.inputs);
-        }
-        if (outputs) {
-            bindings.outputs = Object.assign(outputs, bindings.outputs);
-        }
-        return bindings;
-    };
-    InjectionRegistry.prototype.injectComponent = function (type, bindings) {
-        return this.injectionService.appendComponent(type, bindings);
-    };
-    InjectionRegistry.prototype.register = function (type, component) {
-        if (!this.components.has(type)) {
-            this.components.set(type, []);
-        }
-        var types = this.components.get(type);
-        types.push(component);
-    };
-    return InjectionRegistry;
-}());
-
-//# sourceMappingURL=injection-registry.service.js.map
-
-/***/ }),
-
-/***/ 139:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__injection_injection_service__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenuInjector_service__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__contextMenu_service__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__ = __webpack_require__(137);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-var ContextMenuModule = ContextMenuModule_1 = (function () {
-    function ContextMenuModule() {
-    }
-    ContextMenuModule.forRoot = function (options) {
-        return {
-            ngModule: ContextMenuModule_1,
-            providers: [
-                {
-                    provide: __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["a" /* CONTEXT_MENU_OPTIONS */],
-                    useValue: options,
-                },
-            ],
-        };
-    };
-    return ContextMenuModule;
-}());
-ContextMenuModule = ContextMenuModule_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["b" /* NgModule */])({
-        declarations: [
-            __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
-            __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__["a" /* ContextMenuComponent */],
-            __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
-        ],
-        entryComponents: [
-            __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
-        ],
-        exports: [
-            __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
-            __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__["a" /* ContextMenuComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
-        ],
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_5__angular_common__["a" /* CommonModule */],
-        ],
-        providers: [
-            __WEBPACK_IMPORTED_MODULE_8__contextMenu_service__["a" /* ContextMenuService */],
-            __WEBPACK_IMPORTED_MODULE_2__contextMenuInjector_service__["a" /* ContextMenuInjectorService */],
-            __WEBPACK_IMPORTED_MODULE_1__injection_injection_service__["a" /* InjectionService */],
-        ],
-    })
-], ContextMenuModule);
-
-/* unused harmony default export */ var _unused_webpack_default_export = ContextMenuModule;
-var ContextMenuModule_1;
-//# sourceMappingURL=ngx-contextmenu.js.map
-
-/***/ }),
-
-/***/ 195:
-/***/ (function(module, exports) {
-
-module.exports = "<h1>Angular2 Context Menu Demo</h1>\n<div style=\"margin:20px; padding:20px\">\n  <div style=\"position: relative\">\n    <div style=\"margin:20px; padding:20px;transform: translate3d(0px, 0px, 0px)\">\n      <div style=\"transform: translate3d(10px, -10px, 0px)\">\n        <h3>Base Case</h3>\n        <ul>\n          <li *ngFor=\"let item of items\" [contextMenu]=\"basicMenu\" [contextMenuSubject]=\"item\">Right Click: {{item?.name}}</li>\n        </ul>\n        <h3>Enabled and Visible</h3>\n        <ul>\n          <li *ngFor=\"let item of items\" [contextMenu]=\"enableAndVisible\" [contextMenuSubject]=\"item\">Right Click: {{item?.name}}</li>\n        </ul>\n        <context-menu #enableAndVisible>\n          <ng-template contextMenuItem let-item [visible]=\"true\" [enabled]=\"false\" (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            Say hi, {{item?.name}}! With access to the outside context: {{ outsideValue }}\n          </ng-template>\n          <ng-template contextMenuItem [visible]=\"false\" (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            This will never show...\n          </ng-template>\n          <ng-template contextMenuItem [divider]=\"true\"></ng-template>\n          <ng-template contextMenuItem let-item [visible]=\"true\" [enabled]=\"true\" (execute)=\"showMessage($event.item.name + ' said: ' + $event.item.otherProperty)\">\n            Bye, {{item?.name}}\n          </ng-template>\n        </context-menu>\n        <h3>Enabled and Visible as Functions</h3>\n        <ul>\n          <li *ngFor=\"let item of items\" [contextMenu]=\"withFunctions\" [contextMenuSubject]=\"item\">Right Click: {{item?.name}}</li>\n        </ul>\n        <context-menu #withFunctions>\n          <ng-template contextMenuItem [enabled]=\"onlyJohn\" (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            Say hi! (enabled for John)\n          </ng-template>\n          <ng-template contextMenuItem [visible]=\"onlyJoe\" (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            Say hi! (visible for Joe)\n          </ng-template>\n          <ng-template contextMenuItem let-item (execute)=\"showMessage($event.item.name + ' said: ' + $event.item.otherProperty)\">\n            Bye, {{item?.name}}\n          </ng-template>\n        </context-menu>\n      </div>\n    </div>\n  </div>\n</div>\n<div style=\"position:fixed;top:35px;height:100%;width:100%;display:table; border-collapse: collapse;border:none;outline:none; pointer-events: none\">\n  <div style=\"display: table-cell;width:200px;vertical-align: top\">\n    <div style=\"position:absolute; top: 20px;\">\n      <div style=\"position:fixed;top:200px;left:-200px\">\n        <context-menu #basicMenu style=\"pointer-events:all\">\n          <ng-template contextMenuItem (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            Say hi!\n          </ng-template>\n          <ng-template contextMenuItem let-item (execute)=\"showMessage($event.event)\">\n            Bye, {{item?.name}}\n          </ng-template>\n          <ng-template contextMenuItem passive=\"true\">\n            Input something: <input type=\"text\">\n          </ng-template>\n        </context-menu>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"dashboardContainer\" style=\"pointer-events: none\">\n  <div class=\"componentsContainer\">\n    <div class=\"componentContainer\" *ngFor=\"let item of items\" style=\"pointer-events: all\" [ngStyle]=\"item.layout\" [contextMenu]=\"componentMenu\"\n      [contextMenuSubject]=\"item\">\n      {{ item.name }}\n  </div>\n  <context-menu #componentMenu>\n    <ng-template contextMenuItem (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n      Say hi!\n    </ng-template>\n    <ng-template contextMenuItem let-item (execute)=\"showMessage($event.event)\">\n      Bye, {{item?.name}}\n    </ng-template>\n  </context-menu>\n</div>\n</div>\n<ul>\n  <li *ngFor=\"let item of items\" [contextMenu]=\"itemContextMenu\" [contextMenuSubject]=\"item\">\n    {{item.name}}\n    <context-menu #itemContextMenu>\n      <ng-template *ngFor=\"let action of item.actions\" contextMenuItem let-item [visible]=\"action.visible\" [enabled]=\"action.enabled\" [divider]=\"action.divider\"\n        (execute)=\"action.execute($event.item)\">\n        {{ action.html(item) }}\n        </ng-template>\n    </context-menu>\n  </li>\n</ul>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n"
-
-/***/ }),
-
-/***/ 27:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -444,7 +18,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var ContextMenuService = (function () {
     function ContextMenuService() {
-        this.show = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__["Subject"]();
+        this.show = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
+        this.close = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
     }
     return ContextMenuService;
 }());
@@ -456,11 +31,26 @@ ContextMenuService = __decorate([
 
 /***/ }),
 
-/***/ 38:
+/***/ 139:
+/***/ (function(module, exports) {
+
+module.exports = "<h1>Angular2 Context Menu Demo</h1>\n<div style=\"margin:20px; padding:20px\">\n  <div style=\"position: relative\">\n    <div style=\"margin:20px; padding:20px;transform: translate3d(0px, 0px, 0px)\">\n      <div style=\"transform: translate3d(10px, -10px, 0px)\">\n        <h3>Base Case</h3>\n        <ul>\n          <li *ngFor=\"let item of items\" [contextMenu]=\"basicMenu\" [contextMenuSubject]=\"item\">Right Click: {{item?.name}}</li>\n        </ul>\n        <h3>Enabled and Visible</h3>\n        <ul>\n          <li *ngFor=\"let item of items\" [contextMenu]=\"enableAndVisible\">Right Click: {{item?.name}}</li>\n        </ul>\n        <context-menu #enableAndVisible (close)=\"showMessage('closed', $event)\">\n          <ng-template contextMenuItem let-item [visible]=\"true\" [enabled]=\"false\" (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            Say hi, {{item?.name}}! With access to the outside context: {{ outsideValue }}\n          </ng-template>\n          <ng-template contextMenuItem [visible]=\"false\" (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            This will never show...\n          </ng-template>\n          <ng-template contextMenuItem [divider]=\"true\"></ng-template>\n          <ng-template contextMenuItem let-item [visible]=\"true\" [enabled]=\"true\" (execute)=\"showMessage($event.item.name + ' said: ' + $event.item.otherProperty)\">\n            Bye, {{item?.name}}\n          </ng-template>\n        </context-menu>\n        <h3>Enabled and Visible as Functions</h3>\n        <ul>\n          <li *ngFor=\"let item of items\" [contextMenu]=\"withFunctions\" [contextMenuSubject]=\"item\">Right Click: {{item?.name}}</li>\n        </ul>\n        <context-menu #withFunctions>\n          <ng-template contextMenuItem [enabled]=\"onlyJohn\" (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            Say hi! (enabled for John)\n          </ng-template>\n          <ng-template contextMenuItem [visible]=\"onlyJoe\" (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            Say hi! (visible for Joe)\n          </ng-template>\n          <ng-template contextMenuItem let-item (execute)=\"showMessage($event.item.name + ' said: ' + $event.item.otherProperty)\">\n            Bye, {{item?.name}}\n          </ng-template>\n        </context-menu>\n      </div>\n    </div>\n  </div>\n</div>\n<div style=\"position:fixed;top:35px;height:100%;width:100%;display:table; border-collapse: collapse;border:none;outline:none; pointer-events: none\">\n  <div style=\"display: table-cell;width:200px;vertical-align: top\">\n    <div style=\"position:absolute; top: 20px;\">\n      <div style=\"position:fixed;top:200px;left:-200px\">\n        <context-menu #basicMenu style=\"pointer-events:all\">\n          <ng-template contextMenuItem (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n            Say hi!\n          </ng-template>\n          <ng-template contextMenuItem let-item (execute)=\"showMessage($event.event)\">\n            Bye, {{item?.name}}\n          </ng-template>\n          <ng-template contextMenuItem passive=\"true\">\n            Input something: <input type=\"text\">\n          </ng-template>\n        </context-menu>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"dashboardContainer\" style=\"pointer-events: none\">\n  <div class=\"componentsContainer\">\n    <div class=\"componentContainer\" *ngFor=\"let item of items\" style=\"pointer-events: all\" [ngStyle]=\"item.layout\" [contextMenu]=\"componentMenu\"\n      [contextMenuSubject]=\"item\">\n      {{ item.name }}\n  </div>\n  <context-menu #componentMenu>\n    <ng-template contextMenuItem (execute)=\"showMessage('Hi, ' + $event.item.name)\">\n      Say hi!\n    </ng-template>\n    <ng-template contextMenuItem let-item (execute)=\"showMessage($event.event)\">\n      Bye, {{item?.name}}\n    </ng-template>\n  </context-menu>\n</div>\n</div>\n<ul>\n  <li *ngFor=\"let item of items\" [contextMenu]=\"itemContextMenu\" [contextMenuSubject]=\"item\">\n    {{item.name}}\n    <context-menu #itemContextMenu>\n      <ng-template *ngFor=\"let action of item.actions\" contextMenuItem let-item [visible]=\"action.visible\" [enabled]=\"action.enabled\" [divider]=\"action.divider\"\n        (execute)=\"action.execute($event.item)\">\n        {{ action.html(item) }}\n        </ng-template>\n    </context-menu>\n  </li>\n</ul>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n"
+
+/***/ }),
+
+/***/ 163:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(73);
+
+
+/***/ }),
+
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CONTEXT_MENU_OPTIONS; });
 
 var CONTEXT_MENU_OPTIONS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* OpaqueToken */]('CONTEXT_MENU_OPTIONS');
@@ -468,23 +58,15 @@ var CONTEXT_MENU_OPTIONS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /
 
 /***/ }),
 
-/***/ 471:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(129);
-
-
-/***/ }),
-
-/***/ 55:
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenu_item_directive__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_options__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenu_service__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenuInjector_service__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenu_item_directive__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_options__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenu_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenuInjector_service__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -522,6 +104,7 @@ var ContextMenuComponent = (function () {
             this.useBootstrap4 = options.useBootstrap4;
         }
         _contextMenuService.show.subscribe(function (menuEvent) { return _this.onMenuEvent(menuEvent); });
+        _contextMenuService.close.subscribe(function (event) { return _this.close.emit(event); });
     }
     ContextMenuComponent.prototype.onMenuEvent = function (menuEvent) {
         var _this = this;
@@ -587,11 +170,11 @@ var _a, _b, _c, _d, _e, _f, _g, _h;
 
 /***/ }),
 
-/***/ 81:
+/***/ 50:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuItemDirective; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -659,13 +242,13 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 82:
+/***/ 51:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuContentComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -690,7 +273,6 @@ var ContextMenuContentComponent = (function () {
         this.options = options;
         this.renderer = renderer;
         this.menuItems = [];
-        this.close = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["e" /* EventEmitter */]();
         this.useBootstrap4 = false;
         this.isShown = false;
         this.isOpening = false;
@@ -798,7 +380,7 @@ var ContextMenuContentComponent = (function () {
             return;
         }
         if (this.isShown === true) {
-            this.close.emit({});
+            this._contextMenuService.close.next(event);
         }
         this.isShown = false;
         this.changeDetector.markForCheck();
@@ -818,12 +400,8 @@ __decorate([
     __metadata("design:type", Object)
 ], ContextMenuContentComponent.prototype, "event", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["g" /* Output */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["e" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["e" /* EventEmitter */]) === "function" && _a || Object)
-], ContextMenuContentComponent.prototype, "close", void 0);
-__decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["j" /* ViewChild */])('menu'),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* ElementRef */]) === "function" && _b || Object)
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* ElementRef */]) === "function" && _a || Object)
 ], ContextMenuContentComponent.prototype, "menuElement", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["s" /* HostListener */])('document:click'),
@@ -845,26 +423,26 @@ ContextMenuContentComponent = __decorate([
         styles: [
             ".passive {\n       display: block;\n       padding: 3px 20px;\n       clear: both;\n       font-weight: normal;\n       line-height: @line-height-base;\n       white-space: nowrap;\n     }"
         ],
-        template: "<div class=\"dropdown ngx-contextmenu\">\n      <ul *ngIf=\"item\" #menu [ngStyle]=\"locationCss\" class=\"dropdown-menu\">\n        <li *ngFor=\"let menuItem of menuItems\" [class.disabled]=\"!isMenuItemEnabled(menuItem)\"\n            [class.divider]=\"menuItem.divider\" [class.dropdown-divider]=\"useBootstrap4 && menuItem.divider\"\n            [attr.role]=\"menuItem.divider ? 'separator' : undefined\">\n          <a *ngIf=\"!menuItem.divider && !menuItem.passive\" href [class.dropdown-item]=\"useBootstrap4\"\n            [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\"\n            (click)=\"menuItem.triggerExecute(item, $event); $event.preventDefault(); $event.stopPropagation();\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </a>\n\n          <span (click)=\"stopEvent($event)\" (contextmenu)=\"stopEvent($event)\" class=\"passive\"\n                *ngIf=\"!menuItem.divider && menuItem.passive\" [class.dropdown-item]=\"useBootstrap4\"\n                [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </span>\n        </li>\n      </ul>\n    </div>\n  ",
+        template: "<div class=\"dropdown ngx-contextmenu\">\n      <ul #menu [ngStyle]=\"locationCss\" class=\"dropdown-menu\">\n        <li *ngFor=\"let menuItem of menuItems\" [class.disabled]=\"!isMenuItemEnabled(menuItem)\"\n            [class.divider]=\"menuItem.divider\" [class.dropdown-divider]=\"useBootstrap4 && menuItem.divider\"\n            [attr.role]=\"menuItem.divider ? 'separator' : undefined\">\n          <a *ngIf=\"!menuItem.divider && !menuItem.passive\" href [class.dropdown-item]=\"useBootstrap4\"\n            [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\"\n            (click)=\"menuItem.triggerExecute(item, $event); $event.preventDefault(); $event.stopPropagation();\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </a>\n\n          <span (click)=\"stopEvent($event)\" (contextmenu)=\"stopEvent($event)\" class=\"passive\"\n                *ngIf=\"!menuItem.divider && menuItem.passive\" [class.dropdown-item]=\"useBootstrap4\"\n                [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </span>\n        </li>\n      </ul>\n    </div>\n  ",
     }),
     __param(3, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Optional */])()),
     __param(3, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Inject */])(__WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["a" /* CONTEXT_MENU_OPTIONS */])),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["o" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["o" /* ChangeDetectorRef */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* ElementRef */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["IContextMenuOptions"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["IContextMenuOptions"]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["t" /* Renderer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["t" /* Renderer */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["o" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["o" /* ChangeDetectorRef */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* ElementRef */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["IContextMenuOptions"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["IContextMenuOptions"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["t" /* Renderer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["t" /* Renderer */]) === "function" && _f || Object])
 ], ContextMenuContentComponent);
 
-var _a, _b, _c, _d, _e, _f, _g;
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=contextMenuContent.component.js.map
 
 /***/ }),
 
-/***/ 83:
+/***/ 52:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__injection_injection_service__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__injection_injection_registry_service__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__injection_injection_service__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__injection_injection_registry_service__ = __webpack_require__(82);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuInjectorService; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -909,17 +487,17 @@ var _a;
 
 /***/ }),
 
-/***/ 84:
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngx_contextmenu__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ngx_contextmenu__ = __webpack_require__(83);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__ngx_contextmenu__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_component__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_component__ = __webpack_require__(31);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__contextMenu_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenu_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenu_service__ = __webpack_require__(13);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__contextMenu_service__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__ = __webpack_require__(22);
 /* unused harmony namespace reexport */
 
 
@@ -929,11 +507,11 @@ var _a;
 
 /***/ }),
 
-/***/ 85:
+/***/ 54:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InjectionService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1076,7 +654,426 @@ InjectionService = __decorate([
 var _a, _b, _c;
 //# sourceMappingURL=injection.service.js.map
 
+/***/ }),
+
+/***/ 72:
+/***/ (function(module, exports) {
+
+function webpackEmptyContext(req) {
+	throw new Error("Cannot find module '" + req + "'.");
+}
+webpackEmptyContext.keys = function() { return []; };
+webpackEmptyContext.resolve = webpackEmptyContext;
+module.exports = webpackEmptyContext;
+webpackEmptyContext.id = 72;
+
+
+/***/ }),
+
+/***/ 73:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__demo_app_module__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(80);
+
+
+
+
+if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["a" /* enableProdMode */])();
+}
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__demo_app_module__["a" /* AppModule */]);
+//# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 78:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__(53);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AppComponent = (function () {
+    function AppComponent(contextMenuService) {
+        this.contextMenuService = contextMenuService;
+        this.items = [
+            {
+                name: 'John',
+                otherProperty: 'Foo',
+                layout: {
+                    height: 90,
+                    left: 0,
+                    top: 0,
+                    width: 98,
+                },
+                actions: [{
+                        enabled: true,
+                        execute: function (item) { return console.log(item); },
+                        html: function (item) { return "John custom: " + item.name; },
+                        visible: true,
+                    }, {
+                        divider: true,
+                        visible: true,
+                    }, {
+                        enabled: true,
+                        execute: function (item) { return console.log(item); },
+                        html: function (item) { return "John custom: " + item.name; },
+                        visible: true,
+                    }],
+            },
+            {
+                name: 'Joe',
+                otherProperty: 'Bar',
+                layout: {
+                    height: 90,
+                    left: 98,
+                    top: 0,
+                    width: 98,
+                },
+                actions: [{
+                        enabled: true,
+                        execute: function (item) { return console.log(item); },
+                        html: function (item) { return "Joe something: " + item.name; },
+                        visible: true,
+                    }],
+            },
+        ];
+        this.outsideValue = 'something';
+    }
+    AppComponent.prototype.onContextMenu = function ($event, item) {
+        this.contextMenuService.show.next({ event: $event, item: item });
+        $event.preventDefault();
+    };
+    AppComponent.prototype.showMessage = function (message) {
+        console.log(message);
+    };
+    AppComponent.prototype.onlyJohn = function (item) {
+        return item.name === 'John';
+    };
+    AppComponent.prototype.onlyJoe = function (item) {
+        return item.name === 'Joe';
+    };
+    return AppComponent;
+}());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ViewChild */])('basicMenu'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */]) === "function" && _a || Object)
+], AppComponent.prototype, "basicMenu", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ViewChild */])('enableAndVisible'),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */]) === "function" && _b || Object)
+], AppComponent.prototype, "enableAndVisible", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ViewChild */])('withFunctions'),
+    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */]) === "function" && _c || Object)
+], AppComponent.prototype, "withFunctions", void 0);
+AppComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* Component */])({
+        selector: 'ngx-context-menu-demo',
+        styles: ["\n.dashboardContainer {\nwidth: 100%;\nheight: 100%;\nposition: fixed;\n}\n\n.componentsContainer {\nposition: fixed;\nbottom: 0;\ntop: 100px;\nwidth: 100%; }\n\n.componentContainer {\noverflow: auto;\nposition: absolute; }\n"],
+        template: __webpack_require__(139),
+    }),
+    __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["c" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["c" /* ContextMenuService */]) === "function" && _d || Object])
+], AppComponent);
+
+var _a, _b, _c, _d;
+//# sourceMappingURL=app.component.js.map
+
+/***/ }),
+
+/***/ 79:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(78);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+var AppModule = (function () {
+    function AppModule() {
+    }
+    return AppModule;
+}());
+AppModule = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]],
+        declarations: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_common__["a" /* CommonModule */],
+            __WEBPACK_IMPORTED_MODULE_3__lib__["a" /* ContextMenuModule */],
+        ],
+        providers: [],
+    })
+], AppModule);
+
+//# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ 80:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
+// The file contents for the current environment will overwrite these during build.
+var environment = {
+    production: false
+};
+//# sourceMappingURL=environment.js.map
+
+/***/ }),
+
+/***/ 81:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(2);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuAttachDirective; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var ContextMenuAttachDirective = (function () {
+    function ContextMenuAttachDirective(contextMenuService) {
+        this.contextMenuService = contextMenuService;
+    }
+    ContextMenuAttachDirective.prototype.onContextMenu = function (event) {
+        this.contextMenuService.show.next({
+            contextMenu: this.contextMenu,
+            event: event,
+            item: this.contextMenuSubject,
+        });
+        event.preventDefault();
+        event.stopPropagation();
+    };
+    return ContextMenuAttachDirective;
+}());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["f" /* Input */])(),
+    __metadata("design:type", Object)
+], ContextMenuAttachDirective.prototype, "contextMenuSubject", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["f" /* Input */])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__["a" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__["a" /* ContextMenuComponent */]) === "function" && _a || Object)
+], ContextMenuAttachDirective.prototype, "contextMenu", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["s" /* HostListener */])('contextmenu', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ContextMenuAttachDirective.prototype, "onContextMenu", null);
+ContextMenuAttachDirective = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* Directive */])({
+        selector: '[contextMenu]',
+    }),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */]) === "function" && _b || Object])
+], ContextMenuAttachDirective);
+
+var _a, _b;
+//# sourceMappingURL=contextMenu.attach.directive.js.map
+
+/***/ }),
+
+/***/ 82:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InjectionRegistry; });
+var InjectionRegistry = (function () {
+    function InjectionRegistry(injectionService) {
+        this.injectionService = injectionService;
+        this.defaults = {};
+        this.components = new Map();
+    }
+    InjectionRegistry.prototype.getByType = function (type) {
+        if (type === void 0) { type = this.type; }
+        return this.components.get(type);
+    };
+    InjectionRegistry.prototype.create = function (bindings) {
+        return this.createByType(this.type, bindings);
+    };
+    InjectionRegistry.prototype.createByType = function (type, bindings) {
+        bindings = this.assignDefaults(bindings);
+        var component = this.injectComponent(type, bindings);
+        this.register(type, component);
+        return component;
+    };
+    InjectionRegistry.prototype.destroy = function (instance) {
+        var compsByType = this.components.get(instance.componentType);
+        if (compsByType) {
+            var idx = compsByType.indexOf(instance);
+            if (idx > -1) {
+                var component = compsByType[idx];
+                component.destroy();
+                compsByType.splice(idx, 1);
+            }
+        }
+    };
+    InjectionRegistry.prototype.destroyAll = function () {
+        this.destroyByType(this.type);
+    };
+    InjectionRegistry.prototype.destroyByType = function (type) {
+        var comps = this.components.get(type);
+        if (comps) {
+            for (var _i = 0, comps_1 = comps; _i < comps_1.length; _i++) {
+                var comp = comps_1[_i];
+                this.destroy(comp);
+            }
+        }
+    };
+    InjectionRegistry.prototype.assignDefaults = function (bindings) {
+        var _a = this.defaults, inputs = _a.inputs, outputs = _a.outputs;
+        if (!bindings.inputs && !bindings.outputs) {
+            bindings = { inputs: bindings };
+        }
+        if (inputs) {
+            bindings.inputs = Object.assign(inputs, bindings.inputs);
+        }
+        if (outputs) {
+            bindings.outputs = Object.assign(outputs, bindings.outputs);
+        }
+        return bindings;
+    };
+    InjectionRegistry.prototype.injectComponent = function (type, bindings) {
+        return this.injectionService.appendComponent(type, bindings);
+    };
+    InjectionRegistry.prototype.register = function (type, component) {
+        if (!this.components.has(type)) {
+            this.components.set(type, []);
+        }
+        var types = this.components.get(type);
+        types.push(component);
+    };
+    return InjectionRegistry;
+}());
+
+//# sourceMappingURL=injection-registry.service.js.map
+
+/***/ }),
+
+/***/ 83:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__injection_injection_service__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenuInjector_service__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__contextMenu_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__ = __webpack_require__(81);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+var ContextMenuModule = ContextMenuModule_1 = (function () {
+    function ContextMenuModule() {
+    }
+    ContextMenuModule.forRoot = function (options) {
+        return {
+            ngModule: ContextMenuModule_1,
+            providers: [
+                {
+                    provide: __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["a" /* CONTEXT_MENU_OPTIONS */],
+                    useValue: options,
+                },
+            ],
+        };
+    };
+    return ContextMenuModule;
+}());
+ContextMenuModule = ContextMenuModule_1 = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["b" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
+            __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__["a" /* ContextMenuComponent */],
+            __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
+            __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
+        ],
+        entryComponents: [
+            __WEBPACK_IMPORTED_MODULE_0__contextMenuContent_component__["a" /* ContextMenuContentComponent */],
+        ],
+        exports: [
+            __WEBPACK_IMPORTED_MODULE_9__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
+            __WEBPACK_IMPORTED_MODULE_6__contextMenu_component__["a" /* ContextMenuComponent */],
+            __WEBPACK_IMPORTED_MODULE_7__contextMenu_item_directive__["a" /* ContextMenuItemDirective */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_5__angular_common__["a" /* CommonModule */],
+        ],
+        providers: [
+            __WEBPACK_IMPORTED_MODULE_8__contextMenu_service__["a" /* ContextMenuService */],
+            __WEBPACK_IMPORTED_MODULE_2__contextMenuInjector_service__["a" /* ContextMenuInjectorService */],
+            __WEBPACK_IMPORTED_MODULE_1__injection_injection_service__["a" /* InjectionService */],
+        ],
+    })
+], ContextMenuModule);
+
+/* unused harmony default export */ var _unused_webpack_default_export = ContextMenuModule;
+var ContextMenuModule_1;
+//# sourceMappingURL=ngx-contextmenu.js.map
+
 /***/ })
 
-},[471]);
+},[163]);
 //# sourceMappingURL=main.bundle.js.map
