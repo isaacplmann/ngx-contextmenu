@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs/Subscription';
+import { ContextMenuInjectorService } from './contextMenuInjector.service';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
 import { ContextMenuService } from './contextMenu.service';
@@ -14,7 +16,7 @@ import {
   Renderer,
   ViewChild
 } from '@angular/core';
-import { OnInit } from '@angular/core/core';
+import { OnInit, OnDestroy } from '@angular/core/core';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -62,7 +64,7 @@ export interface MouseLocation {
     </div>
   `,
 })
-export class ContextMenuContentComponent implements OnInit {
+export class ContextMenuContentComponent implements OnInit, OnDestroy {
   @Input() public menuItems: ContextMenuItemDirective[] = [];
   @Input() public item: any;
   @Input() public event: MouseEvent;
@@ -72,6 +74,7 @@ export class ContextMenuContentComponent implements OnInit {
   public isShown = false;
   public isOpening = false;
   private mouseLocation: MouseLocation = { left: '0px', top: '0px' };
+  private subscription: Subscription = new Subscription();
   constructor(
     private _contextMenuService: ContextMenuService,
     private changeDetector: ChangeDetectorRef,
@@ -125,8 +128,12 @@ export class ContextMenuContentComponent implements OnInit {
       top: this.event.clientY + 'px',
     };
     this.menuItems.forEach(menuItem => {
-      menuItem.execute.subscribe(() => this.hideMenu());
+      this.subscription.add(menuItem.execute.subscribe(() => this.hideMenu()));
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   stopEvent($event: MouseEvent) {

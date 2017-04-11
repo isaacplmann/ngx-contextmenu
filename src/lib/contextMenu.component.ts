@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core/core';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
 import { ContextMenuService, IContextMenuClickEvent } from './contextMenu.service';
@@ -15,6 +16,7 @@ import {
   QueryList,
   ViewChild
 } from '@angular/core';
+import { Subscription } from "rxjs/Subscription";
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -32,7 +34,7 @@ export interface MouseLocation {
   selector: 'context-menu',
   template: ``,
 })
-export class ContextMenuComponent {
+export class ContextMenuComponent implements OnDestroy {
   @Input() public useBootstrap4 = false;
   @Output() public close: EventEmitter<any> = new EventEmitter<any>();
   @ContentChildren(ContextMenuItemDirective) public menuItems: QueryList<ContextMenuItemDirective>;
@@ -45,6 +47,7 @@ export class ContextMenuComponent {
   public item: any;
   public event: MouseEvent;
   private mouseLocation: MouseLocation = { left: '0px', top: '0px' };
+  private subscription: Subscription = new Subscription();
   constructor(
     private _contextMenuService: ContextMenuService,
     private changeDetector: ChangeDetectorRef,
@@ -56,8 +59,13 @@ export class ContextMenuComponent {
     if (options) {
       this.useBootstrap4 = options.useBootstrap4;
     }
-    _contextMenuService.show.subscribe(menuEvent => this.onMenuEvent(menuEvent));
-    _contextMenuService.close.subscribe(event => this.close.emit(event));
+    this.subscription.add(_contextMenuService.show.subscribe(menuEvent => this.onMenuEvent(menuEvent)));
+    this.subscription.add(_contextMenuService.close.subscribe(event => this.close.emit(event)));
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.contextMenuInjector.destroyAll();
   }
 
   public onMenuEvent(menuEvent: IContextMenuClickEvent): void {

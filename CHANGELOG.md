@@ -1,3 +1,12 @@
+<a name="1.0.3"></a>
+# [1.0.3](https://github.com/isaacplmann/ngx-contextmenu) (2017-04-11)
+
+
+### Bug Fixes
+
+* **close:** Unsubscribe when closing context menu
+
+
 <a name="1.0.2"></a>
 # [1.0.2](https://github.com/isaacplmann/ngx-contextmenu) (2017-04-11)
 

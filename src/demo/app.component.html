@@ -1,15 +1,31 @@
 <h1>Angular2 Context Menu Demo</h1>
-<div style="margin:20px; padding:20px">
+<div (click)="$event.preventDefault()" style="margin:20px; padding:20px">
   <div style="position: relative">
     <div style="margin:20px; padding:20px;transform: translate3d(0px, 0px, 0px)">
-      <div style="transform: translate3d(10px, -10px, 0px)">
+      <div (click)="$event.preventDefault()" style="transform: translate3d(10px, -10px, 0px)">
         <h3>Base Case</h3>
         <ul>
           <li *ngFor="let item of items" [contextMenu]="basicMenu" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
         </ul>
+        <h3>Static</h3>
+        <ul>
+          <li *ngFor="let item of items" [contextMenu]="static">Right Click: {{item?.name}}</li>
+        </ul>
+        <context-menu #enableAndVisible (close)="showMessage('closed', $event)">
+          <ng-template contextMenuItem [visible]="true" [enabled]="false" (execute)="showMessage('Hi, someone')">
+            Say hi
+          </ng-template>
+          <ng-template contextMenuItem [visible]="false" (execute)="showMessage('Hi, someone')">
+            This will never show...
+          </ng-template>
+          <ng-template contextMenuItem [divider]="true"></ng-template>
+          <ng-template contextMenuItem [visible]="true" [enabled]="true" (execute)="showMessage('Someone said: something')">
+            Bye, {{item?.name}}
+          </ng-template>
+        </context-menu>
         <h3>Enabled and Visible</h3>
         <ul>
-          <li *ngFor="let item of items" [contextMenu]="enableAndVisible">Right Click: {{item?.name}}</li>
+          <li *ngFor="let item of items" [contextMenu]="enableAndVisible" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
         </ul>
         <context-menu #enableAndVisible (close)="showMessage('closed', $event)">
           <ng-template contextMenuItem let-item [visible]="true" [enabled]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
@@ -88,6 +104,7 @@
     </context-menu>
   </li>
 </ul>
+<router-outlet></router-outlet>
 <br>
 <br>
 <br>
