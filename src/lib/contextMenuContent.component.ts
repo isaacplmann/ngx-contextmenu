@@ -42,7 +42,7 @@ export interface MouseLocation {
   ],
   template:
   `<div class="dropdown ngx-contextmenu">
-      <ul *ngIf="item" #menu [ngStyle]="locationCss" class="dropdown-menu">
+      <ul #menu [ngStyle]="locationCss" class="dropdown-menu">
         <li *ngFor="let menuItem of menuItems" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
             [attr.role]="menuItem.divider ? 'separator' : undefined">
@@ -66,7 +66,6 @@ export class ContextMenuContentComponent implements OnInit {
   @Input() public menuItems: ContextMenuItemDirective[] = [];
   @Input() public item: any;
   @Input() public event: MouseEvent;
-  @Output() public close: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('menu') public menuElement: ElementRef;
 
   public useBootstrap4 = false;
@@ -192,7 +191,7 @@ export class ContextMenuContentComponent implements OnInit {
       return;
     }
     if (this.isShown === true) {
-      this.close.emit({});
+      this._contextMenuService.close.next(event);
     }
     this.isShown = false;
     this.changeDetector.markForCheck();

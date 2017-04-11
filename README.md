@@ -46,8 +46,8 @@ export class MyContextMenuClass {
 
 ## Context Menu Items
 
-- Each context menu item is a `<template>` element with the `contextMenuItem` attribute directive applied.
-- If the `item` object is used in the context menu item template, the `let-item` attribute must be applied to the `<template>` element. 
+- Each context menu item is a `<ng-template>` element with the `contextMenuItem` attribute directive applied.
+- If the `item` object is used in the context menu item template, the `let-item` attribute must be applied to the `<ng-template>` element. 
   ** Note: ** Make sure to use the `item?.property` syntax in the template rather than `item.property` as the item will be initially `undefined`.
 - Every context menu item emits `execute` events. The `$event` object is of the form `{ event: MouseEvent, item: any }` where `event` is the mouse click event
   that triggered the execution and `item` is the current item.
@@ -62,10 +62,10 @@ export class MyContextMenuClass {
 
 ```html
 <context-menu>
-  <template contextMenuItem let-item [visible]="isMenuItemType1" [enabled]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
+  <ng-template contextMenuItem let-item [visible]="isMenuItemType1" [enabled]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
     Say hi, {{item?.name}}!  <my-component [attribute]="item"></my-component>
     With access to the outside context: {{ outsideValue }}
-  </template>
+  </ng-template>
 </context-menu>
 ```
 ```js
@@ -74,6 +74,15 @@ public isMenuItemType1(item: any): boolean {
   return item.type === 'type1';
 }
 ```
+
+## Upgrade from angular2-contextmenu 0.x
+
+1. Change `package.json` to reference `ngx-contextmenu` instead of `angular2-contextmenu`
+2. Upgrade to `@angular` 4.x
+3. Use `<ng-template>` instead of `<template>`
+4. Update any styles that referenced `.angular2-contextmenu` to use `.ngx-contextmenu` instead
+
+**Note:** The imperative way of declaring context menu items has been removed.  i.e. You can't pass an `actions` property to `contextMenuService.show.next()`.
 
 ## Binding `this` for `visible` and `enabled` functions
 

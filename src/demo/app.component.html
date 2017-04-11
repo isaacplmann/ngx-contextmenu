@@ -9,9 +9,9 @@
         </ul>
         <h3>Enabled and Visible</h3>
         <ul>
-          <li *ngFor="let item of items" [contextMenu]="enableAndVisible" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+          <li *ngFor="let item of items" [contextMenu]="enableAndVisible">Right Click: {{item?.name}}</li>
         </ul>
-        <context-menu #enableAndVisible>
+        <context-menu #enableAndVisible (close)="showMessage('closed', $event)">
           <ng-template contextMenuItem let-item [visible]="true" [enabled]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
             Say hi, {{item?.name}}! With access to the outside context: {{ outsideValue }}
           </ng-template>

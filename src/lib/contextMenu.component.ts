@@ -57,6 +57,7 @@ export class ContextMenuComponent {
       this.useBootstrap4 = options.useBootstrap4;
     }
     _contextMenuService.show.subscribe(menuEvent => this.onMenuEvent(menuEvent));
+    _contextMenuService.close.subscribe(event => this.close.emit(event));
   }
 
   public onMenuEvent(menuEvent: IContextMenuClickEvent): void {

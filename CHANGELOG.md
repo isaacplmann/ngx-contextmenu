@@ -1,3 +1,13 @@
+<a name="1.0.2"></a>
+# [1.0.2](https://github.com/isaacplmann/ngx-contextmenu) (2017-04-11)
+
+
+### Bug Fixes
+
+* **close:** Actually fire close event
+* **item:** Allow undefined subject/item
+
+
 <a name="1.0.1"></a>
 # [1.0.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-03-31)
 

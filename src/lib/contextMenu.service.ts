@@ -11,4 +11,5 @@ export interface IContextMenuClickEvent {
 @Injectable()
 export class ContextMenuService {
   public show: Subject<IContextMenuClickEvent> = new Subject<IContextMenuClickEvent>();
+  public close: Subject<Event> = new Subject();
 }
