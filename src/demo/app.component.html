@@ -11,7 +11,7 @@
         <ul>
           <li *ngFor="let item of items" [contextMenu]="static">Right Click: {{item?.name}}</li>
         </ul>
-        <context-menu #enableAndVisible (close)="showMessage('closed', $event)">
+        <context-menu #static (close)="showMessage('closed', $event)">
           <ng-template contextMenuItem [visible]="true" [enabled]="false" (execute)="showMessage('Hi, someone')">
             Say hi
           </ng-template>
@@ -20,7 +20,7 @@
           </ng-template>
           <ng-template contextMenuItem [divider]="true"></ng-template>
           <ng-template contextMenuItem [visible]="true" [enabled]="true" (execute)="showMessage('Someone said: something')">
-            Bye, {{item?.name}}
+            Bye, someone
           </ng-template>
         </context-menu>
         <h3>Enabled and Visible</h3>
