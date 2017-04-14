@@ -246,6 +246,50 @@ There is a `(close)` output EventEmitter that you can subscribe to for notificat
 <context-menu (close)="processContextMenuCloseEvent()"></context-menu>
 ```
 
-## CSS Transforms
+## Dynamic context menu
 
-The context menu will correctly position itself as long as the `<context-menu>` element does not have a parent element that has a complex transform applied to it.  Complex in this case means anything besides a simple 2d translation.  So rotate, skew, stretch, scale, z-axis translation will all cause the context menu to appear in unexpected places.  The common scenario of rendering an element with `transform: translate3d(0px 0px 0px)` in order to trigger the browser's GPU works just fine.
+The items in the context menu are completely controlled by the `contextMenuActions` object.
+
+```html
+<ul>
+    <li *ngFor="item in items" [contextMenu]="myContextMenu" [contextMenuSubject]="item">Right Click: {{item.name}}</li>
+</ul>
+<context-menu #myContextMenu>
+  <template *ngFor="let action of contextMenuActions" contextMenuItem let-item
+    [visible]="action.visible" [enabled]="action.enabled" [divider]="action.divider"
+    (execute)="action.execute($event.item)">
+    {{ action.html(item) }}
+  </template>
+</context-menu>
+```
+
+```ts
+@Component({
+  ...
+})
+export class MyContextMenuClass {
+  public items = [
+      { name: 'John', otherProperty: 'Foo' },
+      { name: 'Joe', otherProperty: 'Bar' }
+  };
+  @ViewChild(ContextMenuComponent) public contextMenu: ContextMenuComponent;
+  public contextMenuActions = [
+        {
+          html: (item) => `Say hi!`,
+          click: (item) => alert('Hi, ' + item.name)
+          enabled: (item) => true,
+          visible: (item) => item.type === 'type1',
+        },
+        {
+          divider: true,
+          visible: true,
+        },
+        {
+          html: (item) => `Something else`,
+          click: (item) => alert('Or not...'),
+          enabled: (item) => false,
+          visible: (item) => item.type === 'type1',
+        },
+      ];
+}
+```
