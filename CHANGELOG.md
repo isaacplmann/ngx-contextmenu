@@ -1,3 +1,12 @@
+<a name="1.0.4"></a>
+# [1.0.4](https://github.com/isaacplmann/ngx-contextmenu) (2017-04-26)
+
+
+### Bug Fixes
+
+* **execute:** Handle errors gracefully during menuItem execution
+
+
 <a name="1.0.3"></a>
 # [1.0.3](https://github.com/isaacplmann/ngx-contextmenu) (2017-04-11)
 

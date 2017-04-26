@@ -50,7 +50,7 @@ export interface MouseLocation {
             [attr.role]="menuItem.divider ? 'separator' : undefined">
           <a *ngIf="!menuItem.divider && !menuItem.passive" href [class.dropdown-item]="useBootstrap4"
             [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)"
-            (click)="menuItem.triggerExecute(item, $event); $event.preventDefault(); $event.stopPropagation();">
+            (click)="$event.preventDefault(); $event.stopPropagation(); menuItem.triggerExecute(item, $event);">
             <ng-template [ngTemplateOutlet]="menuItem.template" [ngOutletContext]="{ $implicit: item }"></ng-template>
           </a>
 

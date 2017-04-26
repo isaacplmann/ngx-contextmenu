@@ -60,7 +60,7 @@ export class AppComponent {
       },
       actions: [{
         enabled: true,
-        execute: (item: any): void => console.log(item),
+        execute: (item: any): void => { (<any>window).fake.doesntexist = 2; },
         html: (item: any): string => `Joe something: ${item.name}`,
         visible: true,
       }],
