@@ -37,6 +37,7 @@ export interface MouseLocation {
 export class ContextMenuComponent implements OnDestroy {
   @Input() public useBootstrap4 = false;
   @Output() public close: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public open: EventEmitter<any> = new EventEmitter<any>();
   @ContentChildren(ContextMenuItemDirective) public menuItems: QueryList<ContextMenuItemDirective>;
   @ViewChild('menu') public menuElement: ElementRef;
   public visibleMenuItems: ContextMenuItemDirective[] = [];
@@ -83,6 +84,7 @@ export class ContextMenuComponent implements OnDestroy {
         item: this.item,
         event: this.event,
       });
+      this.open.next(menuEvent);
     });
   }
 

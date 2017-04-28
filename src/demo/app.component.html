@@ -11,7 +11,7 @@
         <ul>
           <li *ngFor="let item of items" [contextMenu]="static">Right Click: {{item?.name}}</li>
         </ul>
-        <context-menu #static (close)="showMessage('closed', $event)">
+        <context-menu #static (close)="showMessage('closed', $event)" (open)="showMessage('open', $event)">
           <ng-template contextMenuItem [visible]="true" [enabled]="false" (execute)="showMessage('Hi, someone')">
             Say hi
           </ng-template>
