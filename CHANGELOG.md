@@ -1,3 +1,12 @@
+<a name="1.0.5"></a>
+# [1.0.5](https://github.com/isaacplmann/ngx-contextmenu) (2017-05-18)
+
+
+### Bug Fixes
+
+* **type definitions:** Fix some type definition errors
+
+
 <a name="1.0.4"></a>
 # [1.0.4](https://github.com/isaacplmann/ngx-contextmenu) (2017-04-26)
 

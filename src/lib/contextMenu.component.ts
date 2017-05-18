@@ -1,4 +1,3 @@
-import { OnDestroy } from '@angular/core/core';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
 import { ContextMenuService, IContextMenuClickEvent } from './contextMenu.service';
@@ -11,12 +10,13 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnDestroy,
   Optional,
   Output,
   QueryList,
   ViewChild
 } from '@angular/core';
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;

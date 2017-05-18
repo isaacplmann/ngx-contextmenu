@@ -16,7 +16,7 @@ import {
   Renderer,
   ViewChild
 } from '@angular/core';
-import { OnInit, OnDestroy } from '@angular/core/core';
+import { OnInit, OnDestroy } from '@angular/core';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
