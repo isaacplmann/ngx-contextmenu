@@ -1,3 +1,12 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-05-18)
+
+
+### Features
+
+* **output:** Emit an event on open
+
+
 <a name="1.0.5"></a>
 # [1.0.5](https://github.com/isaacplmann/ngx-contextmenu) (2017-05-18)
 
