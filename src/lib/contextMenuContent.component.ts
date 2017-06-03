@@ -192,6 +192,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:scroll')
+  @HostListener('window:resize')
   @HostListener('document:keydown', ['$event'])
   public hideMenu(event?: KeyboardEvent): void {
     if (event && (event.keyCode && event.keyCode !== 27 || event.key && event.key !== 'Escape')) {
