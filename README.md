@@ -255,11 +255,11 @@ The items in the context menu are completely controlled by the `contextMenuActio
     <li *ngFor="item in items" [contextMenu]="myContextMenu" [contextMenuSubject]="item">Right Click: {{item.name}}</li>
 </ul>
 <context-menu #myContextMenu>
-  <template *ngFor="let action of contextMenuActions" contextMenuItem let-item
+  <ng-template *ngFor="let action of contextMenuActions" contextMenuItem let-item
     [visible]="action.visible" [enabled]="action.enabled" [divider]="action.divider"
     (execute)="action.execute($event.item)">
-    {{ action.html(item) }}
-  </template>
+    {{ action.html($event.item) }}
+  </ng-template>
 </context-menu>
 ```
 
