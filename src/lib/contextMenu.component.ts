@@ -36,6 +36,7 @@ export interface MouseLocation {
 })
 export class ContextMenuComponent implements OnDestroy {
   @Input() public useBootstrap4 = false;
+  @Input() public disabled = false;
   @Output() public close: EventEmitter<any> = new EventEmitter<any>();
   @Output() public open: EventEmitter<any> = new EventEmitter<any>();
   @ContentChildren(ContextMenuItemDirective) public menuItems: QueryList<ContextMenuItemDirective>;
@@ -70,6 +71,9 @@ export class ContextMenuComponent implements OnDestroy {
   }
 
   public onMenuEvent(menuEvent: IContextMenuClickEvent): void {
+    if (this.disabled) {
+      return;
+    }
     const { contextMenu, event, item } = menuEvent;
     this.contextMenuInjector.destroyAll();
     if (contextMenu && contextMenu !== this) {

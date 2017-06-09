@@ -7,6 +7,7 @@
         <ul>
           <li *ngFor="let item of items" [contextMenu]="basicMenu" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
         </ul>
+        <a href (click)="disableBasicMenu = !disableBasicMenu">{{ disableBasicMenu ? 'enable' : 'disable'}} basic menu</a>
         <h3>Static</h3>
         <ul>
           <li *ngFor="let item of items" [contextMenu]="static">Right Click: {{item?.name}}</li>
@@ -62,7 +63,7 @@
   <div style="display: table-cell;width:200px;vertical-align: top">
     <div style="position:absolute; top: 20px;">
       <div style="position:fixed;top:200px;left:-200px">
-        <context-menu #basicMenu style="pointer-events:all">
+        <context-menu #basicMenu [disabled]="disableBasicMenu" style="pointer-events:all">
           <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
             Say hi!
           </ng-template>

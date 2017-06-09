@@ -24,6 +24,7 @@ position: absolute; }
 })
 export class AppComponent {
 
+  public disableBasicMenu = false;
   public items: any[] = [
     {
       name: 'John',
@@ -66,7 +67,7 @@ export class AppComponent {
       }],
     },
   ];
-  public outsideValue: string = 'something';
+  public outsideValue = 'something';
 
   @ViewChild('basicMenu') public basicMenu: ContextMenuComponent;
   @ViewChild('enableAndVisible') public enableAndVisible: ContextMenuComponent;
@@ -89,5 +90,9 @@ export class AppComponent {
 
   public onlyJoe(item: any): boolean {
     return item.name === 'Joe';
+  }
+
+  public log(message: any): void {
+    console.log(message);
   }
 }
