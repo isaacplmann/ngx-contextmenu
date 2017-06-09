@@ -13,7 +13,9 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     CommonModule,
-    ContextMenuModule,
+    ContextMenuModule.forRoot({
+      autoFocus: true,
+    }),
     RouterModule.forRoot([
       {
         path: 'two',

@@ -238,6 +238,29 @@ export class AppModule {}
 <context-menu [useBootstrap4]="true"></context-menu>
 ```
 
+## AutoFocus
+
+You can optionally set focus on the context menu whenever it opens.  This enables a user to easily tab through the context menu items and press enter to select them.
+
+```js
+@NgModule({
+  import: [
+    ContextMenuModule.forRoot({
+      autoFocus: true,
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+## Disable Context Menu
+
+If you need to disable the context menu, you can pass a `boolean` to the `[disabled]` input:
+
+```html
+<context-menu [disabled]="true"></context-menu>
+```
+
 ## Close event emitter
 
 There is a `(close)` output EventEmitter that you can subscribe to for notifications when the context menu closes (either by clicking outside or choosing a menu item).

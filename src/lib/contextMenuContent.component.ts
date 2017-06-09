@@ -4,6 +4,7 @@ import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
 import { ContextMenuService } from './contextMenu.service';
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -43,8 +44,8 @@ export interface MouseLocation {
      }`
   ],
   template:
-  `<div class="dropdown ngx-contextmenu">
-      <ul #menu [ngStyle]="locationCss" class="dropdown-menu">
+  `<div #menuwrapper class="dropdown ngx-contextmenu" tabindex="0">
+      <ul #menu [ngStyle]="locationCss" class="dropdown-menu" tabindex="0">
         <li *ngFor="let menuItem of menuItems" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
             [attr.role]="menuItem.divider ? 'separator' : undefined">
@@ -64,12 +65,14 @@ export interface MouseLocation {
     </div>
   `,
 })
-export class ContextMenuContentComponent implements OnInit, OnDestroy {
+export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() public menuItems: ContextMenuItemDirective[] = [];
   @Input() public item: any;
   @Input() public event: MouseEvent;
+  @ViewChild('menuwrapper') public menuWrapperElement: ElementRef;
   @ViewChild('menu') public menuElement: ElementRef;
 
+  public autoFocus = false;
   public useBootstrap4 = false;
   public isShown = false;
   public isOpening = false;
@@ -84,6 +87,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy {
     public renderer: Renderer,
   ) {
     if (options) {
+      this.autoFocus = options.autoFocus;
       this.useBootstrap4 = options.useBootstrap4;
     }
   }
@@ -130,6 +134,12 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy {
     this.menuItems.forEach(menuItem => {
       this.subscription.add(menuItem.execute.subscribe(() => this.hideMenu()));
     });
+  }
+
+  ngAfterViewInit() {
+    if (this.autoFocus) {
+      setTimeout(() => this.menuElement.nativeElement.focus());
+    }
   }
 
   ngOnDestroy() {
