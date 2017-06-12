@@ -1,5 +1,3 @@
-import { Subscription } from 'rxjs/Subscription';
-import { ContextMenuInjectorService } from './contextMenuInjector.service';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
 import { ContextMenuService } from './contextMenu.service';
@@ -8,16 +6,15 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  EventEmitter,
   HostListener,
   Inject,
   Input,
   Optional,
-  Output,
   Renderer,
   ViewChild
 } from '@angular/core';
-import { OnInit, OnDestroy } from '@angular/core';
+import { OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -41,17 +38,21 @@ export interface MouseLocation {
        font-weight: normal;
        line-height: @line-height-base;
        white-space: nowrap;
-     }`
+     }`,
+    `.hasSubMenu:after {
+      content: "\u25B6";
+      float: right;
+    }`,
   ],
   template:
-  `<div #menuwrapper class="dropdown ngx-contextmenu" tabindex="0">
-      <ul #menu [ngStyle]="locationCss" class="dropdown-menu" tabindex="0">
+  `<div class="dropdown ngx-contextmenu" tabindex="0">
+        <ul #menu [ngStyle]="locationCss" class="dropdown-menu" tabindex="0">
         <li *ngFor="let menuItem of menuItems" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
             [attr.role]="menuItem.divider ? 'separator' : undefined">
           <a *ngIf="!menuItem.divider && !menuItem.passive" href [class.dropdown-item]="useBootstrap4"
-            [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)"
-            (click)="$event.preventDefault(); $event.stopPropagation(); menuItem.triggerExecute(item, $event);">
+            [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)" [class.hasSubMenu]="!!menuItem.subMenu"
+            (click)="onMenuItemSelect(menuItem, $event)" (mouseenter)="openSubMenu(menuItem, $event)">
             <ng-template [ngTemplateOutlet]="menuItem.template" [ngOutletContext]="{ $implicit: item }"></ng-template>
           </a>
 
@@ -69,7 +70,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   @Input() public menuItems: ContextMenuItemDirective[] = [];
   @Input() public item: any;
   @Input() public event: MouseEvent;
-  @ViewChild('menuwrapper') public menuWrapperElement: ElementRef;
+  @Input() public parentContextMenu: ContextMenuContentComponent;
   @ViewChild('menu') public menuElement: ElementRef;
 
   public autoFocus = false;
@@ -113,6 +114,9 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
           let isMenuOutsideBody = false;
           if (distanceFromRight < 0 && this.event.clientX > bodyWidth / 2) {
             this.mouseLocation.marginLeft = '-' + menuWidth + 'px';
+            if (this.parentContextMenu) {
+              this.mouseLocation.marginLeft = '-' + (menuWidth + this.parentContextMenu.menuElement.nativeElement.clientWidth) + 'px';
+            }
             isMenuOutsideBody = true;
           }
           if (distanceFromBottom < 0 && this.event.clientY > bodyHeight / 2) {
@@ -132,18 +136,24 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
       top: this.event.clientY + 'px',
     };
     this.menuItems.forEach(menuItem => {
-      this.subscription.add(menuItem.execute.subscribe(() => this.hideMenu()));
+      this.subscription.add(menuItem.execute.subscribe(() => this.hideMenu(undefined, true)));
     });
   }
 
   ngAfterViewInit() {
     if (this.autoFocus) {
-      setTimeout(() => this.menuElement.nativeElement.focus());
+      setTimeout(() => this.focus());
     }
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  focus(): void {
+    if (this.autoFocus) {
+      this.menuElement.nativeElement.focus();
+    }
   }
 
   stopEvent($event: MouseEvent) {
@@ -188,14 +198,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     return link.enabled && !link.enabled(this.item);
   }
 
-  public execute(link: ILinkConfig, $event?: MouseEvent): void {
-    if (this.isDisabled(link)) {
-      return;
-    }
-    this.hideMenu();
-    link.click(this.item, $event);
-  }
-
   public showMenu(): void {
     this.isShown = true;
     this.changeDetector.markForCheck();
@@ -203,15 +205,38 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 
   @HostListener('window:scroll')
   @HostListener('window:resize')
-  @HostListener('document:keydown', ['$event'])
-  public hideMenu(event?: KeyboardEvent): void {
-    if (event && (event.keyCode && event.keyCode !== 27 || event.key && event.key !== 'Escape')) {
-      return;
-    }
+  public hideMenu(event?: KeyboardEvent, hideAll?: boolean): void {
     if (this.isShown === true) {
       this._contextMenuService.close.next(event);
     }
+    if (hideAll) {
+      this._contextMenuService.triggerClose.next(undefined);
+    }
     this.isShown = false;
     this.changeDetector.markForCheck();
+  }
+
+  public openSubMenu(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
+    this._contextMenuService.triggerClose.next(this);
+    if (!menuItem.subMenu) {
+      return;
+    }
+    const rect = (<HTMLElement>event.target).getBoundingClientRect();
+    const newEvent = Object.assign({}, event, { clientX: rect.right, clientY: rect.top, view: event.view });
+    this._contextMenuService.show.next({
+      contextMenu: menuItem.subMenu,
+      item: this.item,
+      event: newEvent,
+      parentContextMenu: this,
+    });
+  }
+
+  public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.openSubMenu(menuItem, event);
+    if (!menuItem.subMenu) {
+      menuItem.triggerExecute(this.item, event);
+    }
   }
 }

@@ -75,6 +75,43 @@ public isMenuItemType1(item: any): boolean {
 }
 ```
 
+## Sub-menus
+
+You can specify sub-menus like this:
+
+```html
+<ul>
+    <li *ngFor="let item of items" [contextMenu]="basicMenu" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+</ul>
+<context-menu>
+  <ng-template contextMenuItem [subMenu]="saySubMenu">
+    Say...
+  </ng-template>
+  <context-menu #saySubMenu>
+    <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
+      ...hi!
+    </ng-template>
+    <ng-template contextMenuItem (execute)="showMessage('Hola, ' + $event.item.name)">
+      ...hola!
+    </ng-template>
+    <ng-template contextMenuItem (execute)="showMessage('Salut, ' + $event.item.name)">
+      ...salut!
+    </ng-template>
+  </context-menu>
+  <ng-template contextMenuItem divider="true"></ng-template>
+  <ng-template contextMenuItem let-item (execute)="showMessage($event.item.name + ' said: ' + $event.item.otherProperty)">
+    Bye, {{item?.name}}
+  </ng-template>
+  <ng-template contextMenuItem passive="true">
+    Input something: <input type="text">
+  </ng-template>
+</context-menu>
+```
+
+Notes:
+1. The sub `<context-menu>` can not be placed inside the `<ng-template>` that references it.
+2. Sub-menus may be nested as deeply as you wish.
+
 ## Upgrade from angular2-contextmenu 0.x
 
 1. Change `package.json` to reference `ngx-contextmenu` instead of `angular2-contextmenu`
@@ -252,6 +289,10 @@ You can optionally set focus on the context menu whenever it opens.  This enable
 })
 export class AppModule {}
 ```
+
+### Keyboard navigation
+
+If you have `autoFocus` enabled, you can use keyboard shortcuts to navigate the context menu. `tab` - focus next menu item, `shift-tab` - focus previous menu item, `enter` - execute menu item or open sub menu, `esc` - close current context menu.
 
 ## Disable Context Menu
 
