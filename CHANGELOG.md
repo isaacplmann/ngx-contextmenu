@@ -1,3 +1,15 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-12)
+
+
+### Features
+
+* **submenus:** Add submenus
+* **autoFocus:** Autofocus the context menu ul when it opens
+* **contextmenu:** [disabled] input on <context-menu>
+* **contextmenu:** Close context menu when window is resized
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-05-18)
 
