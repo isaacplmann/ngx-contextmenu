@@ -667,10 +667,10 @@ var ContextMenuService = (function () {
         this.isDestroyingLeafMenu = true;
         setTimeout(function () {
             var cmContents = _this.contextMenuInjector.getByType(_this.contextMenuInjector.type);
-            if (cmContents.length > 1) {
+            if (cmContents && cmContents.length > 1) {
                 cmContents[cmContents.length - 2].instance.focus();
             }
-            if (cmContents.length > 0) {
+            if (cmContents && cmContents.length > 0) {
                 _this.contextMenuInjector.destroy(cmContents[cmContents.length - 1]);
             }
             _this.isDestroyingLeafMenu = false;
