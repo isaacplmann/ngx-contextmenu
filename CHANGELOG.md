@@ -1,3 +1,12 @@
+<a name="1.2.1"></a>
+# [1.2.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-21)
+
+
+### Fixes
+
+* **hotkey:** Esc key binding throws error when no context menu visible
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-12)
 

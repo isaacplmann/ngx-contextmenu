@@ -28,10 +28,10 @@ export class ContextMenuService {
     this.isDestroyingLeafMenu = true;
     setTimeout(() => {
       const cmContents: ComponentRef<ContextMenuContentComponent>[] = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
-      if (cmContents.length > 1) {
+      if (cmContents && cmContents.length > 1) {
         cmContents[cmContents.length - 2].instance.focus();
       }
-      if (cmContents.length > 0) {
+      if (cmContents && cmContents.length > 0) {
         this.contextMenuInjector.destroy(cmContents[cmContents.length - 1]);
       }
       this.isDestroyingLeafMenu = false;
