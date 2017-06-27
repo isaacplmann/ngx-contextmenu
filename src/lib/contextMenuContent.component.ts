@@ -28,6 +28,13 @@ export interface MouseLocation {
   top?: string;
 }
 
+enum Key {
+  Tab = 9,
+  Enter = 13,
+  ArrowUp = 38,
+  ArrowDown = 40
+}
+
 @Component({
   selector: 'context-menu-content',
   styles: [
@@ -47,9 +54,10 @@ export interface MouseLocation {
   template:
   `<div class="dropdown ngx-contextmenu" tabindex="0">
         <ul #menu [ngStyle]="locationCss" class="dropdown-menu" tabindex="0">
-        <li *ngFor="let menuItem of menuItems" [class.disabled]="!isMenuItemEnabled(menuItem)"
+        <li *ngFor="let menuItem of menuItems; let i = index" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
-            [attr.role]="menuItem.divider ? 'separator' : undefined">
+            [class.active]="i === activeMenuItemIndex && isMenuItemEnabled(menuItem)"
+            [attr.role]="menuItem.divider ? 'separator' : undefined" [id]="'item'+i">
           <a *ngIf="!menuItem.divider && !menuItem.passive" href [class.dropdown-item]="useBootstrap4"
             [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)" [class.hasSubMenu]="!!menuItem.subMenu"
             (click)="onMenuItemSelect(menuItem, $event)" (mouseenter)="openSubMenu(menuItem, $event)">
@@ -73,6 +81,8 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   @Input() public parentContextMenu: ContextMenuContentComponent;
   @ViewChild('menu') public menuElement: ElementRef;
 
+  public activeMenuItemIndex = -1;
+  public activatedeMenuItemId = '';
   public autoFocus = false;
   public useBootstrap4 = false;
   public isShown = false;
@@ -93,7 +103,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     }
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.isOpening = true;
     setTimeout(() => this.isOpening = false, 400);
     if (this.menuItems) {
@@ -171,14 +181,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     };
   }
 
-  @HostListener('document:click')
-  @HostListener('document:contextmenu')
-  public clickedOutside(): void {
-    if (!this.isOpening) {
-      this.hideMenu();
-    }
-  }
-
   public isMenuItemEnabled(menuItem: ContextMenuItemDirective): boolean {
     return this.evaluateIfFunction(menuItem.enabled);
   }
@@ -203,10 +205,18 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     this.changeDetector.markForCheck();
   }
 
+  @HostListener('document:click')
+  @HostListener('document:contextmenu')
+  public clickedOutside(): void {
+    if (!this.isOpening) {
+      this.hideMenu();
+    }
+  }
+
   @HostListener('window:scroll')
   @HostListener('window:resize')
   public hideMenu(event?: KeyboardEvent, hideAll?: boolean): void {
-    if (this.isShown === true) {
+    if (this.isShown) {
       this._contextMenuService.close.next(event);
     }
     if (hideAll) {
@@ -214,6 +224,62 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     }
     this.isShown = false;
     this.changeDetector.markForCheck();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  public handleKeyDown(event: KeyboardEvent) {
+    if (!this.isShown) {
+      return;
+    }
+    if (event.which !== undefined && event.which !== null) {
+      switch (event.which) {
+        case Key.ArrowDown:
+        case Key.Tab:
+          event.preventDefault();
+          this.nextItem();
+          break;
+        case Key.ArrowUp:
+          event.preventDefault();
+          this.prevItem();
+          break;
+        case Key.Enter:
+          if (this.activeMenuItemIndex >= 0 && this.activatedeMenuItemId) {
+            const clickEvent = new MouseEvent('click');
+            this.menuItems[this.activeMenuItemIndex].triggerExecute(this.item, clickEvent);
+          } else {
+            this.hideMenu();
+          }
+          break;
+        default:
+          this.hideMenu();
+      }
+    } else {
+      this.hideMenu();
+    }
+  }
+
+  public nextItem(): void {
+    if (this.activeMenuItemIndex === this.menuItems.length - 1) {
+      this.activeMenuItemIndex = 0;
+    } else {
+      this.activeMenuItemIndex++;
+    }
+    if (!this.isMenuItemEnabled(this.menuItems[this.activeMenuItemIndex]) || this.menuItems[this.activeMenuItemIndex].divider) {
+      this.nextItem();
+    }
+    this.activeChanged();
+  }
+
+  public prevItem(): void {
+    if (this.activeMenuItemIndex <= 0) {
+      this.activeMenuItemIndex = this.menuItems.length - 1;
+    } else {
+      this.activeMenuItemIndex--;
+    }
+    if (!this.isMenuItemEnabled(this.menuItems[this.activeMenuItemIndex]) || this.menuItems[this.activeMenuItemIndex].divider) {
+      this.prevItem();
+    }
+    this.activeChanged();
   }
 
   public openSubMenu(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
@@ -238,5 +304,9 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (!menuItem.subMenu) {
       menuItem.triggerExecute(this.item, event);
     }
+  }
+
+  private activeChanged() {
+    this.activatedeMenuItemId = `item${this.activeMenuItemIndex}`;
   }
 }
