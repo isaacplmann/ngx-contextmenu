@@ -102,9 +102,7 @@ export class ContextMenuComponent implements OnDestroy {
       this.setVisibleMenuItems();
       this.contextMenuContent = this.contextMenuInjector.create({
         menuItems: this.visibleMenuItems,
-        item: this.item,
-        event: this.event,
-        parentContextMenu: menuEvent.parentContextMenu,
+        ...menuEvent,
       });
       this.open.next(menuEvent);
     });
@@ -122,6 +120,11 @@ export class ContextMenuComponent implements OnDestroy {
   @HostListener('window:keydown.Escape')
   public destroyLeafMenu(): void {
     this._contextMenuService.destroyLeafMenu();
+  }
+
+  @HostListener('window:keydown.ArrowLeft')
+  public destroyLeafSubMenu(): void {
+    this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
   }
 
   public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {
