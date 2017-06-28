@@ -1,5 +1,5 @@
 import { ContextMenuComponent } from './contextMenu.component';
-import { Directive, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
 
 @Directive({
   /* tslint:disable:directive-selector-type */
@@ -14,7 +14,7 @@ export class ContextMenuItemDirective {
   @Input() public visible: boolean | ((item: any) => boolean) = true;
   @Output() public execute: EventEmitter<{ event: Event, item: any }> = new EventEmitter<{ event: Event, item: any }>();
 
-  constructor(public template: TemplateRef<{ item: any }>) { }
+  constructor(public template: TemplateRef<{ item: any }>, public elementRef: ElementRef) { }
 
   public evaluateIfFunction(value: any, item: any): any {
     if (value instanceof Function) {

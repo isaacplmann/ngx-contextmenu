@@ -11,9 +11,10 @@ import {
   Input,
   Optional,
   Renderer,
-  ViewChild
+  ViewChild,
+  ViewChildren,
 } from '@angular/core';
-import { OnDestroy, OnInit } from '@angular/core';
+import { OnDestroy, OnInit, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 export interface ILinkConfig {
@@ -46,9 +47,10 @@ export interface MouseLocation {
   ],
   template:
   `<div class="dropdown ngx-contextmenu" tabindex="0">
-        <ul #menu [ngStyle]="locationCss" class="dropdown-menu" tabindex="0">
-        <li *ngFor="let menuItem of menuItems" [class.disabled]="!isMenuItemEnabled(menuItem)"
+      <ul #menu [ngStyle]="locationCss" class="dropdown-menu" tabindex="0">
+        <li #li *ngFor="let menuItem of menuItems; let i = index" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
+            [class.active]="i === activeMenuItemIndex && isMenuItemEnabled(menuItem)"
             [attr.role]="menuItem.divider ? 'separator' : undefined">
           <a *ngIf="!menuItem.divider && !menuItem.passive" href [class.dropdown-item]="useBootstrap4"
             [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)" [class.hasSubMenu]="!!menuItem.subMenu"
@@ -71,7 +73,9 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   @Input() public item: any;
   @Input() public event: MouseEvent;
   @Input() public parentContextMenu: ContextMenuContentComponent;
+  @Input() public activeMenuItemIndex = -1;
   @ViewChild('menu') public menuElement: ElementRef;
+  @ViewChildren('li') public menuItemElements: QueryList<ElementRef>;
 
   public autoFocus = false;
   public useBootstrap4 = false;
@@ -93,8 +97,11 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     }
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.isOpening = true;
+    if (this.activeMenuItemIndex === undefined) {
+      this.activeMenuItemIndex = -1;
+    }
     setTimeout(() => this.isOpening = false, 400);
     if (this.menuItems) {
       // Declarative context menu
@@ -171,20 +178,12 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     };
   }
 
-  @HostListener('document:click')
-  @HostListener('document:contextmenu')
-  public clickedOutside(): void {
-    if (!this.isOpening) {
-      this.hideMenu();
-    }
-  }
-
   public isMenuItemEnabled(menuItem: ContextMenuItemDirective): boolean {
-    return this.evaluateIfFunction(menuItem.enabled);
+    return this.evaluateIfFunction(menuItem && menuItem.enabled);
   }
 
   public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {
-    return this.evaluateIfFunction(menuItem.visible);
+    return this.evaluateIfFunction(menuItem && menuItem.visible);
   }
 
   public evaluateIfFunction(value: any): any {
@@ -203,10 +202,18 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     this.changeDetector.markForCheck();
   }
 
+  @HostListener('window:click')
+  @HostListener('window:contextmenu')
+  public clickedOutside(): void {
+    if (!this.isOpening) {
+      this.hideMenu();
+    }
+  }
+
   @HostListener('window:scroll')
   @HostListener('window:resize')
   public hideMenu(event?: KeyboardEvent, hideAll?: boolean): void {
-    if (this.isShown === true) {
+    if (this.isShown) {
       this._contextMenuService.close.next(event);
     }
     if (hideAll) {
@@ -216,25 +223,95 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     this.changeDetector.markForCheck();
   }
 
-  public openSubMenu(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
+  @HostListener('window:keydown.ArrowDown', ['$event'])
+  public nextItem(): void {
+    if (!this._contextMenuService.isLeafMenu(this)) {
+      return;
+    }
+    if (event) {
+      event.preventDefault();
+    }
+    if (this.activeMenuItemIndex === this.menuItems.length - 1) {
+      this.activeMenuItemIndex = 0;
+    } else {
+      this.activeMenuItemIndex++;
+    }
+    const menuItem = this.menuItems[this.activeMenuItemIndex];
+    if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
+      this.nextItem();
+    }
+  }
+
+  @HostListener('window:keydown.ArrowUp', ['$event'])
+  public prevItem(event?: KeyboardEvent): void {
+    if (!this._contextMenuService.isLeafMenu(this)) {
+      return;
+    }
+    if (event) {
+      event.preventDefault();
+    }
+    if (this.activeMenuItemIndex <= 0) {
+      this.activeMenuItemIndex = this.menuItems.length - 1;
+    } else {
+      this.activeMenuItemIndex--;
+    }
+    const menuItem = this.menuItems[this.activeMenuItemIndex];
+    if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
+      this.prevItem();
+    }
+  }
+
+  @HostListener('window:keydown.ArrowRight', ['$event'])
+  public keyboardOpenSubMenu(event?: KeyboardEvent): void {
+    if (!this._contextMenuService.isLeafMenu(this)) {
+      return;
+    }
+    if (event) {
+      event.preventDefault();
+    }
+    if (this.activeMenuItemIndex >= 0) {
+      const menuItem = this.menuItems[this.activeMenuItemIndex];
+      const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
+      this.openSubMenu(menuItem, <any>event, menuItemElement, 0);
+    }
+  }
+
+  @HostListener('window:keydown.Enter', ['$event'])
+  @HostListener('window:keydown.Space', ['$event'])
+  public keyboardMenuItemSelect(event?: KeyboardEvent): void {
+    if (!this._contextMenuService.isLeafMenu(this)) {
+      return;
+    }
+    if (event) {
+      event.preventDefault();
+    }
+    if (this.activeMenuItemIndex >= 0) {
+      const menuItem = this.menuItems[this.activeMenuItemIndex];
+      const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
+      this.onMenuItemSelect(menuItem, <any>event, menuItemElement, 0);
+    }
+  }
+
+  public openSubMenu(menuItem: ContextMenuItemDirective, event: MouseEvent, target?: HTMLElement, activeMenuItemIndex?: number): void {
     this._contextMenuService.triggerClose.next(this);
     if (!menuItem.subMenu) {
       return;
     }
-    const rect = (<HTMLElement>event.target).getBoundingClientRect();
+    const rect = (target || <HTMLElement>event.target).getBoundingClientRect();
     const newEvent = Object.assign({}, event, { clientX: rect.right, clientY: rect.top, view: event.view });
     this._contextMenuService.show.next({
       contextMenu: menuItem.subMenu,
       item: this.item,
       event: newEvent,
       parentContextMenu: this,
+      activeMenuItemIndex,
     });
   }
 
-  public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
+  public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent, target?: HTMLElement, activeMenuItemIndex?: number): void {
     event.preventDefault();
     event.stopPropagation();
-    this.openSubMenu(menuItem, event);
+    this.openSubMenu(menuItem, event, target);
     if (!menuItem.subMenu) {
       menuItem.triggerExecute(this.item, event);
     }

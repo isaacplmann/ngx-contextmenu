@@ -9,6 +9,7 @@ export interface IContextMenuClickEvent {
   event: MouseEvent;
   parentContextMenu?: ContextMenuContentComponent;
   item: any;
+  activeMenuItemIndex?: number;
 }
 
 @Injectable()
@@ -21,7 +22,7 @@ export class ContextMenuService {
 
   constructor(private contextMenuInjector: ContextMenuInjectorService) {}
 
-  public destroyLeafMenu(): void {
+  public destroyLeafMenu({exceptRootMenu}: {exceptRootMenu?: boolean} = {}): void {
     if (this.isDestroyingLeafMenu) {
       return;
     }
@@ -31,10 +32,22 @@ export class ContextMenuService {
       if (cmContents && cmContents.length > 1) {
         cmContents[cmContents.length - 2].instance.focus();
       }
-      if (cmContents && cmContents.length > 0) {
+      if (cmContents && cmContents.length > (exceptRootMenu ? 1 : 0)) {
         this.contextMenuInjector.destroy(cmContents[cmContents.length - 1]);
       }
       this.isDestroyingLeafMenu = false;
     });
+  }
+
+  public getLeafMenu(): ContextMenuContentComponent {
+    const cmContents: ComponentRef<ContextMenuContentComponent>[] = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
+    if (cmContents && cmContents.length > 0) {
+      return cmContents[cmContents.length - 1].instance;
+    }
+    return undefined;
+  }
+
+  public isLeafMenu(cmContent: ContextMenuContentComponent): boolean {
+    return this.getLeafMenu() === cmContent;
   }
 }
