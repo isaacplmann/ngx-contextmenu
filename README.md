@@ -290,9 +290,18 @@ You can optionally set focus on the context menu whenever it opens.  This enable
 export class AppModule {}
 ```
 
-### Keyboard navigation
+## Keyboard navigation
 
-If you have `autoFocus` enabled, you can use keyboard shortcuts to navigate the context menu. `tab` - focus next menu item, `shift-tab` - focus previous menu item, `enter` - execute menu item or open sub menu, `esc` - close current context menu.
+You can use the keyboard to manipulate the context menu.
+
+| Key            | Action                                         |
+|:--------------:|------------------------------------------------|
+| ArrowDown      | Move to next menu item (wrapping)              |
+| ArrowUp        | Move to previous menu item (wrapping)          |
+| ArrowRight     | Open submenu of current menu item if present   |
+| ArrowLeft      | Close current menu unless already at root menu |
+| Enter \| Space | Open submenu or execute current menu item      |
+| Esc            | Close current menu                             |
 
 ## Disable Context Menu
 

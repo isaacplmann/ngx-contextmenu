@@ -1,3 +1,12 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-28)
+
+
+### Features
+
+* **hotkey:** Keyboard shortcuts to use the context menu
+
+
 <a name="1.2.1"></a>
 # [1.2.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-21)
 
