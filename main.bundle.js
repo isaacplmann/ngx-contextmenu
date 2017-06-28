@@ -117,7 +117,7 @@ __decorate([
     __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["b" /* ContextMenuComponent */]) === "function" && _c || Object)
 ], AppComponent.prototype, "withFunctions", void 0);
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
         selector: 'ngx-context-menu-demo',
         styles: ["\n.dashboardContainer {\nwidth: 100%;\nheight: 100%;\nposition: fixed;\n}\n\n.componentsContainer {\nposition: fixed;\nbottom: 0;\ntop: 100px;\nwidth: 100%; }\n\n.componentContainer {\noverflow: auto;\nposition: absolute; }\n"],
         template: __webpack_require__("../../../../../src/demo/app.component.html"),
@@ -229,7 +229,7 @@ var ChildOneComponent = (function () {
     return ChildOneComponent;
 }());
 ChildOneComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Component */])({
         selector: 'child-one',
         template: "\n    <h3>Routing One</h3>\n    <ul>\n      <li *ngFor=\"let item of items\" [contextMenu]=\"routingMenu\" [contextMenuSubject]=\"item\">Right Click: {{item?.name}}</li>\n    </ul>\n    <context-menu #routingMenu>\n      <ng-template contextMenuItem (execute)=\"showMessage('Hi, ' + $event.item.name); go($event.item)\">\n        Go!\n      </ng-template>\n    </context-menu>\n  "
     }),
@@ -279,7 +279,7 @@ var ChildTwoComponent = (function () {
     return ChildTwoComponent;
 }());
 ChildTwoComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
         selector: 'child-two',
         template: "\n    <h3>Routing Two</h3>\n    <ul>\n      <li *ngFor=\"let item of items\" [contextMenu]=\"routingMenu\" [contextMenuSubject]=\"item\">Right Click: {{item?.name}}</li>\n    </ul>\n    <context-menu #routingMenu>\n      <ng-template contextMenuItem (execute)=\"showMessage('Hi, ' + $event.item.name); go($event.item)\">\n        Go!\n      </ng-template>\n    </context-menu>\n  "
     }),
@@ -381,6 +381,14 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/Subscription.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Subscription___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Subscription__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuComponent; });
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -455,12 +463,7 @@ var ContextMenuComponent = (function () {
         this.item = item;
         setTimeout(function () {
             _this.setVisibleMenuItems();
-            _this.contextMenuContent = _this.contextMenuInjector.create({
-                menuItems: _this.visibleMenuItems,
-                item: _this.item,
-                event: _this.event,
-                parentContextMenu: menuEvent.parentContextMenu,
-            });
+            _this.contextMenuContent = _this.contextMenuInjector.create(__assign({ menuItems: _this.visibleMenuItems }, menuEvent));
             _this.open.next(menuEvent);
         });
     };
@@ -475,6 +478,9 @@ var ContextMenuComponent = (function () {
     };
     ContextMenuComponent.prototype.destroyLeafMenu = function () {
         this._contextMenuService.destroyLeafMenu();
+    };
+    ContextMenuComponent.prototype.destroyLeafSubMenu = function () {
+        this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
     };
     ContextMenuComponent.prototype.isMenuItemVisible = function (menuItem) {
         return this.evaluateIfFunction(menuItem.visible);
@@ -525,8 +531,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ContextMenuComponent.prototype, "destroyLeafMenu", null);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["n" /* HostListener */])('window:keydown.ArrowLeft'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ContextMenuComponent.prototype, "destroyLeafSubMenu", null);
 ContextMenuComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["_15" /* Component */])({
         selector: 'context-menu',
         template: "",
     }),
@@ -559,8 +571,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ContextMenuItemDirective = (function () {
-    function ContextMenuItemDirective(template) {
+    function ContextMenuItemDirective(template, elementRef) {
         this.template = template;
+        this.elementRef = elementRef;
         this.divider = false;
         this.enabled = true;
         this.passive = false;
@@ -610,10 +623,10 @@ ContextMenuItemDirective = __decorate([
         /* tslint:disable:directive-selector-type */
         selector: '[contextMenuItem]',
     }),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* TemplateRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* TemplateRef */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* TemplateRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* TemplateRef */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["l" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["l" /* ElementRef */]) === "function" && _d || Object])
 ], ContextMenuItemDirective);
 
-var _a, _b, _c;
+var _a, _b, _c, _d;
 //# sourceMappingURL=contextMenu.item.directive.js.map
 
 /***/ }),
@@ -659,8 +672,9 @@ var ContextMenuService = (function () {
         this.triggerClose = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["Subject"]();
         this.close = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["Subject"]();
     }
-    ContextMenuService.prototype.destroyLeafMenu = function () {
+    ContextMenuService.prototype.destroyLeafMenu = function (_a) {
         var _this = this;
+        var exceptRootMenu = (_a === void 0 ? {} : _a).exceptRootMenu;
         if (this.isDestroyingLeafMenu) {
             return;
         }
@@ -670,11 +684,21 @@ var ContextMenuService = (function () {
             if (cmContents && cmContents.length > 1) {
                 cmContents[cmContents.length - 2].instance.focus();
             }
-            if (cmContents && cmContents.length > 0) {
+            if (cmContents && cmContents.length > (exceptRootMenu ? 1 : 0)) {
                 _this.contextMenuInjector.destroy(cmContents[cmContents.length - 1]);
             }
             _this.isDestroyingLeafMenu = false;
         });
+    };
+    ContextMenuService.prototype.getLeafMenu = function () {
+        var cmContents = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
+        if (cmContents && cmContents.length > 0) {
+            return cmContents[cmContents.length - 1].instance;
+        }
+        return undefined;
+    };
+    ContextMenuService.prototype.isLeafMenu = function (cmContent) {
+        return this.getLeafMenu() === cmContent;
     };
     return ContextMenuService;
 }());
@@ -714,6 +738,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
+
 var ContextMenuContentComponent = (function () {
     function ContextMenuContentComponent(_contextMenuService, changeDetector, elementRef, options, renderer) {
         this._contextMenuService = _contextMenuService;
@@ -722,6 +747,7 @@ var ContextMenuContentComponent = (function () {
         this.options = options;
         this.renderer = renderer;
         this.menuItems = [];
+        this.activeMenuItemIndex = -1;
         this.autoFocus = false;
         this.useBootstrap4 = false;
         this.isShown = false;
@@ -736,6 +762,9 @@ var ContextMenuContentComponent = (function () {
     ContextMenuContentComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isOpening = true;
+        if (this.activeMenuItemIndex === undefined) {
+            this.activeMenuItemIndex = -1;
+        }
         setTimeout(function () { return _this.isOpening = false; }, 400);
         if (this.menuItems) {
             // Declarative context menu
@@ -813,16 +842,11 @@ var ContextMenuContentComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    ContextMenuContentComponent.prototype.clickedOutside = function () {
-        if (!this.isOpening) {
-            this.hideMenu();
-        }
-    };
     ContextMenuContentComponent.prototype.isMenuItemEnabled = function (menuItem) {
-        return this.evaluateIfFunction(menuItem.enabled);
+        return this.evaluateIfFunction(menuItem && menuItem.enabled);
     };
     ContextMenuContentComponent.prototype.isMenuItemVisible = function (menuItem) {
-        return this.evaluateIfFunction(menuItem.visible);
+        return this.evaluateIfFunction(menuItem && menuItem.visible);
     };
     ContextMenuContentComponent.prototype.evaluateIfFunction = function (value) {
         if (value instanceof Function) {
@@ -837,8 +861,13 @@ var ContextMenuContentComponent = (function () {
         this.isShown = true;
         this.changeDetector.markForCheck();
     };
+    ContextMenuContentComponent.prototype.clickedOutside = function () {
+        if (!this.isOpening) {
+            this.hideMenu();
+        }
+    };
     ContextMenuContentComponent.prototype.hideMenu = function (event, hideAll) {
-        if (this.isShown === true) {
+        if (this.isShown) {
             this._contextMenuService.close.next(event);
         }
         if (hideAll) {
@@ -847,24 +876,87 @@ var ContextMenuContentComponent = (function () {
         this.isShown = false;
         this.changeDetector.markForCheck();
     };
-    ContextMenuContentComponent.prototype.openSubMenu = function (menuItem, event) {
+    ContextMenuContentComponent.prototype.nextItem = function () {
+        if (!this._contextMenuService.isLeafMenu(this)) {
+            return;
+        }
+        if (event) {
+            event.preventDefault();
+        }
+        if (this.activeMenuItemIndex === this.menuItems.length - 1) {
+            this.activeMenuItemIndex = 0;
+        }
+        else {
+            this.activeMenuItemIndex++;
+        }
+        var menuItem = this.menuItems[this.activeMenuItemIndex];
+        if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
+            this.nextItem();
+        }
+    };
+    ContextMenuContentComponent.prototype.prevItem = function (event) {
+        if (!this._contextMenuService.isLeafMenu(this)) {
+            return;
+        }
+        if (event) {
+            event.preventDefault();
+        }
+        if (this.activeMenuItemIndex <= 0) {
+            this.activeMenuItemIndex = this.menuItems.length - 1;
+        }
+        else {
+            this.activeMenuItemIndex--;
+        }
+        var menuItem = this.menuItems[this.activeMenuItemIndex];
+        if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
+            this.prevItem();
+        }
+    };
+    ContextMenuContentComponent.prototype.keyboardOpenSubMenu = function (event) {
+        if (!this._contextMenuService.isLeafMenu(this)) {
+            return;
+        }
+        if (event) {
+            event.preventDefault();
+        }
+        if (this.activeMenuItemIndex >= 0) {
+            var menuItem = this.menuItems[this.activeMenuItemIndex];
+            var menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
+            this.openSubMenu(menuItem, event, menuItemElement, 0);
+        }
+    };
+    ContextMenuContentComponent.prototype.keyboardMenuItemSelect = function (event) {
+        if (!this._contextMenuService.isLeafMenu(this)) {
+            return;
+        }
+        if (event) {
+            event.preventDefault();
+        }
+        if (this.activeMenuItemIndex >= 0) {
+            var menuItem = this.menuItems[this.activeMenuItemIndex];
+            var menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
+            this.onMenuItemSelect(menuItem, event, menuItemElement, 0);
+        }
+    };
+    ContextMenuContentComponent.prototype.openSubMenu = function (menuItem, event, target, activeMenuItemIndex) {
         this._contextMenuService.triggerClose.next(this);
         if (!menuItem.subMenu) {
             return;
         }
-        var rect = event.target.getBoundingClientRect();
+        var rect = (target || event.target).getBoundingClientRect();
         var newEvent = Object.assign({}, event, { clientX: rect.right, clientY: rect.top, view: event.view });
         this._contextMenuService.show.next({
             contextMenu: menuItem.subMenu,
             item: this.item,
             event: newEvent,
             parentContextMenu: this,
+            activeMenuItemIndex: activeMenuItemIndex,
         });
     };
-    ContextMenuContentComponent.prototype.onMenuItemSelect = function (menuItem, event) {
+    ContextMenuContentComponent.prototype.onMenuItemSelect = function (menuItem, event, target, activeMenuItemIndex) {
         event.preventDefault();
         event.stopPropagation();
-        this.openSubMenu(menuItem, event);
+        this.openSubMenu(menuItem, event, target);
         if (!menuItem.subMenu) {
             menuItem.triggerExecute(this.item, event);
         }
@@ -888,12 +980,20 @@ __decorate([
     __metadata("design:type", ContextMenuContentComponent)
 ], ContextMenuContentComponent.prototype, "parentContextMenu", void 0);
 __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Input */])(),
+    __metadata("design:type", Object)
+], ContextMenuContentComponent.prototype, "activeMenuItemIndex", void 0);
+__decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_12" /* ViewChild */])('menu'),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["l" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["l" /* ElementRef */]) === "function" && _a || Object)
 ], ContextMenuContentComponent.prototype, "menuElement", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('document:click'),
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('document:contextmenu'),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_13" /* ViewChildren */])('li'),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* QueryList */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* QueryList */]) === "function" && _b || Object)
+], ContextMenuContentComponent.prototype, "menuItemElements", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:click'),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:contextmenu'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
@@ -905,21 +1005,46 @@ __decorate([
     __metadata("design:paramtypes", [Object, Boolean]),
     __metadata("design:returntype", void 0)
 ], ContextMenuContentComponent.prototype, "hideMenu", null);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.ArrowDown', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ContextMenuContentComponent.prototype, "nextItem", null);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.ArrowUp', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ContextMenuContentComponent.prototype, "prevItem", null);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.ArrowRight', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ContextMenuContentComponent.prototype, "keyboardOpenSubMenu", null);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.Enter', ['$event']),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.Space', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ContextMenuContentComponent.prototype, "keyboardMenuItemSelect", null);
 ContextMenuContentComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_13" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
         selector: 'context-menu-content',
         styles: [
             ".passive {\n       display: block;\n       padding: 3px 20px;\n       clear: both;\n       font-weight: normal;\n       line-height: @line-height-base;\n       white-space: nowrap;\n     }",
             ".hasSubMenu:after {\n      content: \"\u25B6\";\n      float: right;\n    }",
         ],
-        template: "<div class=\"dropdown ngx-contextmenu\" tabindex=\"0\">\n        <ul #menu [ngStyle]=\"locationCss\" class=\"dropdown-menu\" tabindex=\"0\">\n        <li *ngFor=\"let menuItem of menuItems\" [class.disabled]=\"!isMenuItemEnabled(menuItem)\"\n            [class.divider]=\"menuItem.divider\" [class.dropdown-divider]=\"useBootstrap4 && menuItem.divider\"\n            [attr.role]=\"menuItem.divider ? 'separator' : undefined\">\n          <a *ngIf=\"!menuItem.divider && !menuItem.passive\" href [class.dropdown-item]=\"useBootstrap4\"\n            [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\" [class.hasSubMenu]=\"!!menuItem.subMenu\"\n            (click)=\"onMenuItemSelect(menuItem, $event)\" (mouseenter)=\"openSubMenu(menuItem, $event)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </a>\n\n          <span (click)=\"stopEvent($event)\" (contextmenu)=\"stopEvent($event)\" class=\"passive\"\n                *ngIf=\"!menuItem.divider && menuItem.passive\" [class.dropdown-item]=\"useBootstrap4\"\n                [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </span>\n        </li>\n      </ul>\n    </div>\n  ",
+        template: "<div class=\"dropdown ngx-contextmenu\" tabindex=\"0\">\n      <ul #menu [ngStyle]=\"locationCss\" class=\"dropdown-menu\" tabindex=\"0\">\n        <li #li *ngFor=\"let menuItem of menuItems; let i = index\" [class.disabled]=\"!isMenuItemEnabled(menuItem)\"\n            [class.divider]=\"menuItem.divider\" [class.dropdown-divider]=\"useBootstrap4 && menuItem.divider\"\n            [class.active]=\"i === activeMenuItemIndex && isMenuItemEnabled(menuItem)\"\n            [attr.role]=\"menuItem.divider ? 'separator' : undefined\">\n          <a *ngIf=\"!menuItem.divider && !menuItem.passive\" href [class.dropdown-item]=\"useBootstrap4\"\n            [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\" [class.hasSubMenu]=\"!!menuItem.subMenu\"\n            (click)=\"onMenuItemSelect(menuItem, $event)\" (mouseenter)=\"openSubMenu(menuItem, $event)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </a>\n\n          <span (click)=\"stopEvent($event)\" (contextmenu)=\"stopEvent($event)\" class=\"passive\"\n                *ngIf=\"!menuItem.divider && menuItem.passive\" [class.dropdown-item]=\"useBootstrap4\"\n                [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </span>\n        </li>\n      </ul>\n    </div>\n  ",
     }),
     __param(3, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["B" /* Optional */])()),
     __param(3, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["F" /* Inject */])(__WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["a" /* CONTEXT_MENU_OPTIONS */])),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["p" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["p" /* ChangeDetectorRef */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["l" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["l" /* ElementRef */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["IContextMenuOptions"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["IContextMenuOptions"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* Renderer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* Renderer */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["p" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["p" /* ChangeDetectorRef */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["l" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["l" /* ElementRef */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["IContextMenuOptions"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__contextMenu_options__["IContextMenuOptions"]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* Renderer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["k" /* Renderer */]) === "function" && _g || Object])
 ], ContextMenuContentComponent);
 
-var _a, _b, _c, _d, _e, _f;
+var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=contextMenuContent.component.js.map
 
 /***/ }),
