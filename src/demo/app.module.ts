@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
     CommonModule,
     ContextMenuModule.forRoot({
       autoFocus: true,
+      // useBootstrap4: true,
     }),
     RouterModule.forRoot([
       {
