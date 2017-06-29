@@ -1,3 +1,12 @@
+<a name="1.3.1"></a>
+# [1.3.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-29)
+
+
+### Fixes
+
+* **bootstrap4:** active class set correctly
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-28)
 
