@@ -40,12 +40,9 @@ export interface MouseLocation {
        line-height: @line-height-base;
        white-space: nowrap;
      }
-    .dropdown-menu > li > a {
-      display: flex;
-      justify-content: space-between;
-    }
-    .hasSubMenu:after {
+    .hasSubMenu:before {
       content: "\u25B6";
+      float: right;
     }`,
   ],
   template:
