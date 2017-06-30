@@ -225,7 +225,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   }
 
   @HostListener('window:keydown.ArrowDown', ['$event'])
-  public nextItem(): void {
+  public nextItem(event?: KeyboardEvent): void {
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
