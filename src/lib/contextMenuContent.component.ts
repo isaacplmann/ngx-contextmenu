@@ -39,8 +39,8 @@ export interface MouseLocation {
        font-weight: normal;
        line-height: @line-height-base;
        white-space: nowrap;
-     }`,
-    `.hasSubMenu:after {
+     }
+    .hasSubMenu:before {
       content: "\u25B6";
       float: right;
     }`,
@@ -225,7 +225,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   }
 
   @HostListener('window:keydown.ArrowDown', ['$event'])
-  public nextItem(): void {
+  public nextItem(event?: KeyboardEvent): void {
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
