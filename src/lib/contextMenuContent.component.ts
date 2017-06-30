@@ -39,10 +39,13 @@ export interface MouseLocation {
        font-weight: normal;
        line-height: @line-height-base;
        white-space: nowrap;
-     }`,
-    `.hasSubMenu:after {
+     }
+    .dropdown-menu > li > a {
+      display: flex;
+      justify-content: space-between;
+    }
+    .hasSubMenu:after {
       content: "\u25B6";
-      float: right;
     }`,
   ],
   template:
