@@ -479,9 +479,6 @@ var ContextMenuComponent = (function () {
     ContextMenuComponent.prototype.destroyLeafMenu = function () {
         this._contextMenuService.destroyLeafMenu();
     };
-    ContextMenuComponent.prototype.destroyLeafSubMenu = function () {
-        this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
-    };
     ContextMenuComponent.prototype.isMenuItemVisible = function (menuItem) {
         return this.evaluateIfFunction(menuItem.visible);
     };
@@ -531,12 +528,6 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ContextMenuComponent.prototype, "destroyLeafMenu", null);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["n" /* HostListener */])('window:keydown.ArrowLeft'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], ContextMenuComponent.prototype, "destroyLeafSubMenu", null);
 ContextMenuComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["_15" /* Component */])({
         selector: 'context-menu',
@@ -928,6 +919,16 @@ var ContextMenuContentComponent = (function () {
             this.openSubMenu(menuItem, event, menuItemElement, 0);
         }
     };
+    ContextMenuContentComponent.prototype.destroyLeafSubMenu = function (event) {
+        if (!this._contextMenuService.isLeafMenu(this)) {
+            return;
+        }
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
+    };
     ContextMenuContentComponent.prototype.keyboardMenuItemSelect = function (event) {
         if (!this._contextMenuService.isLeafMenu(this)) {
             return;
@@ -1027,6 +1028,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ContextMenuContentComponent.prototype, "keyboardOpenSubMenu", null);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('keydown.ArrowLeft', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ContextMenuContentComponent.prototype, "destroyLeafSubMenu", null);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('keydown.Enter', ['$event']),
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('keydown.Space', ['$event']),
