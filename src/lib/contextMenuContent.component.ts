@@ -224,13 +224,14 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     this.changeDetector.markForCheck();
   }
 
-  @HostListener('window:keydown.ArrowDown', ['$event'])
+  @HostListener('keydown.ArrowDown', ['$event'])
   public nextItem(event?: KeyboardEvent): void {
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
     if (event) {
       event.preventDefault();
+      event.stopPropagation();
     }
     if (this.activeMenuItemIndex === this.menuItems.length - 1) {
       this.activeMenuItemIndex = 0;
@@ -243,13 +244,14 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     }
   }
 
-  @HostListener('window:keydown.ArrowUp', ['$event'])
+  @HostListener('keydown.ArrowUp', ['$event'])
   public prevItem(event?: KeyboardEvent): void {
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
     if (event) {
       event.preventDefault();
+      event.stopPropagation();
     }
     if (this.activeMenuItemIndex <= 0) {
       this.activeMenuItemIndex = this.menuItems.length - 1;
@@ -262,13 +264,14 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     }
   }
 
-  @HostListener('window:keydown.ArrowRight', ['$event'])
+  @HostListener('keydown.ArrowRight', ['$event'])
   public keyboardOpenSubMenu(event?: KeyboardEvent): void {
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
     if (event) {
       event.preventDefault();
+      event.stopPropagation();
     }
     if (this.activeMenuItemIndex >= 0) {
       const menuItem = this.menuItems[this.activeMenuItemIndex];
@@ -277,14 +280,15 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     }
   }
 
-  @HostListener('window:keydown.Enter', ['$event'])
-  @HostListener('window:keydown.Space', ['$event'])
+  @HostListener('keydown.Enter', ['$event'])
+  @HostListener('keydown.Space', ['$event'])
   public keyboardMenuItemSelect(event?: KeyboardEvent): void {
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
     if (event) {
       event.preventDefault();
+      event.stopPropagation();
     }
     if (this.activeMenuItemIndex >= 0) {
       const menuItem = this.menuItems[this.activeMenuItemIndex];

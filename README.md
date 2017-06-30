@@ -292,7 +292,7 @@ export class AppModule {}
 
 ## Keyboard navigation
 
-You can use the keyboard to manipulate the context menu.
+You can use the keyboard to manipulate the context menu.  Note: Keyboard navigation should be used in conjunction with `autoFocus`, since key events are only captured when the context menu is focused.
 
 | Key            | Action                                         |
 |:--------------:|------------------------------------------------|
