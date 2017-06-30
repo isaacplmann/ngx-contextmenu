@@ -122,11 +122,6 @@ export class ContextMenuComponent implements OnDestroy {
     this._contextMenuService.destroyLeafMenu();
   }
 
-  @HostListener('window:keydown.ArrowLeft')
-  public destroyLeafSubMenu(): void {
-    this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
-  }
-
   public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {
     return this.evaluateIfFunction(menuItem.visible);
   }

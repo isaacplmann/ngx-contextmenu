@@ -280,6 +280,18 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     }
   }
 
+  @HostListener('keydown.ArrowLeft', ['$event'])
+  public destroyLeafSubMenu(event: KeyboardEvent): void {
+    if (!this._contextMenuService.isLeafMenu(this)) {
+      return;
+    }
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
+  }
+
   @HostListener('keydown.Enter', ['$event'])
   @HostListener('keydown.Space', ['$event'])
   public keyboardMenuItemSelect(event?: KeyboardEvent): void {

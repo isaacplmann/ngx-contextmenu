@@ -1,3 +1,12 @@
+<a name="1.3.3"></a>
+# [1.3.3](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-30)
+
+
+### Fixes
+
+* **hotkey:** ArrowLeft hotkey only active when context menu focused
+
+
 <a name="1.3.2"></a>
 # [1.3.2](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-30)
 
