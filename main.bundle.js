@@ -876,12 +876,13 @@ var ContextMenuContentComponent = (function () {
         this.isShown = false;
         this.changeDetector.markForCheck();
     };
-    ContextMenuContentComponent.prototype.nextItem = function () {
+    ContextMenuContentComponent.prototype.nextItem = function (event) {
         if (!this._contextMenuService.isLeafMenu(this)) {
             return;
         }
         if (event) {
             event.preventDefault();
+            event.stopPropagation();
         }
         if (this.activeMenuItemIndex === this.menuItems.length - 1) {
             this.activeMenuItemIndex = 0;
@@ -900,6 +901,7 @@ var ContextMenuContentComponent = (function () {
         }
         if (event) {
             event.preventDefault();
+            event.stopPropagation();
         }
         if (this.activeMenuItemIndex <= 0) {
             this.activeMenuItemIndex = this.menuItems.length - 1;
@@ -918,6 +920,7 @@ var ContextMenuContentComponent = (function () {
         }
         if (event) {
             event.preventDefault();
+            event.stopPropagation();
         }
         if (this.activeMenuItemIndex >= 0) {
             var menuItem = this.menuItems[this.activeMenuItemIndex];
@@ -931,6 +934,7 @@ var ContextMenuContentComponent = (function () {
         }
         if (event) {
             event.preventDefault();
+            event.stopPropagation();
         }
         if (this.activeMenuItemIndex >= 0) {
             var menuItem = this.menuItems[this.activeMenuItemIndex];
@@ -1006,26 +1010,26 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ContextMenuContentComponent.prototype, "hideMenu", null);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.ArrowDown', ['$event']),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('keydown.ArrowDown', ['$event']),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ContextMenuContentComponent.prototype, "nextItem", null);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.ArrowUp', ['$event']),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('keydown.ArrowUp', ['$event']),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ContextMenuContentComponent.prototype, "prevItem", null);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.ArrowRight', ['$event']),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('keydown.ArrowRight', ['$event']),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ContextMenuContentComponent.prototype, "keyboardOpenSubMenu", null);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.Enter', ['$event']),
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('window:keydown.Space', ['$event']),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('keydown.Enter', ['$event']),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* HostListener */])('keydown.Space', ['$event']),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
@@ -1034,8 +1038,7 @@ ContextMenuContentComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Component */])({
         selector: 'context-menu-content',
         styles: [
-            ".passive {\n       display: block;\n       padding: 3px 20px;\n       clear: both;\n       font-weight: normal;\n       line-height: @line-height-base;\n       white-space: nowrap;\n     }",
-            ".hasSubMenu:after {\n      content: \"\u25B6\";\n      float: right;\n    }",
+            ".passive {\n       display: block;\n       padding: 3px 20px;\n       clear: both;\n       font-weight: normal;\n       line-height: @line-height-base;\n       white-space: nowrap;\n     }\n    .hasSubMenu:before {\n      content: \"\u25B6\";\n      float: right;\n    }",
         ],
         template: "<div class=\"dropdown ngx-contextmenu\" tabindex=\"0\">\n      <ul #menu [ngStyle]=\"locationCss\" class=\"dropdown-menu\" tabindex=\"0\">\n        <li #li *ngFor=\"let menuItem of menuItems; let i = index\" [class.disabled]=\"!isMenuItemEnabled(menuItem)\"\n            [class.divider]=\"menuItem.divider\" [class.dropdown-divider]=\"useBootstrap4 && menuItem.divider\"\n            [class.active]=\"i === activeMenuItemIndex && isMenuItemEnabled(menuItem)\"\n            [attr.role]=\"menuItem.divider ? 'separator' : undefined\">\n          <a *ngIf=\"!menuItem.divider && !menuItem.passive\" href [class.dropdown-item]=\"useBootstrap4\"\n            [class.active]=\"i === activeMenuItemIndex && isMenuItemEnabled(menuItem)\"\n            [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\" [class.hasSubMenu]=\"!!menuItem.subMenu\"\n            (click)=\"onMenuItemSelect(menuItem, $event)\" (mouseenter)=\"openSubMenu(menuItem, $event)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </a>\n\n          <span (click)=\"stopEvent($event)\" (contextmenu)=\"stopEvent($event)\" class=\"passive\"\n                *ngIf=\"!menuItem.divider && menuItem.passive\" [class.dropdown-item]=\"useBootstrap4\"\n                [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </span>\n        </li>\n      </ul>\n    </div>\n  ",
     }),
