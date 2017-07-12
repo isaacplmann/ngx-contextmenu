@@ -871,10 +871,7 @@ var ContextMenuContentComponent = (function () {
         if (!this._contextMenuService.isLeafMenu(this)) {
             return;
         }
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        this.cancelEvent(event);
         if (this.activeMenuItemIndex === this.menuItems.length - 1) {
             this.activeMenuItemIndex = 0;
         }
@@ -890,10 +887,7 @@ var ContextMenuContentComponent = (function () {
         if (!this._contextMenuService.isLeafMenu(this)) {
             return;
         }
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        this.cancelEvent(event);
         if (this.activeMenuItemIndex <= 0) {
             this.activeMenuItemIndex = this.menuItems.length - 1;
         }
@@ -909,10 +903,7 @@ var ContextMenuContentComponent = (function () {
         if (!this._contextMenuService.isLeafMenu(this)) {
             return;
         }
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        this.cancelEvent(event);
         if (this.activeMenuItemIndex >= 0) {
             var menuItem = this.menuItems[this.activeMenuItemIndex];
             var menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
@@ -923,20 +914,14 @@ var ContextMenuContentComponent = (function () {
         if (!this._contextMenuService.isLeafMenu(this)) {
             return;
         }
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        this.cancelEvent(event);
         this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
     };
     ContextMenuContentComponent.prototype.keyboardMenuItemSelect = function (event) {
         if (!this._contextMenuService.isLeafMenu(this)) {
             return;
         }
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        this.cancelEvent(event);
         if (this.activeMenuItemIndex >= 0) {
             var menuItem = this.menuItems[this.activeMenuItemIndex];
             var menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
@@ -965,6 +950,17 @@ var ContextMenuContentComponent = (function () {
         if (!menuItem.subMenu) {
             menuItem.triggerExecute(this.item, event);
         }
+    };
+    ContextMenuContentComponent.prototype.cancelEvent = function (event) {
+        if (!event) {
+            return;
+        }
+        var target = event.target;
+        if (['INPUT', 'TEXTAREA', 'SELECT'].indexOf(target.tagName) > -1 || target.isContentEditable) {
+            return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
     };
     return ContextMenuContentComponent;
 }());
