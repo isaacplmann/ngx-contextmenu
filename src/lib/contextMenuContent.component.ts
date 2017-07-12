@@ -229,10 +229,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    this.cancelEvent(event);
     if (this.activeMenuItemIndex === this.menuItems.length - 1) {
       this.activeMenuItemIndex = 0;
     } else {
@@ -249,10 +246,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    this.cancelEvent(event);
     if (this.activeMenuItemIndex <= 0) {
       this.activeMenuItemIndex = this.menuItems.length - 1;
     } else {
@@ -269,10 +263,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    this.cancelEvent(event);
     if (this.activeMenuItemIndex >= 0) {
       const menuItem = this.menuItems[this.activeMenuItemIndex];
       const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
@@ -285,10 +276,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    this.cancelEvent(event);
     this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
   }
 
@@ -298,10 +286,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (!this._contextMenuService.isLeafMenu(this)) {
       return;
     }
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    this.cancelEvent(event);
     if (this.activeMenuItemIndex >= 0) {
       const menuItem = this.menuItems[this.activeMenuItemIndex];
       const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
@@ -332,5 +317,19 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (!menuItem.subMenu) {
       menuItem.triggerExecute(this.item, event);
     }
+  }
+
+  private cancelEvent(event): void {
+    if (!event) {
+      return;
+    }
+
+    const target: HTMLElement = event.target;
+    if (['INPUT', 'TEXTAREA', 'SELECT'].indexOf(target.tagName) > -1 || target.isContentEditable) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
   }
 }

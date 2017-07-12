@@ -1,3 +1,12 @@
+<a name="1.3.4"></a>
+# [1.3.4](https://github.com/isaacplmann/ngx-contextmenu) (2017-07-12)
+
+
+### Fixes
+
+* **hotkey:** Ignore hotkeys when focus is in an editable element
+
+
 <a name="1.3.3"></a>
 # [1.3.3](https://github.com/isaacplmann/ngx-contextmenu) (2017-06-30)
 
