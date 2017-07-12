@@ -330,7 +330,7 @@ The items in the context menu are completely controlled by the `contextMenuActio
 <context-menu #myContextMenu>
   <ng-template *ngFor="let action of contextMenuActions" contextMenuItem let-item
     [visible]="action.visible" [enabled]="action.enabled" [divider]="action.divider"
-    (execute)="action.execute($event.item)">
+    (execute)="action.click($event.item)">
     {{ action.html($event.item) }}
   </ng-template>
 </context-menu>
@@ -342,14 +342,14 @@ The items in the context menu are completely controlled by the `contextMenuActio
 })
 export class MyContextMenuClass {
   public items = [
-      { name: 'John', otherProperty: 'Foo' },
-      { name: 'Joe', otherProperty: 'Bar' }
-  };
+      { name: 'John', otherProperty: 'Foo', type: 'type1' },
+      { name: 'Joe', otherProperty: 'Bar', type: 'type2' }
+  ];
   @ViewChild(ContextMenuComponent) public contextMenu: ContextMenuComponent;
   public contextMenuActions = [
         {
           html: (item) => `Say hi!`,
-          click: (item) => alert('Hi, ' + item.name)
+          click: (item) => alert('Hi, ' + item.name),
           enabled: (item) => true,
           visible: (item) => item.type === 'type1',
         },
