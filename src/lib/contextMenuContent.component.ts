@@ -115,12 +115,12 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
         setTimeout(() => {
           const menuWidth = this.menuElement ? this.menuElement.nativeElement.clientWidth : 100;
           const menuHeight = this.menuElement ? this.menuElement.nativeElement.clientHeight : 100;
-          const bodyWidth = this.event.view.innerWidth;
-          const bodyHeight = this.event.view.innerHeight;
-          const distanceFromRight = bodyWidth - (this.event.clientX + menuWidth);
-          const distanceFromBottom = bodyHeight - (this.event.clientY + menuHeight);
+          const viewportWidth = this.event.view.innerWidth;
+          const viewportHeight = this.event.view.innerHeight;
+          const distanceFromRight = viewportWidth - (this.event.clientX + menuWidth);
+          const distanceFromBottom = viewportHeight - (this.event.clientY + menuHeight);
           let isMenuOutsideBody = false;
-          if (distanceFromRight < 0 && this.event.clientX > bodyWidth / 2) {
+          if (distanceFromRight < 0 && this.event.clientX > viewportWidth / 2) {
             this.mouseLocation.marginLeft = '-' + menuWidth + 'px';
             if (this.parentContextMenu) {
               this.mouseLocation.marginLeft = '-' + (menuWidth + this.parentContextMenu.menuElement.nativeElement.clientWidth) + 'px';
@@ -128,7 +128,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
             isMenuOutsideBody = true;
           }
           if (distanceFromBottom < 0) {
-            if (this.event.clientY > bodyHeight / 2) {
+            if (this.event.clientY > viewportHeight / 2) {
               this.mouseLocation.marginTop = '-' + menuHeight + 'px';
             } else {
               this.mouseLocation.top = this.event.clientY + distanceFromBottom + 'px';
