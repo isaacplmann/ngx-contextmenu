@@ -769,21 +769,25 @@ var ContextMenuContentComponent = (function () {
                 setTimeout(function () {
                     var menuWidth = _this.menuElement ? _this.menuElement.nativeElement.clientWidth : 100;
                     var menuHeight = _this.menuElement ? _this.menuElement.nativeElement.clientHeight : 100;
-                    var bodyWidth = _this.event.view.document.body.clientWidth;
-                    var bodyHeight = _this.event.view.document.body.clientHeight;
-                    var distanceFromRight = bodyWidth - (_this.event.clientX + menuWidth);
-                    var distanceFromBottom = bodyHeight - (_this.event.clientY + menuHeight);
+                    var viewportWidth = _this.event.view.innerWidth;
+                    var viewportHeight = _this.event.view.innerHeight;
+                    var distanceFromRight = viewportWidth - (_this.event.clientX + menuWidth);
+                    var distanceFromBottom = viewportHeight - (_this.event.clientY + menuHeight);
                     var isMenuOutsideBody = false;
-                    if (distanceFromRight < 0 && _this.event.clientX > bodyWidth / 2) {
+                    if (distanceFromRight < 0 && _this.event.clientX > viewportWidth / 2) {
                         _this.mouseLocation.marginLeft = '-' + menuWidth + 'px';
                         if (_this.parentContextMenu) {
                             _this.mouseLocation.marginLeft = '-' + (menuWidth + _this.parentContextMenu.menuElement.nativeElement.clientWidth) + 'px';
                         }
                         isMenuOutsideBody = true;
                     }
-                    if (distanceFromBottom < 0 && _this.event.clientY > bodyHeight / 2) {
-                        _this.mouseLocation.marginTop = '-' + menuHeight + 'px';
-                        isMenuOutsideBody = true;
+                    if (distanceFromBottom < 0) {
+                        if (_this.event.clientY > viewportHeight / 2) {
+                            _this.mouseLocation.marginTop = '-' + menuHeight + 'px';
+                        }
+                        else {
+                            _this.mouseLocation.top = _this.event.clientY + distanceFromBottom + 'px';
+                        }
                     }
                     if (isMenuOutsideBody) {
                         _this.showMenu();
