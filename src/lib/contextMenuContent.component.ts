@@ -133,6 +133,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
             } else {
               this.mouseLocation.top = this.event.clientY + distanceFromBottom + 'px';
             }
+          }
           if (isMenuOutsideBody) {
             this.showMenu();
           }

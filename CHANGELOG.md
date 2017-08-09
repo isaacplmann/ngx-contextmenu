@@ -1,3 +1,12 @@
+<a name="1.3.5"></a>
+# [1.3.5](https://github.com/isaacplmann/ngx-contextmenu) (2017-08-09)
+
+
+### Fixes
+
+* **position:** Position within viewport instead of body
+
+
 <a name="1.3.4"></a>
 # [1.3.4](https://github.com/isaacplmann/ngx-contextmenu) (2017-07-12)
 
