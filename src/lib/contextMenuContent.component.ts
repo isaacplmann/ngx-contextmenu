@@ -113,38 +113,40 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
           this.hideMenu();
         }
         setTimeout(() => {
-          const menuWidth = this.menuElement ? this.menuElement.nativeElement.clientWidth : 100;
-          const menuHeight = this.menuElement ? this.menuElement.nativeElement.clientHeight : 100;
-          const viewportWidth = this.event.view.innerWidth;
-          const viewportHeight = this.event.view.innerHeight;
-          const distanceFromRight = viewportWidth - (this.event.clientX + menuWidth);
-          const distanceFromBottom = viewportHeight - (this.event.clientY + menuHeight);
-          let isMenuOutsideBody = false;
-          if (distanceFromRight < 0 && this.event.clientX > viewportWidth / 2) {
-            this.mouseLocation.marginLeft = '-' + menuWidth + 'px';
-            if (this.parentContextMenu) {
-              this.mouseLocation.marginLeft = '-' + (menuWidth + this.parentContextMenu.menuElement.nativeElement.clientWidth) + 'px';
-            }
-            isMenuOutsideBody = true;
-          }
-          if (distanceFromBottom < 0) {
-            if (this.event.clientY > viewportHeight / 2) {
-              this.mouseLocation.marginTop = '-' + menuHeight + 'px';
-            } else {
-              this.mouseLocation.top = this.event.clientY + distanceFromBottom + 'px';
-            }
-          }
-          if (isMenuOutsideBody) {
+          // const menuWidth = this.menuElement ? this.menuElement.nativeElement.clientWidth : 100;
+          // const menuHeight = this.menuElement ? this.menuElement.nativeElement.clientHeight : 100;
+          // const viewportWidth = this.event.view.innerWidth;
+          // const viewportHeight = this.event.view.innerHeight;
+          // const distanceFromRight = viewportWidth - (this.event.clientX + menuWidth);
+          // const distanceFromBottom = viewportHeight - (this.event.clientY + menuHeight);
+          // let isMenuOutsideBody = false;
+          // if (distanceFromRight < 0 && this.event.clientX > viewportWidth / 2) {
+          //   this.mouseLocation.marginLeft = '-' + menuWidth + 'px';
+          //   if (this.parentContextMenu) {
+          //     this.mouseLocation.marginLeft = '-' + (menuWidth + this.parentContextMenu.menuElement.nativeElement.clientWidth) + 'px';
+          //   }
+          //   isMenuOutsideBody = true;
+          // }
+          // if (distanceFromBottom < 0) {
+          //   if (this.event.clientY > viewportHeight / 2) {
+          //     this.mouseLocation.marginTop = '-' + menuHeight + 'px';
+          //   } else {
+          //     this.mouseLocation.top = this.event.clientY + distanceFromBottom + 'px';
+          //   }
+          // }
+          // if (isMenuOutsideBody) {
             this.showMenu();
-          }
+          // }
         });
       });
     } else {
       this.hideMenu();
     }
     this.mouseLocation = {
-      left: this.event.clientX + 'px',
-      top: this.event.clientY + 'px',
+      left: '0px',
+      top: '0px',
+      // left: this.event.clientX + 'px',
+      // top: this.event.clientY + 'px',
     };
     this.menuItems.forEach(menuItem => {
       this.subscription.add(menuItem.execute.subscribe(() => this.hideMenu(undefined, true)));

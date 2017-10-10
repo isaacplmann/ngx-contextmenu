@@ -1,13 +1,15 @@
-import { ContextMenuContentComponent } from './contextMenuContent.component';
-import { InjectionService } from './injection/injection.service';
-import { ContextMenuInjectorService } from './contextMenuInjector.service';
-import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+
+import { ContextMenuAttachDirective } from './contextMenu.attach.directive';
 import { ContextMenuComponent } from './contextMenu.component';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
+import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
 import { ContextMenuService } from './contextMenu.service';
-import { ContextMenuAttachDirective } from './contextMenu.attach.directive';
+import { ContextMenuContentComponent } from './contextMenuContent.component';
+import { ContextMenuInjectorService } from './contextMenuInjector.service';
+import { InjectionService } from './injection/injection.service';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { ContextMenuAttachDirective } from './contextMenu.attach.directive';
   ],
   imports: [
     CommonModule,
+    OverlayModule,
   ],
   providers: [
     ContextMenuService,

@@ -19,6 +19,8 @@ import {
   QueryList,
   ViewChild
 } from '@angular/core';
+import { Overlay, PositionStrategy, ConnectedPositionStrategy } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs/Subscription';
 
 export interface ILinkConfig {
@@ -46,7 +48,7 @@ export class ContextMenuComponent implements OnDestroy {
   @ContentChildren(ContextMenuItemDirective) public menuItems: QueryList<ContextMenuItemDirective>;
   @ViewChild('menu') public menuElement: ElementRef;
   public visibleMenuItems: ContextMenuItemDirective[] = [];
-  public contextMenuContent: ContextMenuContentComponent;
+  public contextMenuContent: ComponentRef<ContextMenuContentComponent>;
 
   public links: ILinkConfig[] = [];
   public item: any;
@@ -60,6 +62,7 @@ export class ContextMenuComponent implements OnDestroy {
     @Optional()
     @Inject(CONTEXT_MENU_OPTIONS) private options: IContextMenuOptions,
     private contextMenuInjector: ContextMenuInjectorService,
+    private overlay: Overlay,
   ) {
     if (options) {
       this.autoFocus = options.autoFocus;
@@ -98,12 +101,30 @@ export class ContextMenuComponent implements OnDestroy {
     }
     this.event = event;
     this.item = item;
+    console.log(event, item);
     setTimeout(() => {
       this.setVisibleMenuItems();
-      this.contextMenuContent = this.contextMenuInjector.create({
-        menuItems: this.visibleMenuItems,
-        ...menuEvent,
-      });
+      const positionStrategy = this.overlay.position().connectedTo(
+        { nativeElement: { getBoundingClientRect: (): ClientRect => ({
+          bottom: event.clientY,
+          height: 0,
+          left: event.clientX,
+          right: event.clientX,
+          top: event.clientY,
+          width: 0,
+        }) } },
+        { originX: 'end', originY: 'bottom' },
+        { overlayX: 'end', overlayY: 'top' });
+      const overlayRef = this.overlay.create({ positionStrategy });
+      this.contextMenuContent = overlayRef.attach(new ComponentPortal(ContextMenuContentComponent));
+      console.log(this.contextMenuContent);
+      this.contextMenuContent.instance.event = event;
+      this.contextMenuContent.instance.item = item;
+      this.contextMenuContent.instance.menuItems = this.visibleMenuItems;
+      // this.contextMenuContent = this.contextMenuInjector.create({
+      //   menuItems: this.visibleMenuItems,
+      //   ...menuEvent,
+      // });
       this.open.next(menuEvent);
     });
   }
