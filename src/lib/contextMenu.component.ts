@@ -1,12 +1,6 @@
-import { ContextMenuContentComponent } from './contextMenuContent.component';
-import { ContextMenuItemDirective } from './contextMenu.item.directive';
-import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
-import { ContextMenuService, IContextMenuClickEvent } from './contextMenu.service';
-import { ContextMenuInjectorService } from './contextMenuInjector.service';
 import {
   ChangeDetectorRef,
   Component,
-  ComponentRef,
   ContentChildren,
   ElementRef,
   EventEmitter,
@@ -17,11 +11,15 @@ import {
   Optional,
   Output,
   QueryList,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
-import { Overlay, PositionStrategy, ConnectedPositionStrategy } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs/Subscription';
+
+import { ContextMenuItemDirective } from './contextMenu.item.directive';
+import { IContextMenuOptions } from './contextMenu.options';
+import { ContextMenuService, IContextMenuClickEvent } from './contextMenu.service';
+import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -36,8 +34,17 @@ export interface MouseLocation {
 }
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'context-menu',
-  template: ``,
+  styles: [`
+    .ngx-contextmenu.cdk-overlay-pane {
+      position: fixed;
+      pointer-events: auto;
+      box-sizing: border-box;
+      z-index: 1000;
+    }
+  `],
+  template: ` `,
 })
 export class ContextMenuComponent implements OnDestroy {
   @Input() public autoFocus = false;
@@ -48,21 +55,18 @@ export class ContextMenuComponent implements OnDestroy {
   @ContentChildren(ContextMenuItemDirective) public menuItems: QueryList<ContextMenuItemDirective>;
   @ViewChild('menu') public menuElement: ElementRef;
   public visibleMenuItems: ContextMenuItemDirective[] = [];
-  public contextMenuContent: ComponentRef<ContextMenuContentComponent>;
 
   public links: ILinkConfig[] = [];
   public item: any;
   public event: MouseEvent;
-  private mouseLocation: MouseLocation = { left: '0px', top: '0px' };
   private subscription: Subscription = new Subscription();
+
   constructor(
     private _contextMenuService: ContextMenuService,
     private changeDetector: ChangeDetectorRef,
     private elementRef: ElementRef,
     @Optional()
     @Inject(CONTEXT_MENU_OPTIONS) private options: IContextMenuOptions,
-    private contextMenuInjector: ContextMenuInjectorService,
-    private overlay: Overlay,
   ) {
     if (options) {
       this.autoFocus = options.autoFocus;
@@ -70,19 +74,18 @@ export class ContextMenuComponent implements OnDestroy {
     }
     this.subscription.add(_contextMenuService.show.subscribe(menuEvent => this.onMenuEvent(menuEvent)));
     this.subscription.add(_contextMenuService.triggerClose.subscribe(contextMenuContent => {
-      if (!contextMenuContent) {
-        this.contextMenuInjector.destroyAll();
-      } else {
-        this.destroySubMenus(contextMenuContent);
-        this.contextMenuInjector.destroy(contextMenuContent);
-      }
+      // if (!contextMenuContent) {
+      //   this.contextMenuInjector.destroyAll();
+      // } else {
+      //   this.destroySubMenus(contextMenuContent);
+      //   this.contextMenuInjector.destroy(contextMenuContent);
+      // }
     }));
     this.subscription.add(_contextMenuService.close.subscribe(event => this.close.emit(event)));
   }
 
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    this.contextMenuInjector.destroyAll();
   }
 
   public onMenuEvent(menuEvent: IContextMenuClickEvent): void {
@@ -90,57 +93,35 @@ export class ContextMenuComponent implements OnDestroy {
       return;
     }
     const { contextMenu, event, item } = menuEvent;
-    if (!menuEvent.parentContextMenu) {
-      this.contextMenuInjector.destroyAll();
-    } else {
-      this.destroySubMenus(menuEvent.parentContextMenu);
-    }
-
     if (contextMenu && contextMenu !== this) {
       return;
     }
     this.event = event;
     this.item = item;
-    console.log(event, item);
-    setTimeout(() => {
-      this.setVisibleMenuItems();
-      const positionStrategy = this.overlay.position().connectedTo(
-        { nativeElement: { getBoundingClientRect: (): ClientRect => ({
-          bottom: event.clientY,
-          height: 0,
-          left: event.clientX,
-          right: event.clientX,
-          top: event.clientY,
-          width: 0,
-        }) } },
-        { originX: 'end', originY: 'bottom' },
-        { overlayX: 'end', overlayY: 'top' });
-      const overlayRef = this.overlay.create({ positionStrategy });
-      this.contextMenuContent = overlayRef.attach(new ComponentPortal(ContextMenuContentComponent));
-      console.log(this.contextMenuContent);
-      this.contextMenuContent.instance.event = event;
-      this.contextMenuContent.instance.item = item;
-      this.contextMenuContent.instance.menuItems = this.visibleMenuItems;
-      // this.contextMenuContent = this.contextMenuInjector.create({
-      //   menuItems: this.visibleMenuItems,
-      //   ...menuEvent,
-      // });
-      this.open.next(menuEvent);
-    });
+    this.setVisibleMenuItems();
+    console.log(event.clientX, event.clientY, item, this.visibleMenuItems);
+    this._contextMenuService.openContextMenu({ event, item, menuItems: this.visibleMenuItems });
+    this.open.next(menuEvent);
   }
 
-  public destroySubMenus(parent: ContextMenuContentComponent): void {
-    const cmContents: ComponentRef<ContextMenuContentComponent>[] = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
-    cmContents.filter(content => content.instance.parentContextMenu === parent)
-      .forEach(comp => {
-        this.destroySubMenus(comp.instance);
-        this.contextMenuInjector.destroy(comp);
-      });
-  }
+  // public destroySubMenus(parent: ContextMenuContentComponent): void {
+  //   const cmContents: ComponentRef<ContextMenuContentComponent>[] = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
+  //   cmContents.filter(content => content.instance.parentContextMenu === parent)
+  //     .forEach(comp => {
+  //       this.destroySubMenus(comp.instance);
+  //       this.contextMenuInjector.destroy(comp);
+  //     });
+  // }
 
   @HostListener('window:keydown.Escape')
   public destroyLeafMenu(): void {
     this._contextMenuService.destroyLeafMenu();
+  }
+
+  @HostListener('document:click')
+  @HostListener('document:contextmenu')
+  public closeMenu(): void {
+    this._contextMenuService.closeAllContextMenus();
   }
 
   public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {

@@ -1,6 +1,3 @@
-import { ContextMenuItemDirective } from './contextMenu.item.directive';
-import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
-import { ContextMenuService } from './contextMenu.service';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -14,8 +11,12 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { OnDestroy, OnInit, QueryList } from '@angular/core';
+import { OnDestroy, OnInit, QueryList, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+
+import { ContextMenuItemDirective } from './contextMenu.item.directive';
+import { IContextMenuOptions } from './contextMenu.options';
+import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -46,8 +47,8 @@ export interface MouseLocation {
     }`,
   ],
   template:
-  `<div class="dropdown ngx-contextmenu" tabindex="0">
-      <ul #menu [ngStyle]="locationCss" class="dropdown-menu" tabindex="0">
+  `<div class="dropdown open ngx-contextmenu" tabindex="0">
+      <ul #menu class="dropdown-menu" tabindex="0">
         <li #li *ngFor="let menuItem of menuItems; let i = index" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
             [class.active]="i === activeMenuItemIndex && isMenuItemEnabled(menuItem)"
@@ -75,6 +76,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   @Input() public event: MouseEvent;
   @Input() public parentContextMenu: ContextMenuContentComponent;
   @Input() public activeMenuItemIndex = -1;
+  @Output() public execute: EventEmitter<{ event: Event, item: any, menuItem: ContextMenuItemDirective }> = new EventEmitter();
   @ViewChild('menu') public menuElement: ElementRef;
   @ViewChildren('li') public menuItemElements: QueryList<ElementRef>;
 
@@ -85,7 +87,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   private mouseLocation: MouseLocation = { left: '0px', top: '0px' };
   private subscription: Subscription = new Subscription();
   constructor(
-    private _contextMenuService: ContextMenuService,
     private changeDetector: ChangeDetectorRef,
     private elementRef: ElementRef,
     @Optional()
@@ -99,57 +100,11 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   }
 
   ngOnInit(): void {
-    this.isOpening = true;
     if (this.activeMenuItemIndex === undefined) {
       this.activeMenuItemIndex = -1;
     }
-    setTimeout(() => this.isOpening = false, 400);
-    if (this.menuItems) {
-      // Declarative context menu
-      setTimeout(() => {
-        if (this.menuItems.length > 0) {
-          this.showMenu();
-        } else {
-          this.hideMenu();
-        }
-        setTimeout(() => {
-          // const menuWidth = this.menuElement ? this.menuElement.nativeElement.clientWidth : 100;
-          // const menuHeight = this.menuElement ? this.menuElement.nativeElement.clientHeight : 100;
-          // const viewportWidth = this.event.view.innerWidth;
-          // const viewportHeight = this.event.view.innerHeight;
-          // const distanceFromRight = viewportWidth - (this.event.clientX + menuWidth);
-          // const distanceFromBottom = viewportHeight - (this.event.clientY + menuHeight);
-          // let isMenuOutsideBody = false;
-          // if (distanceFromRight < 0 && this.event.clientX > viewportWidth / 2) {
-          //   this.mouseLocation.marginLeft = '-' + menuWidth + 'px';
-          //   if (this.parentContextMenu) {
-          //     this.mouseLocation.marginLeft = '-' + (menuWidth + this.parentContextMenu.menuElement.nativeElement.clientWidth) + 'px';
-          //   }
-          //   isMenuOutsideBody = true;
-          // }
-          // if (distanceFromBottom < 0) {
-          //   if (this.event.clientY > viewportHeight / 2) {
-          //     this.mouseLocation.marginTop = '-' + menuHeight + 'px';
-          //   } else {
-          //     this.mouseLocation.top = this.event.clientY + distanceFromBottom + 'px';
-          //   }
-          // }
-          // if (isMenuOutsideBody) {
-            this.showMenu();
-          // }
-        });
-      });
-    } else {
-      this.hideMenu();
-    }
-    this.mouseLocation = {
-      left: '0px',
-      top: '0px',
-      // left: this.event.clientX + 'px',
-      // top: this.event.clientY + 'px',
-    };
     this.menuItems.forEach(menuItem => {
-      this.subscription.add(menuItem.execute.subscribe(() => this.hideMenu(undefined, true)));
+      this.subscription.add(menuItem.execute.subscribe(event => this.execute.emit({ ...event, menuItem })));
     });
   }
 
@@ -171,17 +126,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 
   stopEvent($event: MouseEvent) {
     $event.stopPropagation();
-  }
-
-  get locationCss(): any {
-    return {
-      'position': 'fixed',
-      'display': this.isShown ? 'block' : 'none',
-      left: this.mouseLocation.left,
-      marginLeft: this.mouseLocation.marginLeft,
-      marginTop: this.mouseLocation.marginTop,
-      top: this.mouseLocation.top,
-    };
   }
 
   public isMenuItemEnabled(menuItem: ContextMenuItemDirective): boolean {
@@ -208,111 +152,103 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     this.changeDetector.markForCheck();
   }
 
-  @HostListener('window:click')
-  @HostListener('window:contextmenu')
-  public clickedOutside(): void {
-    if (!this.isOpening) {
-      this.hideMenu();
-    }
-  }
+  // @HostListener('window:scroll')
+  // @HostListener('window:resize')
+  // public hideMenu(event?: KeyboardEvent, hideAll?: boolean): void {
+  //   if (this.isShown) {
+  //     this._contextMenuService.close.next(event);
+  //   }
+  //   if (hideAll) {
+  //     this._contextMenuService.triggerClose.next(undefined);
+  //   }
+  //   this.isShown = false;
+  //   this.changeDetector.markForCheck();
+  // }
 
-  @HostListener('window:scroll')
-  @HostListener('window:resize')
-  public hideMenu(event?: KeyboardEvent, hideAll?: boolean): void {
-    if (this.isShown) {
-      this._contextMenuService.close.next(event);
-    }
-    if (hideAll) {
-      this._contextMenuService.triggerClose.next(undefined);
-    }
-    this.isShown = false;
-    this.changeDetector.markForCheck();
-  }
+  // @HostListener('keydown.ArrowDown', ['$event'])
+  // public nextItem(event?: KeyboardEvent): void {
+  //   if (!this._contextMenuService.isLeafMenu(this)) {
+  //     return;
+  //   }
+  //   this.cancelEvent(event);
+  //   if (this.activeMenuItemIndex === this.menuItems.length - 1) {
+  //     this.activeMenuItemIndex = 0;
+  //   } else {
+  //     this.activeMenuItemIndex++;
+  //   }
+  //   const menuItem = this.menuItems[this.activeMenuItemIndex];
+  //   if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
+  //     this.nextItem();
+  //   }
+  // }
 
-  @HostListener('keydown.ArrowDown', ['$event'])
-  public nextItem(event?: KeyboardEvent): void {
-    if (!this._contextMenuService.isLeafMenu(this)) {
-      return;
-    }
-    this.cancelEvent(event);
-    if (this.activeMenuItemIndex === this.menuItems.length - 1) {
-      this.activeMenuItemIndex = 0;
-    } else {
-      this.activeMenuItemIndex++;
-    }
-    const menuItem = this.menuItems[this.activeMenuItemIndex];
-    if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
-      this.nextItem();
-    }
-  }
+  // @HostListener('keydown.ArrowUp', ['$event'])
+  // public prevItem(event?: KeyboardEvent): void {
+  //   if (!this._contextMenuService.isLeafMenu(this)) {
+  //     return;
+  //   }
+  //   this.cancelEvent(event);
+  //   if (this.activeMenuItemIndex <= 0) {
+  //     this.activeMenuItemIndex = this.menuItems.length - 1;
+  //   } else {
+  //     this.activeMenuItemIndex--;
+  //   }
+  //   const menuItem = this.menuItems[this.activeMenuItemIndex];
+  //   if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
+  //     this.prevItem();
+  //   }
+  // }
 
-  @HostListener('keydown.ArrowUp', ['$event'])
-  public prevItem(event?: KeyboardEvent): void {
-    if (!this._contextMenuService.isLeafMenu(this)) {
-      return;
-    }
-    this.cancelEvent(event);
-    if (this.activeMenuItemIndex <= 0) {
-      this.activeMenuItemIndex = this.menuItems.length - 1;
-    } else {
-      this.activeMenuItemIndex--;
-    }
-    const menuItem = this.menuItems[this.activeMenuItemIndex];
-    if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
-      this.prevItem();
-    }
-  }
+  // @HostListener('keydown.ArrowRight', ['$event'])
+  // public keyboardOpenSubMenu(event?: KeyboardEvent): void {
+  //   if (!this._contextMenuService.isLeafMenu(this)) {
+  //     return;
+  //   }
+  //   this.cancelEvent(event);
+  //   if (this.activeMenuItemIndex >= 0) {
+  //     const menuItem = this.menuItems[this.activeMenuItemIndex];
+  //     const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
+  //     this.openSubMenu(menuItem, <any>event, menuItemElement, 0);
+  //   }
+  // }
 
-  @HostListener('keydown.ArrowRight', ['$event'])
-  public keyboardOpenSubMenu(event?: KeyboardEvent): void {
-    if (!this._contextMenuService.isLeafMenu(this)) {
-      return;
-    }
-    this.cancelEvent(event);
-    if (this.activeMenuItemIndex >= 0) {
-      const menuItem = this.menuItems[this.activeMenuItemIndex];
-      const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
-      this.openSubMenu(menuItem, <any>event, menuItemElement, 0);
-    }
-  }
+  // @HostListener('keydown.ArrowLeft', ['$event'])
+  // public destroyLeafSubMenu(event: KeyboardEvent): void {
+  //   if (!this._contextMenuService.isLeafMenu(this)) {
+  //     return;
+  //   }
+  //   this.cancelEvent(event);
+  //   this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
+  // }
 
-  @HostListener('keydown.ArrowLeft', ['$event'])
-  public destroyLeafSubMenu(event: KeyboardEvent): void {
-    if (!this._contextMenuService.isLeafMenu(this)) {
-      return;
-    }
-    this.cancelEvent(event);
-    this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
-  }
-
-  @HostListener('keydown.Enter', ['$event'])
-  @HostListener('keydown.Space', ['$event'])
-  public keyboardMenuItemSelect(event?: KeyboardEvent): void {
-    if (!this._contextMenuService.isLeafMenu(this)) {
-      return;
-    }
-    this.cancelEvent(event);
-    if (this.activeMenuItemIndex >= 0) {
-      const menuItem = this.menuItems[this.activeMenuItemIndex];
-      const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
-      this.onMenuItemSelect(menuItem, <any>event, menuItemElement, 0);
-    }
-  }
+  // @HostListener('keydown.Enter', ['$event'])
+  // @HostListener('keydown.Space', ['$event'])
+  // public keyboardMenuItemSelect(event?: KeyboardEvent): void {
+  //   if (!this._contextMenuService.isLeafMenu(this)) {
+  //     return;
+  //   }
+  //   this.cancelEvent(event);
+  //   if (this.activeMenuItemIndex >= 0) {
+  //     const menuItem = this.menuItems[this.activeMenuItemIndex];
+  //     const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
+  //     this.onMenuItemSelect(menuItem, <any>event, menuItemElement, 0);
+  //   }
+  // }
 
   public openSubMenu(menuItem: ContextMenuItemDirective, event: MouseEvent, target?: HTMLElement, activeMenuItemIndex?: number): void {
-    this._contextMenuService.triggerClose.next(this);
+    // this._contextMenuService.triggerClose.next(this);
     if (!menuItem.subMenu) {
       return;
     }
     const rect = (target || <HTMLElement>event.target).getBoundingClientRect();
     const newEvent = Object.assign({}, event, { clientX: rect.right, clientY: rect.top, view: event.view });
-    this._contextMenuService.show.next({
-      contextMenu: menuItem.subMenu,
-      item: this.item,
-      event: newEvent,
-      parentContextMenu: this,
-      activeMenuItemIndex,
-    });
+    // this._contextMenuService.show.next({
+    //   contextMenu: menuItem.subMenu,
+    //   item: this.item,
+    //   event: newEvent,
+    //   parentContextMenu: this,
+    //   activeMenuItemIndex,
+    // });
   }
 
   public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent, target?: HTMLElement, activeMenuItemIndex?: number): void {

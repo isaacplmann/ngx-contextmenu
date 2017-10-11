@@ -5,11 +5,10 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ContextMenuAttachDirective } from './contextMenu.attach.directive';
 import { ContextMenuComponent } from './contextMenu.component';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
-import { CONTEXT_MENU_OPTIONS, IContextMenuOptions } from './contextMenu.options';
+import { IContextMenuOptions } from './contextMenu.options';
 import { ContextMenuService } from './contextMenu.service';
+import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
 import { ContextMenuContentComponent } from './contextMenuContent.component';
-import { ContextMenuInjectorService } from './contextMenuInjector.service';
-import { InjectionService } from './injection/injection.service';
 
 @NgModule({
   declarations: [
@@ -32,8 +31,6 @@ import { InjectionService } from './injection/injection.service';
   ],
   providers: [
     ContextMenuService,
-    ContextMenuInjectorService,
-    InjectionService,
   ],
 })
 export class ContextMenuModule {

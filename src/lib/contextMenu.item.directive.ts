@@ -12,7 +12,7 @@ export class ContextMenuItemDirective {
   @Input() public enabled: boolean | ((item: any) => boolean) = true;
   @Input() public passive = false;
   @Input() public visible: boolean | ((item: any) => boolean) = true;
-  @Output() public execute: EventEmitter<{ event: Event, item: any }> = new EventEmitter<{ event: Event, item: any }>();
+  @Output() public execute: EventEmitter<{ event: Event, item: any }> = new EventEmitter();
 
   constructor(public template: TemplateRef<{ item: any }>, public elementRef: ElementRef) { }
 

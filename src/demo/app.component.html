@@ -24,22 +24,35 @@
             Bye, someone
           </ng-template>
         </context-menu>
-        <h3>Enabled and Visible</h3>
-        <ul>
-          <li *ngFor="let item of items" [contextMenu]="enableAndVisible" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
-        </ul>
-        <context-menu #enableAndVisible (close)="showMessage('closed', $event)">
-          <ng-template contextMenuItem let-item [visible]="true" [enabled]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
-            Say hi, {{item?.name}}! With access to the outside context: {{ outsideValue }}
-          </ng-template>
-          <ng-template contextMenuItem [visible]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
-            This will never show...
-          </ng-template>
-          <ng-template contextMenuItem [divider]="true"></ng-template>
-          <ng-template contextMenuItem let-item [visible]="true" [enabled]="true" (execute)="showMessage($event.item.name + ' said: ' + $event.item.otherProperty)">
-            Bye, {{item?.name}}
-          </ng-template>
-        </context-menu>
+        <div style="height: 100px; border: solid 1px #ccc; overflow: auto;" cdkScrollable>
+          <h3>Enabled and Visible</h3>
+          <ul>
+            <li *ngFor="let item of items" [contextMenu]="enableAndVisible" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+          </ul>
+          <context-menu #enableAndVisible (close)="showMessage('closed', $event)">
+            <ng-template contextMenuItem let-item [visible]="true" [enabled]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
+              Say hi, {{item?.name}}! With access to the outside context: {{ outsideValue }}
+            </ng-template>
+            <ng-template contextMenuItem [visible]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
+              This will never show...
+            </ng-template>
+            <ng-template contextMenuItem [divider]="true"></ng-template>
+            <ng-template contextMenuItem let-item [visible]="true" [enabled]="true" (execute)="showMessage($event.item.name + ' said: ' + $event.item.otherProperty)">
+              Bye, {{item?.name}}
+            </ng-template>
+          </context-menu>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </div>
         <h3>Enabled and Visible as Functions</h3>
         <ul>
           <li *ngFor="let item of items" [contextMenu]="withFunctions" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
@@ -107,7 +120,8 @@
             Simple
           </ng-template>
           <ng-template contextMenuItem passive="true">
-            Input something: <input type="text">
+            Input something:
+            <input type="text">
           </ng-template>
         </context-menu>
       </div>
@@ -119,25 +133,25 @@
     <div class="componentContainer" *ngFor="let item of items" style="pointer-events: all" [ngStyle]="item.layout" [contextMenu]="componentMenu"
       [contextMenuSubject]="item">
       {{ item.name }}
+    </div>
+    <context-menu #componentMenu>
+      <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
+        Say hi!
+      </ng-template>
+      <ng-template contextMenuItem let-item (execute)="showMessage($event.event)">
+        Bye, {{item?.name}}
+      </ng-template>
+    </context-menu>
   </div>
-  <context-menu #componentMenu>
-    <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
-      Say hi!
-    </ng-template>
-    <ng-template contextMenuItem let-item (execute)="showMessage($event.event)">
-      Bye, {{item?.name}}
-    </ng-template>
-  </context-menu>
-</div>
 </div>
 <ul>
   <li *ngFor="let item of items" [contextMenu]="itemContextMenu" [contextMenuSubject]="item">
     {{item.name}}
     <context-menu #itemContextMenu>
-      <ng-template *ngFor="let action of item.actions" contextMenuItem let-item [visible]="action.visible" [enabled]="action.enabled" [divider]="action.divider"
-        (execute)="action.execute($event.item)">
+      <ng-template *ngFor="let action of item.actions" contextMenuItem let-item [visible]="action.visible" [enabled]="action.enabled"
+        [divider]="action.divider" (execute)="action.execute($event.item)">
         {{ action.html(item) }}
-        </ng-template>
+      </ng-template>
     </context-menu>
   </li>
 </ul>

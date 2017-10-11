@@ -1,11 +1,13 @@
-import { ChildTwoComponent } from './child2.component';
-import { ChildOneComponent } from './child1.component';
-import { RouterModule } from '@angular/router';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+
 import { ContextMenuModule } from '../lib';
 import { AppComponent } from './app.component';
+import { ChildOneComponent } from './child1.component';
+import { ChildTwoComponent } from './child2.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -27,6 +29,7 @@ import { AppComponent } from './app.component';
         component: ChildOneComponent,
       }
     ]),
+    ScrollDispatchModule,
   ],
   providers: [/* TODO: Providers go here */],
 })
