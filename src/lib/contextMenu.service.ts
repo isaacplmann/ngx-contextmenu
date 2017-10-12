@@ -1,7 +1,8 @@
-import { Overlay, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { Overlay, ScrollStrategy, ScrollStrategyOptions, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef, Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operator/takeUntil';
 
 import { ContextMenuComponent } from './contextMenu.component';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
@@ -27,7 +28,7 @@ export class ContextMenuService {
   public close: Subject<Event> = new Subject();
 
   private contextMenuContent: ComponentRef<ContextMenuContentComponent>;
-  private _overlayRef; OverlayRef;
+  private overlays: OverlayRef[] = [];
   private fakeElement: any = {
     getBoundingClientRect: (): ClientRect => ({
       bottom: 0,
@@ -42,77 +43,138 @@ export class ContextMenuService {
   constructor(
     private overlay: Overlay,
     private scrollStrategy: ScrollStrategyOptions,
-  ) {}
+  ) { }
 
   public openContextMenu(context: IContextMenuContext) {
-    const { event, item, menuItems } = context;
+    const { event, parentContextMenu } = context;
 
-    this.fakeElement.getBoundingClientRect = (): ClientRect => ({
-      bottom: event.clientY,
-      height: 0,
-      left: event.clientX,
-      right: event.clientX,
-      top: event.clientY,
-      width: 0,
-    });
-    if (!this._overlayRef) {
+    if (!parentContextMenu) {
+      this.fakeElement.getBoundingClientRect = (): ClientRect => ({
+        bottom: event.clientY,
+        height: 0,
+        left: event.clientX,
+        right: event.clientX,
+        top: event.clientY,
+        width: 0,
+      });
+      if (!this.overlays[0]) {
+        const positionStrategy = this.overlay.position().connectedTo(
+          { nativeElement: this.fakeElement },
+          { originX: 'end', originY: 'bottom' },
+          { overlayX: 'start', overlayY: 'top' })
+          .withFallbackPosition(
+          { originX: 'start', originY: 'bottom' },
+          { overlayX: 'end', overlayY: 'top' })
+          .withFallbackPosition(
+          { originX: 'end', originY: 'top' },
+          { overlayX: 'start', overlayY: 'bottom' })
+          .withFallbackPosition(
+          { originX: 'start', originY: 'top' },
+          { overlayX: 'end', overlayY: 'bottom' })
+          ;
+        this.overlays = [this.overlay.create({
+          positionStrategy,
+          panelClass: 'ngx-contextmenu',
+          scrollStrategy: this.scrollStrategy.close(),
+        })];
+      }
+      this.closeAllContextMenus();
+      this.attachContextMenu(this.overlays[0], context);
+    } else {
       const positionStrategy = this.overlay.position().connectedTo(
-        { nativeElement: this.fakeElement },
-        { originX: 'end', originY: 'bottom' },
-        { overlayX: 'end', overlayY: 'top' });
-      this._overlayRef = this.overlay.create({
+        { nativeElement: event.target },
+        { originX: 'end', originY: 'top' },
+        { overlayX: 'start', overlayY: 'top' })
+        .withFallbackPosition(
+        { originX: 'start', originY: 'top' },
+        { overlayX: 'end', overlayY: 'top' })
+        ;
+      const newOverlay = this.overlay.create({
         positionStrategy,
         panelClass: 'ngx-contextmenu',
         scrollStrategy: this.scrollStrategy.close(),
       });
+      this.destroySubMenus(parentContextMenu);
+      this.overlays = this.overlays.concat(newOverlay);
+      this.attachContextMenu(newOverlay, context);
     }
 
-    // if (!menuEvent.parentContextMenu) {
-    //   this.contextMenuInjector.destroyAll();
-    // } else {
-    //   this.destroySubMenus(menuEvent.parentContextMenu);
-    // }
-    this._overlayRef.detach();
-    this.contextMenuContent = this._overlayRef.attach(new ComponentPortal(ContextMenuContentComponent));
-    console.log(this.contextMenuContent);
-    this.contextMenuContent.instance.event = event;
-    this.contextMenuContent.instance.item = item;
-    this.contextMenuContent.instance.menuItems = menuItems;
-    this.contextMenuContent.instance.execute.subscribe(() => this._overlayRef.detach());
+  }
+
+  public attachContextMenu(overlay: OverlayRef, context: IContextMenuContext): void {
+    const { event, item, menuItems } = context;
+
+    const contextMenuContent = overlay.attach(new ComponentPortal(ContextMenuContentComponent));
+    contextMenuContent.instance.event = event;
+    contextMenuContent.instance.item = item;
+    contextMenuContent.instance.menuItems = menuItems;
+    contextMenuContent.instance.overlay = overlay;
+    const detachments = contextMenuContent.instance.overlay.detachments;
+    takeUntil.call(contextMenuContent.instance.execute.asObservable(), detachments)
+      .subscribe(() => this.closeAllContextMenus());
+    takeUntil.call(contextMenuContent.instance.closeSubMenus.asObservable(), detachments)
+      .subscribe(() => this.destroySubMenus(contextMenuContent.instance));
+    takeUntil.call(contextMenuContent.instance.openSubMenu.asObservable(), detachments)
+      .subscribe(subMenuEvent => this.show.next(subMenuEvent));
   }
 
   public closeAllContextMenus(): void {
-    if (this._overlayRef) {
-      this._overlayRef.detach();
+    if (this.overlays) {
+      this.overlays.forEach((overlay, index) => {
+        overlay.detach();
+        if (index > 0) {
+          overlay.dispose();
+        }
+      });
     }
   }
 
-  public destroyLeafMenu({exceptRootMenu}: {exceptRootMenu?: boolean} = {}): void {
+  public getLastAttachedOverlay(): OverlayRef {
+    let overlay: OverlayRef = this.overlays[this.overlays.length - 1];
+    while (this.overlays.length > 1 && !overlay || !overlay.hasAttached()) {
+      console.log(this.overlays.length);
+      overlay.detach();
+      this.overlays = this.overlays.slice(0, -1);
+      overlay = this.overlays[this.overlays.length - 1];
+    }
+    console.log(this.overlays.length);
+    return overlay;
+  }
+
+  public destroyLeafMenu({ exceptRootMenu }: { exceptRootMenu?: boolean } = {}): void {
     if (this.isDestroyingLeafMenu) {
       return;
     }
     this.isDestroyingLeafMenu = true;
-    // setTimeout(() => {
-    //   const cmContents: ComponentRef<ContextMenuContentComponent>[] = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
-    //   if (cmContents && cmContents.length > 1) {
-    //     cmContents[cmContents.length - 2].instance.focus();
-    //   }
-    //   if (cmContents && cmContents.length > (exceptRootMenu ? 1 : 0)) {
-    //     this.contextMenuInjector.destroy(cmContents[cmContents.length - 1]);
-    //   }
-    //   this.isDestroyingLeafMenu = false;
-    // });
+
+    const overlay = this.getLastAttachedOverlay();
+    if (this.overlays.length > (exceptRootMenu ? 1 : 0)) {
+      overlay.detach();
+    }
+
+    this.isDestroyingLeafMenu = false;
   }
 
-  public getLeafMenu(): ContextMenuContentComponent {
-    // const cmContents: ComponentRef<ContextMenuContentComponent>[] = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
-    // if (cmContents && cmContents.length > 0) {
-    //   return cmContents[cmContents.length - 1].instance;
-    // }
-    return undefined;
+  public destroySubMenus(contextMenu: ContextMenuContentComponent): void {
+    console.log(contextMenu);
+    const overlay = contextMenu.overlay;
+    const index = this.overlays.indexOf(overlay);
+    console.log(index);
+    this.overlays.slice(index + 1).forEach(subMenuOverlay => {
+      subMenuOverlay.detach();
+      subMenuOverlay.dispose();
+    });
   }
 
-  public isLeafMenu(cmContent: ContextMenuContentComponent): boolean {
-    return this.getLeafMenu() === cmContent;
-  }
+  // public getLeafMenu(): ContextMenuContentComponent {
+  //   // const cmContents: ComponentRef<ContextMenuContentComponent>[] = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
+  //   // if (cmContents && cmContents.length > 0) {
+  //   //   return cmContents[cmContents.length - 1].instance;
+  //   // }
+  //   return undefined;
+  // }
+
+  // public isLeafMenu(cmContent: ContextMenuContentComponent): boolean {
+  //   return this.getLeafMenu() === cmContent;
+  // }
 }

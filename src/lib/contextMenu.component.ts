@@ -1,18 +1,18 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  ContentChildren,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Inject,
-  Input,
-  OnDestroy,
-  Optional,
-  Output,
-  QueryList,
-  ViewChild,
-  ViewEncapsulation,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Inject,
+    Input,
+    OnDestroy,
+    Optional,
+    Output,
+    QueryList,
+    ViewChild,
+    ViewEncapsulation,
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -99,8 +99,7 @@ export class ContextMenuComponent implements OnDestroy {
     this.event = event;
     this.item = item;
     this.setVisibleMenuItems();
-    console.log(event.clientX, event.clientY, item, this.visibleMenuItems);
-    this._contextMenuService.openContextMenu({ event, item, menuItems: this.visibleMenuItems });
+    this._contextMenuService.openContextMenu({ ...menuEvent, menuItems: this.visibleMenuItems });
     this.open.next(menuEvent);
   }
 
@@ -120,6 +119,7 @@ export class ContextMenuComponent implements OnDestroy {
 
   @HostListener('document:click')
   @HostListener('document:contextmenu')
+  // @HostListener('window:resize')
   public closeMenu(): void {
     this._contextMenuService.closeAllContextMenus();
   }
