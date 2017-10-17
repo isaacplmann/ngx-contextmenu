@@ -1,7 +1,8 @@
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
+
+export const CONTEXT_MENU_OPTIONS = new InjectionToken<IContextMenuOptions>('CONTEXT_MENU_OPTIONS');
 
 export interface IContextMenuOptions {
   useBootstrap4?: boolean;
   autoFocus?: boolean;
 }
-export const CONTEXT_MENU_OPTIONS = new OpaqueToken('CONTEXT_MENU_OPTIONS');
