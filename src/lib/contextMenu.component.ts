@@ -73,14 +73,6 @@ export class ContextMenuComponent implements OnDestroy {
       this.useBootstrap4 = options.useBootstrap4;
     }
     this.subscription.add(_contextMenuService.show.subscribe(menuEvent => this.onMenuEvent(menuEvent)));
-    this.subscription.add(_contextMenuService.triggerClose.subscribe(contextMenuContent => {
-      // if (!contextMenuContent) {
-      //   this.contextMenuInjector.destroyAll();
-      // } else {
-      //   this.destroySubMenus(contextMenuContent);
-      //   this.contextMenuInjector.destroy(contextMenuContent);
-      // }
-    }));
     this.subscription.add(_contextMenuService.close.subscribe(event => this.close.emit(event)));
   }
 
@@ -101,27 +93,6 @@ export class ContextMenuComponent implements OnDestroy {
     this.setVisibleMenuItems();
     this._contextMenuService.openContextMenu({ ...menuEvent, menuItems: this.visibleMenuItems });
     this.open.next(menuEvent);
-  }
-
-  // public destroySubMenus(parent: ContextMenuContentComponent): void {
-  //   const cmContents: ComponentRef<ContextMenuContentComponent>[] = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
-  //   cmContents.filter(content => content.instance.parentContextMenu === parent)
-  //     .forEach(comp => {
-  //       this.destroySubMenus(comp.instance);
-  //       this.contextMenuInjector.destroy(comp);
-  //     });
-  // }
-
-  @HostListener('window:keydown.Escape')
-  public destroyLeafMenu(): void {
-    this._contextMenuService.destroyLeafMenu();
-  }
-
-  @HostListener('document:click')
-  @HostListener('document:contextmenu')
-  // @HostListener('window:resize')
-  public closeMenu(): void {
-    this._contextMenuService.closeAllContextMenus();
   }
 
   public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {

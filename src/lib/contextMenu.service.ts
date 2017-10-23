@@ -1,22 +1,29 @@
-import { Overlay, ScrollStrategy, ScrollStrategyOptions, OverlayRef } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef, Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operator/takeUntil';
+import { Subscription } from 'rxjs/Subscription';
 
 import { ContextMenuComponent } from './contextMenu.component';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { ContextMenuContentComponent } from './contextMenuContent.component';
 
 export interface IContextMenuClickEvent {
+  anchorElement?: Element;
   contextMenu?: ContextMenuComponent;
-  event: MouseEvent;
+  event?: MouseEvent;
   parentContextMenu?: ContextMenuContentComponent;
   item: any;
   activeMenuItemIndex?: number;
 }
 export interface IContextMenuContext extends IContextMenuClickEvent {
   menuItems: ContextMenuItemDirective[];
+}
+export interface CloseLeafMenuEvent {
+  exceptRootMenu?: boolean;
+}
+export interface OverlayRefWithContextMenu extends OverlayRef {
+  contextMenu?: ContextMenuContentComponent;
 }
 
 @Injectable()
@@ -46,7 +53,7 @@ export class ContextMenuService {
   ) { }
 
   public openContextMenu(context: IContextMenuContext) {
-    const { event, parentContextMenu } = context;
+    const { anchorElement, event, parentContextMenu } = context;
 
     if (!parentContextMenu) {
       this.fakeElement.getBoundingClientRect = (): ClientRect => ({
@@ -82,7 +89,7 @@ export class ContextMenuService {
       this.attachContextMenu(this.overlays[0], context);
     } else {
       const positionStrategy = this.overlay.position().connectedTo(
-        { nativeElement: event.target },
+        { nativeElement: event ? event.target : anchorElement },
         { originX: 'end', originY: 'top' },
         { overlayX: 'start', overlayY: 'top' })
         .withFallbackPosition(
@@ -98,24 +105,40 @@ export class ContextMenuService {
       this.overlays = this.overlays.concat(newOverlay);
       this.attachContextMenu(newOverlay, context);
     }
-
   }
 
   public attachContextMenu(overlay: OverlayRef, context: IContextMenuContext): void {
     const { event, item, menuItems } = context;
 
-    const contextMenuContent = overlay.attach(new ComponentPortal(ContextMenuContentComponent));
+    const contextMenuContent: ComponentRef<ContextMenuContentComponent> = overlay.attach(new ComponentPortal(ContextMenuContentComponent));
     contextMenuContent.instance.event = event;
     contextMenuContent.instance.item = item;
     contextMenuContent.instance.menuItems = menuItems;
     contextMenuContent.instance.overlay = overlay;
-    const detachments = contextMenuContent.instance.overlay.detachments;
-    takeUntil.call(contextMenuContent.instance.execute.asObservable(), detachments)
-      .subscribe(() => this.closeAllContextMenus());
-    takeUntil.call(contextMenuContent.instance.closeSubMenus.asObservable(), detachments)
-      .subscribe(() => this.destroySubMenus(contextMenuContent.instance));
-    takeUntil.call(contextMenuContent.instance.openSubMenu.asObservable(), detachments)
-      .subscribe(subMenuEvent => this.show.next(subMenuEvent));
+    contextMenuContent.instance.isLeaf = true;
+    (<OverlayRefWithContextMenu>overlay).contextMenu = contextMenuContent.instance;
+
+    const subscriptions: Subscription = new Subscription();
+    subscriptions.add(contextMenuContent.instance.execute.asObservable()
+      .subscribe(() => this.closeAllContextMenus()));
+    subscriptions.add(contextMenuContent.instance.closeAllMenus.asObservable()
+      .subscribe(() => this.closeAllContextMenus()));
+    subscriptions.add(contextMenuContent.instance.closeLeafMenu.asObservable()
+      .subscribe(closeLeafMenuEvent => this.destroyLeafMenu(closeLeafMenuEvent)));
+    subscriptions.add(contextMenuContent.instance.openSubMenu.asObservable()
+      .subscribe((subMenuEvent: IContextMenuContext) => {
+        this.destroySubMenus(contextMenuContent.instance);
+        if (!subMenuEvent.contextMenu) {
+          contextMenuContent.instance.isLeaf = true;
+          return;
+        }
+        contextMenuContent.instance.isLeaf = false;
+        this.show.next(subMenuEvent);
+      }));
+    contextMenuContent.onDestroy(() => {
+      menuItems.forEach(menuItem => menuItem.isActive = false);
+      subscriptions.unsubscribe();
+    });
   }
 
   public closeAllContextMenus(): void {
@@ -126,18 +149,17 @@ export class ContextMenuService {
           overlay.dispose();
         }
       });
+      // this.overlays = this.overlays.slice(0, 1);
     }
   }
 
-  public getLastAttachedOverlay(): OverlayRef {
+  public getLastAttachedOverlay(): OverlayRefWithContextMenu {
     let overlay: OverlayRef = this.overlays[this.overlays.length - 1];
-    while (this.overlays.length > 1 && !overlay || !overlay.hasAttached()) {
-      console.log(this.overlays.length);
+    while (this.overlays.length > 1 && (!overlay || !overlay.hasAttached())) {
       overlay.detach();
       this.overlays = this.overlays.slice(0, -1);
       overlay = this.overlays[this.overlays.length - 1];
     }
-    console.log(this.overlays.length);
     return overlay;
   }
 
@@ -147,34 +169,29 @@ export class ContextMenuService {
     }
     this.isDestroyingLeafMenu = true;
 
-    const overlay = this.getLastAttachedOverlay();
-    if (this.overlays.length > (exceptRootMenu ? 1 : 0)) {
-      overlay.detach();
-    }
+    setTimeout(() => {
+      const overlay = this.getLastAttachedOverlay();
+      if (this.overlays.length > (exceptRootMenu ? 1 : 0)) {
+        overlay.detach();
+      }
 
-    this.isDestroyingLeafMenu = false;
+      this.getLastAttachedOverlay().contextMenu.isLeaf = true;
+
+      this.isDestroyingLeafMenu = false;
+    });
   }
 
   public destroySubMenus(contextMenu: ContextMenuContentComponent): void {
-    console.log(contextMenu);
     const overlay = contextMenu.overlay;
     const index = this.overlays.indexOf(overlay);
-    console.log(index);
     this.overlays.slice(index + 1).forEach(subMenuOverlay => {
       subMenuOverlay.detach();
       subMenuOverlay.dispose();
     });
   }
 
-  // public getLeafMenu(): ContextMenuContentComponent {
-  //   // const cmContents: ComponentRef<ContextMenuContentComponent>[] = this.contextMenuInjector.getByType(this.contextMenuInjector.type);
-  //   // if (cmContents && cmContents.length > 0) {
-  //   //   return cmContents[cmContents.length - 1].instance;
-  //   // }
-  //   return undefined;
-  // }
-
-  // public isLeafMenu(cmContent: ContextMenuContentComponent): boolean {
-  //   return this.getLeafMenu() === cmContent;
-  // }
+  public isLeafMenu(contextMenuContent: ContextMenuContentComponent): boolean {
+    const overlay = this.getLastAttachedOverlay();
+    return contextMenuContent.overlay === overlay;
+  }
 }

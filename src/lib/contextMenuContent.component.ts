@@ -1,4 +1,4 @@
-import { IContextMenuClickEvent } from './contextMenu.service';
+import { CloseLeafMenuEvent, IContextMenuClickEvent } from './contextMenu.service';
 import { OverlayRef } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
@@ -12,24 +12,21 @@ import {
     ViewChild,
     ViewChildren,
 } from '@angular/core';
-import { EventEmitter, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
+import { EventEmitter, OnDestroy, OnInit, Output, QueryList, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { IContextMenuOptions } from './contextMenu.options';
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
   enabled?: (item: any) => boolean;
   html: (item: any) => string;
 }
-export interface MouseLocation {
-  left?: string;
-  marginLeft?: string;
-  marginTop?: string;
-  top?: string;
-}
+
+const ARROW_LEFT_KEYCODE = 37;
 
 @Component({
   selector: 'context-menu-content',
@@ -52,10 +49,10 @@ export interface MouseLocation {
       <ul #menu class="dropdown-menu" style="position: static; float: none;" tabindex="0">
         <li #li *ngFor="let menuItem of menuItems; let i = index" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
-            [class.active]="i === activeMenuItemIndex && isMenuItemEnabled(menuItem)"
+            [class.active]="menuItem.isActive && isMenuItemEnabled(menuItem)"
             [attr.role]="menuItem.divider ? 'separator' : undefined">
           <a *ngIf="!menuItem.divider && !menuItem.passive" href [class.dropdown-item]="useBootstrap4"
-            [class.active]="i === activeMenuItemIndex && isMenuItemEnabled(menuItem)"
+            [class.active]="menuItem.isActive && isMenuItemEnabled(menuItem)"
             [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)" [class.hasSubMenu]="!!menuItem.subMenu"
             (click)="onMenuItemSelect(menuItem, $event)" (mouseenter)="onOpenSubMenu(menuItem, $event)">
             <ng-template [ngTemplateOutlet]="menuItem.template" [ngOutletContext]="{ $implicit: item }"></ng-template>
@@ -76,19 +73,18 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   @Input() public item: any;
   @Input() public event: MouseEvent;
   @Input() public parentContextMenu: ContextMenuContentComponent;
-  @Input() public activeMenuItemIndex = -1;
   @Input() public overlay: OverlayRef;
+  @Input() public isLeaf = false;
   @Output() public execute: EventEmitter<{ event: Event, item: any, menuItem: ContextMenuItemDirective }> = new EventEmitter();
-  @Output() public closeSubMenus: EventEmitter<void> = new EventEmitter<void>();
   @Output() public openSubMenu: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
+  @Output() public closeLeafMenu: EventEmitter<CloseLeafMenuEvent> = new EventEmitter();
+  @Output() public closeAllMenus: EventEmitter<void> = new EventEmitter<void>();
   @ViewChild('menu') public menuElement: ElementRef;
   @ViewChildren('li') public menuItemElements: QueryList<ElementRef>;
 
   public autoFocus = false;
   public useBootstrap4 = false;
-  public isShown = false;
-  public isOpening = false;
-  private mouseLocation: MouseLocation = { left: '0px', top: '0px' };
+  private _keyManager: ActiveDescendantKeyManager<ContextMenuItemDirective>;
   private subscription: Subscription = new Subscription();
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -104,12 +100,13 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   }
 
   ngOnInit(): void {
-    if (this.activeMenuItemIndex === undefined) {
-      this.activeMenuItemIndex = -1;
-    }
     this.menuItems.forEach(menuItem => {
+      menuItem.currentItem = this.item;
       this.subscription.add(menuItem.execute.subscribe(event => this.execute.emit({ ...event, menuItem })));
     });
+    const queryList = new QueryList<ContextMenuItemDirective>();
+    queryList.reset(this.menuItems);
+    this._keyManager = new ActiveDescendantKeyManager<ContextMenuItemDirective>(queryList).withWrap();
   }
 
   ngAfterViewInit() {
@@ -130,6 +127,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   }
 
   stopEvent($event: MouseEvent) {
+    console.log($event);
     $event.stopPropagation();
   }
 
@@ -152,105 +150,80 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     return link.enabled && !link.enabled(this.item);
   }
 
-  public showMenu(): void {
-    this.isShown = true;
-    this.changeDetector.markForCheck();
-  }
-
-  // @HostListener('keydown.ArrowDown', ['$event'])
-  // public nextItem(event?: KeyboardEvent): void {
-  //   if (!this._contextMenuService.isLeafMenu(this)) {
-  //     return;
-  //   }
-  //   this.cancelEvent(event);
-  //   if (this.activeMenuItemIndex === this.menuItems.length - 1) {
-  //     this.activeMenuItemIndex = 0;
-  //   } else {
-  //     this.activeMenuItemIndex++;
-  //   }
-  //   const menuItem = this.menuItems[this.activeMenuItemIndex];
-  //   if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
-  //     this.nextItem();
-  //   }
-  // }
-
-  // @HostListener('keydown.ArrowUp', ['$event'])
-  // public prevItem(event?: KeyboardEvent): void {
-  //   if (!this._contextMenuService.isLeafMenu(this)) {
-  //     return;
-  //   }
-  //   this.cancelEvent(event);
-  //   if (this.activeMenuItemIndex <= 0) {
-  //     this.activeMenuItemIndex = this.menuItems.length - 1;
-  //   } else {
-  //     this.activeMenuItemIndex--;
-  //   }
-  //   const menuItem = this.menuItems[this.activeMenuItemIndex];
-  //   if (!this.isMenuItemEnabled(menuItem) || menuItem.divider || menuItem.passive) {
-  //     this.prevItem();
-  //   }
-  // }
-
-  // @HostListener('keydown.ArrowRight', ['$event'])
-  // public keyboardOpenSubMenu(event?: KeyboardEvent): void {
-  //   if (!this._contextMenuService.isLeafMenu(this)) {
-  //     return;
-  //   }
-  //   this.cancelEvent(event);
-  //   if (this.activeMenuItemIndex >= 0) {
-  //     const menuItem = this.menuItems[this.activeMenuItemIndex];
-  //     const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
-  //     this.openSubMenu(menuItem, <any>event, menuItemElement, 0);
-  //   }
-  // }
-
-  // @HostListener('keydown.ArrowLeft', ['$event'])
-  // public destroyLeafSubMenu(event: KeyboardEvent): void {
-  //   if (!this._contextMenuService.isLeafMenu(this)) {
-  //     return;
-  //   }
-  //   this.cancelEvent(event);
-  //   this._contextMenuService.destroyLeafMenu({ exceptRootMenu: true });
-  // }
-
-  // @HostListener('keydown.Enter', ['$event'])
-  // @HostListener('keydown.Space', ['$event'])
-  // public keyboardMenuItemSelect(event?: KeyboardEvent): void {
-  //   if (!this._contextMenuService.isLeafMenu(this)) {
-  //     return;
-  //   }
-  //   this.cancelEvent(event);
-  //   if (this.activeMenuItemIndex >= 0) {
-  //     const menuItem = this.menuItems[this.activeMenuItemIndex];
-  //     const menuItemElement = this.menuItemElements.toArray()[this.activeMenuItemIndex].nativeElement;
-  //     this.onMenuItemSelect(menuItem, <any>event, menuItemElement, 0);
-  //   }
-  // }
-
-  public onOpenSubMenu(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
-    this.closeSubMenus.emit();
-    if (!menuItem.subMenu) {
+  @HostListener('window:keydown.ArrowDown', ['$event'])
+  @HostListener('window:keydown.ArrowUp', ['$event'])
+  public onKeyEvent(event: KeyboardEvent): void {
+    console.log(this.isLeaf, event);
+    if (!this.isLeaf) {
       return;
     }
+    this._keyManager.onKeydown(event);
+  }
+
+  @HostListener('window:keydown.ArrowRight', ['$event'])
+  public keyboardOpenSubMenu(event?: KeyboardEvent): void {
+    if (!this.isLeaf) {
+      return;
+    }
+    this.cancelEvent(event);
+    const menuItem = this.menuItems[this._keyManager.activeItemIndex];
+    if (menuItem) {
+      this.onOpenSubMenu(menuItem);
+    }
+  }
+
+  @HostListener('window:keydown.Enter', ['$event'])
+  @HostListener('window:keydown.Space', ['$event'])
+  public keyboardMenuItemSelect(event?: KeyboardEvent): void {
+    if (!this.isLeaf) {
+      return;
+    }
+    this.cancelEvent(event);
+    const menuItem = this.menuItems[this._keyManager.activeItemIndex];
+    if (menuItem) {
+      this.onMenuItemSelect(menuItem, <any>event);
+    }
+  }
+
+  @HostListener('window:keydown.Escape', ['$event'])
+  @HostListener('window:keydown.ArrowLeft', ['$event'])
+  public onCloseLeafMenu(event: KeyboardEvent): void {
+    if (!this.isLeaf) {
+      return;
+    }
+    this.cancelEvent(event);
+    this.closeLeafMenu.emit({ exceptRootMenu: event.keyCode === ARROW_LEFT_KEYCODE });
+  }
+
+  @HostListener('document:click')
+  @HostListener('document:contextmenu')
+  public closeMenu(): void {
+    this.closeAllMenus.emit();
+  }
+
+  public onOpenSubMenu(menuItem: ContextMenuItemDirective, event?: MouseEvent): void {
+    const anchorElementRef = this.menuItemElements.toArray()[this._keyManager.activeItemIndex];
+    const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
     this.openSubMenu.emit({
+      anchorElement,
       contextMenu: menuItem.subMenu,
-      item: this.item,
       event,
+      item: this.item,
       parentContextMenu: this,
-      activeMenuItemIndex: this.activeMenuItemIndex,
     });
   }
 
-  public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent, target?: HTMLElement, activeMenuItemIndex?: number): void {
+  public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    this.onOpenSubMenu(menuItem, event);
+    this.onOpenSubMenu(menuItem);
     if (!menuItem.subMenu) {
       menuItem.triggerExecute(this.item, event);
     }
   }
 
   private cancelEvent(event): void {
+    console.log(event);
     if (!event) {
       return;
     }
