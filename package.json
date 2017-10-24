@@ -1,6 +1,6 @@
 {
   "name": "ngx-contextmenu",
-  "version": "1.3.5",
+  "version": "2.0.0-beta.1",
   "description": "An Angular component to show a context menu on an arbitrary component",
   "keywords": [
     "angular2",
@@ -44,17 +44,17 @@
   "devDependencies": {
     "@angular/cdk": "2.0.0-beta.12",
     "@angular/cli": "1.4.5",
-    "@angular/common": "4.4.x",
-    "@angular/compiler": "4.4.x",
-    "@angular/compiler-cli": "4.4.x",
-    "@angular/core": "4.4.x",
-    "@angular/platform-browser": "4.4.x",
-    "@angular/platform-browser-dynamic": "4.4.x",
-    "@angular/router": "4.4.x",
+    "@angular/common": "5.0.0-rc.5",
+    "@angular/compiler": "5.0.0-rc.5",
+    "@angular/compiler-cli": "5.0.0-rc.5",
+    "@angular/core": "5.0.0-rc.5",
+    "@angular/platform-browser": "5.0.0-rc.5",
+    "@angular/platform-browser-dynamic": "5.0.0-rc.5",
+    "@angular/router": "5.0.0-rc.5",
     "@types/jasmine": "2.5.47",
-    "@types/node": "^6.0.89",
+    "@types/node": "^6.0.90",
     "classlist.js": "^1.1.20150312",
-    "codelyzer": "^3.2.1",
+    "codelyzer": "^3.2.2",
     "copyfiles": "^1.2.0",
     "gh-pages": "0.12.0",
     "jasmine-core": "~2.5.2",
@@ -65,11 +65,11 @@
     "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "^5.1.2",
+    "protractor": "^5.2.0",
     "rimraf": "^2.6.2",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.2",
+    "typescript": "^2.5.3",
     "web-animations-js": "^2.3.1"
   }
 }

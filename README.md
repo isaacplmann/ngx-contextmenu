@@ -1,10 +1,10 @@
 # ngx-contextmenu
 
-A context menu built with Angular 2 inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/)
+A context menu built with Angular (2+) inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/)
 
 ## Installation
 
-- `npm install ngx-contextmenu`
+- `npm install ngx-contextmenu @angular/cdk@2.0.0-beta.12`
 - import ContextMenuModule into your app module
 
 ## Usage

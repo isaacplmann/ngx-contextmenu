@@ -55,13 +55,13 @@ const ARROW_LEFT_KEYCODE = 37;
             [class.active]="menuItem.isActive && isMenuItemEnabled(menuItem)"
             [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)" [class.hasSubMenu]="!!menuItem.subMenu"
             (click)="onMenuItemSelect(menuItem, $event)" (mouseenter)="onOpenSubMenu(menuItem, $event)">
-            <ng-template [ngTemplateOutlet]="menuItem.template" [ngOutletContext]="{ $implicit: item }"></ng-template>
+            <ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
           </a>
 
           <span (click)="stopEvent($event)" (contextmenu)="stopEvent($event)" class="passive"
                 *ngIf="!menuItem.divider && menuItem.passive" [class.dropdown-item]="useBootstrap4"
                 [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)">
-            <ng-template [ngTemplateOutlet]="menuItem.template" [ngOutletContext]="{ $implicit: item }"></ng-template>
+            <ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
           </span>
         </li>
       </ul>

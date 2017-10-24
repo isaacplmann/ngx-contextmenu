@@ -1,6 +1,5 @@
-import { ContextMenuComponent } from './contextMenu.component';
-import { Directive, Input, Output, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
+import { Directive, ElementRef, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 
 @Directive({
   /* tslint:disable:directive-selector-type */
@@ -8,7 +7,7 @@ import { Highlightable } from '@angular/cdk/a11y';
   /* tslint:enable:directive-selector-type */
 })
 export class ContextMenuItemDirective implements Highlightable {
-  @Input() public subMenu: ContextMenuComponent;
+  @Input() public subMenu: any;
   @Input() public divider = false;
   @Input() public enabled: boolean | ((item: any) => boolean) = true;
   @Input() public passive = false;

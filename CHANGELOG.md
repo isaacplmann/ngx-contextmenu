@@ -1,3 +1,13 @@
+<a name="2.0.0-beta.1"></a>
+# [2.0.0-beta.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-10-24)
+
+
+### BREAKING CHANGES
+
+* **dependencies:** Using @angular/cdk for creating and positioning the contextmenu
+* **dependencies:** Support angular 4.x and 5.x
+
+
 <a name="1.3.5"></a>
 # [1.3.5](https://github.com/isaacplmann/ngx-contextmenu) (2017-08-09)
 
