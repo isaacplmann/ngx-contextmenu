@@ -1,6 +1,6 @@
 {
   "name": "ngx-contextmenu",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "An Angular component to show a context menu on an arbitrary component",
   "keywords": [
     "angular2",
@@ -44,13 +44,13 @@
   "devDependencies": {
     "@angular/cdk": "2.0.0-beta.12",
     "@angular/cli": "1.4.5",
-    "@angular/common": "5.0.0-rc.5",
-    "@angular/compiler": "5.0.0-rc.5",
-    "@angular/compiler-cli": "5.0.0-rc.5",
-    "@angular/core": "5.0.0-rc.5",
-    "@angular/platform-browser": "5.0.0-rc.5",
-    "@angular/platform-browser-dynamic": "5.0.0-rc.5",
-    "@angular/router": "5.0.0-rc.5",
+    "@angular/common": "^4.4.6",
+    "@angular/compiler": "^4.4.6",
+    "@angular/compiler-cli": "^4.4.6",
+    "@angular/core": "^4.4.6",
+    "@angular/platform-browser": "^4.4.6",
+    "@angular/platform-browser-dynamic": "^4.4.6",
+    "@angular/router": "^4.4.6",
     "@types/jasmine": "2.5.47",
     "@types/node": "^6.0.90",
     "classlist.js": "^1.1.20150312",

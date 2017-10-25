@@ -1,3 +1,12 @@
+<a name="2.0.0-beta.2"></a>
+# [2.0.0-beta.2](https://github.com/isaacplmann/ngx-contextmenu) (2017-10-22)
+
+
+### Fixes
+
+* **dependencies:** Build using angular 4.x to support both 4.x and 5.x apps
+
+
 <a name="2.0.0-beta.1"></a>
 # [2.0.0-beta.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-10-24)
 
