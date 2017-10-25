@@ -1,5 +1,14 @@
+<a name="2.0.0-beta.3"></a>
+# [2.0.0-beta.3](https://github.com/isaacplmann/ngx-contextmenu) (2017-10-25)
+
+
+### Fixes
+
+* **dom:** Remove unused overlay containers from the DOM
+
+
 <a name="2.0.0-beta.2"></a>
-# [2.0.0-beta.2](https://github.com/isaacplmann/ngx-contextmenu) (2017-10-22)
+# [2.0.0-beta.2](https://github.com/isaacplmann/ngx-contextmenu) (2017-10-25)
 
 
 ### Fixes

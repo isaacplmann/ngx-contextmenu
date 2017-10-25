@@ -64,28 +64,26 @@ export class ContextMenuService {
         top: event.clientY,
         width: 0,
       });
-      if (!this.overlays[0]) {
-        const positionStrategy = this.overlay.position().connectedTo(
-          { nativeElement: this.fakeElement },
-          { originX: 'end', originY: 'bottom' },
-          { overlayX: 'start', overlayY: 'top' })
-          .withFallbackPosition(
-          { originX: 'start', originY: 'bottom' },
-          { overlayX: 'end', overlayY: 'top' })
-          .withFallbackPosition(
-          { originX: 'end', originY: 'top' },
-          { overlayX: 'start', overlayY: 'bottom' })
-          .withFallbackPosition(
-          { originX: 'start', originY: 'top' },
-          { overlayX: 'end', overlayY: 'bottom' })
-          ;
-        this.overlays = [this.overlay.create({
-          positionStrategy,
-          panelClass: 'ngx-contextmenu',
-          scrollStrategy: this.scrollStrategy.close(),
-        })];
-      }
       this.closeAllContextMenus();
+      const positionStrategy = this.overlay.position().connectedTo(
+        { nativeElement: this.fakeElement },
+        { originX: 'end', originY: 'bottom' },
+        { overlayX: 'start', overlayY: 'top' })
+        .withFallbackPosition(
+        { originX: 'start', originY: 'bottom' },
+        { overlayX: 'end', overlayY: 'top' })
+        .withFallbackPosition(
+        { originX: 'end', originY: 'top' },
+        { overlayX: 'start', overlayY: 'bottom' })
+        .withFallbackPosition(
+        { originX: 'start', originY: 'top' },
+        { overlayX: 'end', overlayY: 'bottom' })
+        ;
+      this.overlays = [this.overlay.create({
+        positionStrategy,
+        panelClass: 'ngx-contextmenu',
+        scrollStrategy: this.scrollStrategy.close(),
+      })];
       this.attachContextMenu(this.overlays[0], context);
     } else {
       const positionStrategy = this.overlay.position().connectedTo(
@@ -145,18 +143,17 @@ export class ContextMenuService {
     if (this.overlays) {
       this.overlays.forEach((overlay, index) => {
         overlay.detach();
-        if (index > 0) {
-          overlay.dispose();
-        }
+        overlay.dispose();
       });
-      // this.overlays = this.overlays.slice(0, 1);
     }
+    this.overlays = [];
   }
 
   public getLastAttachedOverlay(): OverlayRefWithContextMenu {
     let overlay: OverlayRef = this.overlays[this.overlays.length - 1];
-    while (this.overlays.length > 1 && (!overlay || !overlay.hasAttached())) {
+    while (this.overlays.length > 1 && overlay && !overlay.hasAttached()) {
       overlay.detach();
+      overlay.dispose();
       this.overlays = this.overlays.slice(0, -1);
       overlay = this.overlays[this.overlays.length - 1];
     }
@@ -171,11 +168,15 @@ export class ContextMenuService {
 
     setTimeout(() => {
       const overlay = this.getLastAttachedOverlay();
-      if (this.overlays.length > (exceptRootMenu ? 1 : 0)) {
+      if (this.overlays.length > (exceptRootMenu ? 1 : 0) && overlay) {
         overlay.detach();
+        overlay.dispose();
       }
 
-      this.getLastAttachedOverlay().contextMenu.isLeaf = true;
+      const newLeaf = this.getLastAttachedOverlay();
+      if (newLeaf) {
+        newLeaf.contextMenu.isLeaf = true;
+      }
 
       this.isDestroyingLeafMenu = false;
     });

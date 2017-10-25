@@ -37,11 +37,19 @@ export interface MouseLocation {
   encapsulation: ViewEncapsulation.None,
   selector: 'context-menu',
   styles: [`
-    .ngx-contextmenu.cdk-overlay-pane {
+    .cdk-overlay-container {
       position: fixed;
+      z-index: 1000;
+      pointer-events: none;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .ngx-contextmenu.cdk-overlay-pane {
+      position: absolute;
       pointer-events: auto;
       box-sizing: border-box;
-      z-index: 1000;
     }
   `],
   template: ` `,
