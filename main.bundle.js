@@ -29,7 +29,7 @@ module.exports = "<h1>Angular2 Context Menu Demo</h1>\n<div (click)=\"$event.pre
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__("../../../../../src/lib/index.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -107,19 +107,19 @@ var AppComponent = /** @class */ (function () {
         console.log(message);
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('basicMenu'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('basicMenu'),
         __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["ContextMenuComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["ContextMenuComponent"]) === "function" && _a || Object)
     ], AppComponent.prototype, "basicMenu", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('enableAndVisible'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('enableAndVisible'),
         __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["ContextMenuComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["ContextMenuComponent"]) === "function" && _b || Object)
     ], AppComponent.prototype, "enableAndVisible", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('withFunctions'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('withFunctions'),
         __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["ContextMenuComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["ContextMenuComponent"]) === "function" && _c || Object)
     ], AppComponent.prototype, "withFunctions", void 0);
     AppComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
             selector: 'ngx-context-menu-demo',
             styles: ["\n.dashboardContainer {\nwidth: 100%;\nheight: 100%;\nposition: fixed;\n}\n\n.componentsContainer {\nposition: fixed;\nbottom: 0;\ntop: 100px;\nwidth: 100%; }\n\n.componentContainer {\noverflow: auto;\nposition: absolute; }\n"],
             template: __webpack_require__("../../../../../src/demo/app.component.html"),
@@ -140,10 +140,10 @@ var AppComponent = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_cdk_scrolling__ = __webpack_require__("../../../cdk/esm5/scrolling.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib__ = __webpack_require__("../../../../../src/lib/index.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__("../../../../../src/demo/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__child1_component__ = __webpack_require__("../../../../../src/demo/child1.component.ts");
@@ -167,7 +167,7 @@ var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["I" /* NgModule */])({
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["M" /* NgModule */])({
             bootstrap: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]],
             declarations: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */], __WEBPACK_IMPORTED_MODULE_7__child1_component__["a" /* ChildOneComponent */], __WEBPACK_IMPORTED_MODULE_8__child2_component__["a" /* ChildTwoComponent */]],
             imports: [
@@ -203,8 +203,8 @@ var AppModule = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChildOneComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -234,7 +234,7 @@ var ChildOneComponent = /** @class */ (function () {
         this.router.navigateByUrl(item.url);
     };
     ChildOneComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["o" /* Component */])({
             selector: 'child-one',
             template: "\n    <h3>Routing One</h3>\n    <ul>\n      <li *ngFor=\"let item of items\" [contextMenu]=\"routingMenu\" [contextMenuSubject]=\"item\">Right Click: {{item?.name}}</li>\n    </ul>\n    <context-menu #routingMenu>\n      <ng-template contextMenuItem (execute)=\"showMessage('Hi, ' + $event.item.name); go($event.item)\">\n        Go!\n      </ng-template>\n    </context-menu>\n  "
         }),
@@ -253,8 +253,8 @@ var ChildOneComponent = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChildTwoComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -284,7 +284,7 @@ var ChildTwoComponent = /** @class */ (function () {
         this.router.navigateByUrl(item.url);
     };
     ChildTwoComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
             selector: 'child-two',
             template: "\n    <h3>Routing Two</h3>\n    <ul>\n      <li *ngFor=\"let item of items\" [contextMenu]=\"routingMenu\" [contextMenuSubject]=\"item\">Right Click: {{item?.name}}</li>\n    </ul>\n    <context-menu #routingMenu>\n      <ng-template contextMenuItem (execute)=\"showMessage('Hi, ' + $event.item.name); go($event.item)\">\n        Go!\n      </ng-template>\n    </context-menu>\n  "
         }),
@@ -321,7 +321,7 @@ var environment = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuAttachDirective; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__ = __webpack_require__("../../../../../src/lib/contextMenu.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__ = __webpack_require__("../../../../../src/lib/contextMenu.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -348,21 +348,21 @@ var ContextMenuAttachDirective = /** @class */ (function () {
         event.stopPropagation();
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuAttachDirective.prototype, "contextMenuSubject", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["F" /* Input */])(),
         __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__["a" /* ContextMenuComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__contextMenu_component__["a" /* ContextMenuComponent */]) === "function" && _a || Object)
     ], ContextMenuAttachDirective.prototype, "contextMenu", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["y" /* HostListener */])('contextmenu', ['$event']),
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* HostListener */])('contextmenu', ['$event']),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
     ], ContextMenuAttachDirective.prototype, "onContextMenu", null);
     ContextMenuAttachDirective = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["s" /* Directive */])({
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* Directive */])({
             selector: '[contextMenu]',
         }),
         __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__contextMenu_service__["a" /* ContextMenuService */]) === "function" && _b || Object])
@@ -380,7 +380,7 @@ var ContextMenuAttachDirective = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/Subscription.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subscription___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subscription__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contextMenu_item_directive__ = __webpack_require__("../../../../../src/lib/contextMenu.item.directive.ts");
@@ -424,8 +424,8 @@ var ContextMenuComponent = /** @class */ (function () {
         this.autoFocus = false;
         this.useBootstrap4 = false;
         this.disabled = false;
-        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
-        this.open = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
+        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.open = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
         this.visibleMenuItems = [];
         this.links = [];
         this.subscription = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subscription__["Subscription"]();
@@ -467,43 +467,43 @@ var ContextMenuComponent = /** @class */ (function () {
         return value;
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuComponent.prototype, "autoFocus", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuComponent.prototype, "useBootstrap4", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuComponent.prototype, "disabled", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* Output */])(),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]) === "function" && _a || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]) === "function" && _a || Object)
     ], ContextMenuComponent.prototype, "close", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* Output */])(),
-        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]) === "function" && _b || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]) === "function" && _b || Object)
     ], ContextMenuComponent.prototype, "open", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["r" /* ContentChildren */])(__WEBPACK_IMPORTED_MODULE_2__contextMenu_item_directive__["a" /* ContextMenuItemDirective */]),
-        __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* QueryList */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* QueryList */]) === "function" && _c || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ContentChildren */])(__WEBPACK_IMPORTED_MODULE_2__contextMenu_item_directive__["a" /* ContextMenuItemDirective */]),
+        __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* QueryList */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* QueryList */]) === "function" && _c || Object)
     ], ContextMenuComponent.prototype, "menuItems", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('menu'),
-        __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _d || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('menu'),
+        __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _d || Object)
     ], ContextMenuComponent.prototype, "menuElement", void 0);
     ContextMenuComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewEncapsulation */].None,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ViewEncapsulation */].None,
             selector: 'context-menu',
             styles: ["\n    .ngx-contextmenu.cdk-overlay-pane {\n      position: fixed;\n      pointer-events: auto;\n      box-sizing: border-box;\n      z-index: 1000;\n    }\n  "],
             template: " ",
         }),
-        __param(3, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */])()),
-        __param(3, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */])(__WEBPACK_IMPORTED_MODULE_5__contextMenu_tokens__["a" /* CONTEXT_MENU_OPTIONS */])),
-        __metadata("design:paramtypes", [typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__contextMenu_service__["a" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__contextMenu_service__["a" /* ContextMenuService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* ChangeDetectorRef */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["IContextMenuOptions"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["IContextMenuOptions"]) === "function" && _h || Object])
+        __param(3, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */])()),
+        __param(3, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */])(__WEBPACK_IMPORTED_MODULE_5__contextMenu_tokens__["a" /* CONTEXT_MENU_OPTIONS */])),
+        __metadata("design:paramtypes", [typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__contextMenu_service__["a" /* ContextMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__contextMenu_service__["a" /* ContextMenuService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["IContextMenuOptions"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["IContextMenuOptions"]) === "function" && _h || Object])
     ], ContextMenuComponent);
     return ContextMenuComponent;
     var _a, _b, _c, _d, _e, _f, _g, _h;
@@ -518,7 +518,7 @@ var ContextMenuComponent = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuItemDirective; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -537,7 +537,7 @@ var ContextMenuItemDirective = /** @class */ (function () {
         this.enabled = true;
         this.passive = false;
         this.visible = true;
-        this.execute = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
+        this.execute = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
         this.isActive = false;
     }
     Object.defineProperty(ContextMenuItemDirective.prototype, "disabled", {
@@ -568,35 +568,35 @@ var ContextMenuItemDirective = /** @class */ (function () {
         this.execute.emit({ event: $event, item: item });
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuItemDirective.prototype, "subMenu", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuItemDirective.prototype, "divider", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuItemDirective.prototype, "enabled", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuItemDirective.prototype, "passive", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuItemDirective.prototype, "visible", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* Output */])(),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]) === "function" && _a || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]) === "function" && _a || Object)
     ], ContextMenuItemDirective.prototype, "execute", void 0);
     ContextMenuItemDirective = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* Directive */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* Directive */])({
             /* tslint:disable:directive-selector-type */
             selector: '[contextMenuItem]',
         }),
-        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* TemplateRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* TemplateRef */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* TemplateRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* TemplateRef */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _c || Object])
     ], ContextMenuItemDirective);
     return ContextMenuItemDirective;
     var _a, _b, _c;
@@ -620,7 +620,7 @@ var ContextMenuItemDirective = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__ = __webpack_require__("../../../cdk/esm5/overlay.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_cdk_portal__ = __webpack_require__("../../../cdk/esm5/portal.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__("../../../../rxjs/Subject.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/Subscription.js");
@@ -780,7 +780,7 @@ var ContextMenuService = /** @class */ (function () {
         return contextMenuContent.overlay === overlay;
     };
     ContextMenuService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["C" /* Injectable */])(),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__["a" /* Overlay */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__["a" /* Overlay */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__["d" /* ScrollStrategyOptions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__["d" /* ScrollStrategyOptions */]) === "function" && _b || Object])
     ], ContextMenuService);
     return ContextMenuService;
@@ -796,9 +796,9 @@ var ContextMenuService = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CONTEXT_MENU_OPTIONS; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 
-var CONTEXT_MENU_OPTIONS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* InjectionToken */]('CONTEXT_MENU_OPTIONS');
+var CONTEXT_MENU_OPTIONS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* InjectionToken */]('CONTEXT_MENU_OPTIONS');
 //# sourceMappingURL=contextMenu.tokens.js.map
 
 /***/ }),
@@ -809,7 +809,7 @@ var CONTEXT_MENU_OPTIONS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuContentComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__ = __webpack_require__("../../../cdk/esm5/overlay.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/Subscription.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Subscription___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Subscription__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__ = __webpack_require__("../../../../../src/lib/contextMenu.options.ts");
@@ -852,10 +852,10 @@ var ContextMenuContentComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.menuItems = [];
         this.isLeaf = false;
-        this.execute = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */]();
-        this.openSubMenu = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */]();
-        this.closeLeafMenu = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */]();
-        this.closeAllMenus = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */]();
+        this.execute = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */]();
+        this.openSubMenu = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */]();
+        this.closeLeafMenu = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */]();
+        this.closeAllMenus = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */]();
         this.autoFocus = false;
         this.useBootstrap4 = false;
         this.subscription = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subscription__["Subscription"]();
@@ -870,7 +870,7 @@ var ContextMenuContentComponent = /** @class */ (function () {
             menuItem.currentItem = _this.item;
             _this.subscription.add(menuItem.execute.subscribe(function (event) { return _this.execute.emit(__assign({}, event, { menuItem: menuItem })); }));
         });
-        var queryList = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["U" /* QueryList */]();
+        var queryList = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* QueryList */]();
         queryList.reset(this.menuItems);
         this._keyManager = new __WEBPACK_IMPORTED_MODULE_5__angular_cdk_a11y__["a" /* ActiveDescendantKeyManager */](queryList).withWrap();
     };
@@ -977,98 +977,98 @@ var ContextMenuContentComponent = /** @class */ (function () {
         event.stopPropagation();
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* Input */])(),
         __metadata("design:type", Array)
     ], ContextMenuContentComponent.prototype, "menuItems", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuContentComponent.prototype, "item", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuContentComponent.prototype, "event", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* Input */])(),
         __metadata("design:type", ContextMenuContentComponent)
     ], ContextMenuContentComponent.prototype, "parentContextMenu", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* Input */])(),
         __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__["c" /* OverlayRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__["c" /* OverlayRef */]) === "function" && _a || Object)
     ], ContextMenuContentComponent.prototype, "overlay", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* Input */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], ContextMenuContentComponent.prototype, "isLeaf", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* Output */])(),
-        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */]) === "function" && _b || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* Output */])(),
+        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */]) === "function" && _b || Object)
     ], ContextMenuContentComponent.prototype, "execute", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* Output */])(),
-        __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */]) === "function" && _c || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* Output */])(),
+        __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */]) === "function" && _c || Object)
     ], ContextMenuContentComponent.prototype, "openSubMenu", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* Output */])(),
-        __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */]) === "function" && _d || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* Output */])(),
+        __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */]) === "function" && _d || Object)
     ], ContextMenuContentComponent.prototype, "closeLeafMenu", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* Output */])(),
-        __metadata("design:type", typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* EventEmitter */]) === "function" && _e || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* Output */])(),
+        __metadata("design:type", typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["x" /* EventEmitter */]) === "function" && _e || Object)
     ], ContextMenuContentComponent.prototype, "closeAllMenus", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* ViewChild */])('menu'),
-        __metadata("design:type", typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["t" /* ElementRef */]) === "function" && _f || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])('menu'),
+        __metadata("design:type", typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* ElementRef */]) === "function" && _f || Object)
     ], ContextMenuContentComponent.prototype, "menuElement", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_9" /* ViewChildren */])('li'),
-        __metadata("design:type", typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["U" /* QueryList */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["U" /* QueryList */]) === "function" && _g || Object)
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_17" /* ViewChildren */])('li'),
+        __metadata("design:type", typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* QueryList */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* QueryList */]) === "function" && _g || Object)
     ], ContextMenuContentComponent.prototype, "menuItemElements", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* HostListener */])('window:keydown.ArrowDown', ['$event']),
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* HostListener */])('window:keydown.ArrowUp', ['$event']),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('window:keydown.ArrowDown', ['$event']),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('window:keydown.ArrowUp', ['$event']),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
     ], ContextMenuContentComponent.prototype, "onKeyEvent", null);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* HostListener */])('window:keydown.ArrowRight', ['$event']),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('window:keydown.ArrowRight', ['$event']),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
     ], ContextMenuContentComponent.prototype, "keyboardOpenSubMenu", null);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* HostListener */])('window:keydown.Enter', ['$event']),
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* HostListener */])('window:keydown.Space', ['$event']),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('window:keydown.Enter', ['$event']),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('window:keydown.Space', ['$event']),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
     ], ContextMenuContentComponent.prototype, "keyboardMenuItemSelect", null);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* HostListener */])('window:keydown.Escape', ['$event']),
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* HostListener */])('window:keydown.ArrowLeft', ['$event']),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('window:keydown.Escape', ['$event']),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('window:keydown.ArrowLeft', ['$event']),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
     ], ContextMenuContentComponent.prototype, "onCloseLeafMenu", null);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* HostListener */])('document:click'),
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["y" /* HostListener */])('document:contextmenu'),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('document:click'),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('document:contextmenu'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], ContextMenuContentComponent.prototype, "closeMenu", null);
     ContextMenuContentComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["o" /* Component */])({
             selector: 'context-menu-content',
             styles: [
                 ".passive {\n       display: block;\n       padding: 3px 20px;\n       clear: both;\n       font-weight: normal;\n       line-height: @line-height-base;\n       white-space: nowrap;\n     }\n    .hasSubMenu:before {\n      content: \"\u25B6\";\n      float: right;\n    }",
             ],
             template: "<div class=\"dropdown open ngx-contextmenu\" tabindex=\"0\">\n      <ul #menu class=\"dropdown-menu\" style=\"position: static; float: none;\" tabindex=\"0\">\n        <li #li *ngFor=\"let menuItem of menuItems; let i = index\" [class.disabled]=\"!isMenuItemEnabled(menuItem)\"\n            [class.divider]=\"menuItem.divider\" [class.dropdown-divider]=\"useBootstrap4 && menuItem.divider\"\n            [class.active]=\"menuItem.isActive && isMenuItemEnabled(menuItem)\"\n            [attr.role]=\"menuItem.divider ? 'separator' : undefined\">\n          <a *ngIf=\"!menuItem.divider && !menuItem.passive\" href [class.dropdown-item]=\"useBootstrap4\"\n            [class.active]=\"menuItem.isActive && isMenuItemEnabled(menuItem)\"\n            [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\" [class.hasSubMenu]=\"!!menuItem.subMenu\"\n            (click)=\"onMenuItemSelect(menuItem, $event)\" (mouseenter)=\"onOpenSubMenu(menuItem, $event)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngTemplateOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </a>\n\n          <span (click)=\"stopEvent($event)\" (contextmenu)=\"stopEvent($event)\" class=\"passive\"\n                *ngIf=\"!menuItem.divider && menuItem.passive\" [class.dropdown-item]=\"useBootstrap4\"\n                [class.disabled]=\"useBootstrap4 && !isMenuItemEnabled(menuItem)\">\n            <ng-template [ngTemplateOutlet]=\"menuItem.template\" [ngTemplateOutletContext]=\"{ $implicit: item }\"></ng-template>\n          </span>\n        </li>\n      </ul>\n    </div>\n  ",
         }),
-        __param(2, Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["O" /* Optional */])()),
-        __param(2, Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["z" /* Inject */])(__WEBPACK_IMPORTED_MODULE_4__contextMenu_tokens__["a" /* CONTEXT_MENU_OPTIONS */])),
-        __metadata("design:paramtypes", [typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["k" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["k" /* ChangeDetectorRef */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["t" /* ElementRef */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["IContextMenuOptions"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["IContextMenuOptions"]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["V" /* Renderer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["V" /* Renderer */]) === "function" && _l || Object])
+        __param(2, Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["S" /* Optional */])()),
+        __param(2, Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Inject */])(__WEBPACK_IMPORTED_MODULE_4__contextMenu_tokens__["a" /* CONTEXT_MENU_OPTIONS */])),
+        __metadata("design:paramtypes", [typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["l" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["l" /* ChangeDetectorRef */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* ElementRef */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["IContextMenuOptions"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__contextMenu_options__["IContextMenuOptions"]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Renderer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Renderer */]) === "function" && _l || Object])
     ], ContextMenuContentComponent);
     return ContextMenuContentComponent;
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
@@ -1105,8 +1105,8 @@ var ContextMenuContentComponent = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContextMenuModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_cdk_overlay__ = __webpack_require__("../../../cdk/esm5/overlay.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contextMenu_attach_directive__ = __webpack_require__("../../../../../src/lib/contextMenu.attach.directive.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__contextMenu_component__ = __webpack_require__("../../../../../src/lib/contextMenu.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__contextMenu_item_directive__ = __webpack_require__("../../../../../src/lib/contextMenu.item.directive.ts");
@@ -1144,7 +1144,7 @@ var ContextMenuModule = /** @class */ (function () {
         };
     };
     ContextMenuModule = ContextMenuModule_1 = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["I" /* NgModule */])({
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["M" /* NgModule */])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_3__contextMenu_attach_directive__["a" /* ContextMenuAttachDirective */],
                 __WEBPACK_IMPORTED_MODULE_4__contextMenu_component__["a" /* ContextMenuComponent */],
@@ -1182,8 +1182,8 @@ var ContextMenuModule = /** @class */ (function () {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__("../../../platform-browser-dynamic/esm5/platform-browser-dynamic.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__("../../../platform-browser-dynamic/@angular/platform-browser-dynamic.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__demo_app_module__ = __webpack_require__("../../../../../src/demo/app.module.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 
@@ -1191,7 +1191,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* enableProdMode */])();
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_23" /* enableProdMode */])();
 }
 Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__demo_app_module__["a" /* AppModule */]);
 //# sourceMappingURL=main.js.map
