@@ -498,7 +498,7 @@ var ContextMenuComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ViewEncapsulation */].None,
             selector: 'context-menu',
-            styles: ["\n    .ngx-contextmenu.cdk-overlay-pane {\n      position: fixed;\n      pointer-events: auto;\n      box-sizing: border-box;\n      z-index: 1000;\n    }\n  "],
+            styles: ["\n    .cdk-overlay-container {\n      position: fixed;\n      z-index: 1000;\n      pointer-events: none;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n    }\n    .ngx-contextmenu.cdk-overlay-pane {\n      position: absolute;\n      pointer-events: auto;\n      box-sizing: border-box;\n    }\n  "],
             template: " ",
         }),
         __param(3, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Optional */])()),
@@ -672,18 +672,16 @@ var ContextMenuService = /** @class */ (function () {
                 top: event.clientY,
                 width: 0,
             }); };
-            if (!this.overlays[0]) {
-                var positionStrategy = this.overlay.position().connectedTo({ nativeElement: this.fakeElement }, { originX: 'end', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-                    .withFallbackPosition({ originX: 'start', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
-                    .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
-                    .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
-                this.overlays = [this.overlay.create({
-                        positionStrategy: positionStrategy,
-                        panelClass: 'ngx-contextmenu',
-                        scrollStrategy: this.scrollStrategy.close(),
-                    })];
-            }
             this.closeAllContextMenus();
+            var positionStrategy = this.overlay.position().connectedTo({ nativeElement: this.fakeElement }, { originX: 'end', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
+                .withFallbackPosition({ originX: 'start', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
+                .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
+                .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
+            this.overlays = [this.overlay.create({
+                    positionStrategy: positionStrategy,
+                    panelClass: 'ngx-contextmenu',
+                    scrollStrategy: this.scrollStrategy.close(),
+                })];
             this.attachContextMenu(this.overlays[0], context);
         }
         else {
@@ -735,17 +733,16 @@ var ContextMenuService = /** @class */ (function () {
         if (this.overlays) {
             this.overlays.forEach(function (overlay, index) {
                 overlay.detach();
-                if (index > 0) {
-                    overlay.dispose();
-                }
+                overlay.dispose();
             });
-            // this.overlays = this.overlays.slice(0, 1);
         }
+        this.overlays = [];
     };
     ContextMenuService.prototype.getLastAttachedOverlay = function () {
         var overlay = this.overlays[this.overlays.length - 1];
-        while (this.overlays.length > 1 && (!overlay || !overlay.hasAttached())) {
+        while (this.overlays.length > 1 && overlay && !overlay.hasAttached()) {
             overlay.detach();
+            overlay.dispose();
             this.overlays = this.overlays.slice(0, -1);
             overlay = this.overlays[this.overlays.length - 1];
         }
@@ -760,10 +757,14 @@ var ContextMenuService = /** @class */ (function () {
         this.isDestroyingLeafMenu = true;
         setTimeout(function () {
             var overlay = _this.getLastAttachedOverlay();
-            if (_this.overlays.length > (exceptRootMenu ? 1 : 0)) {
+            if (_this.overlays.length > (exceptRootMenu ? 1 : 0) && overlay) {
                 overlay.detach();
+                overlay.dispose();
             }
-            _this.getLastAttachedOverlay().contextMenu.isLeaf = true;
+            var newLeaf = _this.getLastAttachedOverlay();
+            if (newLeaf) {
+                newLeaf.contextMenu.isLeaf = true;
+            }
             _this.isDestroyingLeafMenu = false;
         });
     };
