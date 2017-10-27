@@ -1,3 +1,12 @@
+<a name="2.0.0-beta.4"></a>
+# [2.0.0-beta.4](https://github.com/isaacplmann/ngx-contextmenu) (2017-10-27)
+
+
+### Fixes
+
+* **position:** Fallback to centering vertically
+
+
 <a name="2.0.0-beta.3"></a>
 # [2.0.0-beta.3](https://github.com/isaacplmann/ngx-contextmenu) (2017-10-25)
 
