@@ -11,6 +11,7 @@ A context menu built with Angular (2+) inspired by [ui.bootstrap.contextMenu](ht
 
 - `npm install ngx-contextmenu @angular/cdk@2.0.0-beta.12`
 - import ContextMenuModule into your app module
+- Make sure to include `<!doctype html>` at the top of your `index.html`
 
 ## Usage
 

@@ -30,10 +30,10 @@ export class AppComponent {
       name: 'John',
       otherProperty: 'Foo',
       layout: {
-        height: 90,
-        left: 0,
-        top: 0,
-        width: 98,
+        height: '90px',
+        left: '0px',
+        top: '0px',
+        width: '98px',
       },
       actions: [{
         enabled: true,
@@ -54,10 +54,10 @@ export class AppComponent {
       name: 'Joe',
       otherProperty: 'Bar',
       layout: {
-        height: 90,
-        left: 98,
-        top: 0,
-        width: 98,
+        height: '90px',
+        left: '98px',
+        top: '0px',
+        width: '98px',
       },
       actions: [{
         enabled: true,
