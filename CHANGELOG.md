@@ -1,3 +1,12 @@
+<a name="2.0.0-beta.5"></a>
+# [2.0.0-beta.5](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-03)
+
+
+### Fixes
+
+* **submenu:** Clicking a menu item with a submenu threw an error
+
+
 <a name="2.0.0-beta.4"></a>
 # [2.0.0-beta.4](https://github.com/isaacplmann/ngx-contextmenu) (2017-10-27)
 

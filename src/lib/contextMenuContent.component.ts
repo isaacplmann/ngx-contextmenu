@@ -216,7 +216,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    this.onOpenSubMenu(menuItem);
+    this.onOpenSubMenu(menuItem, event);
     if (!menuItem.subMenu) {
       menuItem.triggerExecute(this.item, event);
     }

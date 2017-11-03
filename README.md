@@ -2,11 +2,6 @@
 
 A context menu built with Angular (2+) inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/)
 
-## Sponsor Link
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/nfmq92vFC4p9tYPkg1bFpsoZ/isaacplmann/ngx-contextmenu'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nfmq92vFC4p9tYPkg1bFpsoZ/isaacplmann/ngx-contextmenu.svg' />
-</a>
-
 ## Installation
 
 - `npm install ngx-contextmenu @angular/cdk@2.0.0-beta.12`
@@ -372,3 +367,13 @@ export class MyContextMenuClass {
       ];
 }
 ```
+
+## One on One Help
+
+I'm available for (paid) one on one sessions through Code Mentor. I'd love to help you with your app or library.
+[![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/isaacplmann?utm_source=github&utm_medium=button&utm_term=isaacplmann&utm_campaign=github)
+
+## Sponsor Link
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/nfmq92vFC4p9tYPkg1bFpsoZ/isaacplmann/ngx-contextmenu'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nfmq92vFC4p9tYPkg1bFpsoZ/isaacplmann/ngx-contextmenu.svg' />
+</a>
