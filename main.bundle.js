@@ -962,7 +962,7 @@ var ContextMenuContentComponent = /** @class */ (function () {
     ContextMenuContentComponent.prototype.onMenuItemSelect = function (menuItem, event) {
         event.preventDefault();
         event.stopPropagation();
-        this.onOpenSubMenu(menuItem);
+        this.onOpenSubMenu(menuItem, event);
         if (!menuItem.subMenu) {
             menuItem.triggerExecute(this.item, event);
         }
