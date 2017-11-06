@@ -57,11 +57,11 @@ export class ContextMenuService {
 
     if (!parentContextMenu) {
       this.fakeElement.getBoundingClientRect = (): ClientRect => ({
-        bottom: event.clientY,
+        bottom: event.clientY || event.pageY,
         height: 0,
-        left: event.clientX,
-        right: event.clientX,
-        top: event.clientY,
+        left: event.clientX || event.pageX,
+        right: event.clientX || event.pageX,
+        top: event.clientY || event.pageY,
         width: 0,
       });
       this.closeAllContextMenus();
