@@ -45,8 +45,8 @@ const ARROW_LEFT_KEYCODE = 37;
     }`,
   ],
   template:
-  `<div class="dropdown open ngx-contextmenu" tabindex="0">
-      <ul #menu class="dropdown-menu" style="position: static; float: none;" tabindex="0">
+  `<div class="dropdown open show ngx-contextmenu" tabindex="0">
+      <ul #menu class="dropdown-menu show" style="position: static; float: none;" tabindex="0">
         <li #li *ngFor="let menuItem of menuItems; let i = index" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
             [class.active]="menuItem.isActive && isMenuItemEnabled(menuItem)"

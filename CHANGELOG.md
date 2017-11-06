@@ -1,3 +1,12 @@
+<a name="2.0.0-beta.6"></a>
+# [2.0.0-beta.6](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-06)
+
+
+### Fixes
+
+* **bootstrap4:** Show menu with bootstrap 4-beta.2
+
+
 <a name="2.0.0-beta.5"></a>
 # [2.0.0-beta.5](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-03)
 
