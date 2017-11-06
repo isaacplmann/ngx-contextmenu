@@ -1,3 +1,12 @@
+<a name="2.0.0-beta.7"></a>
+# [2.0.0-beta.7](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-06)
+
+
+### Fixes
+
+* **firefox:** opens and closes instantly in firefox
+
+
 <a name="2.0.0-beta.6"></a>
 # [2.0.0-beta.6](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-06)
 

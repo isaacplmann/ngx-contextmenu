@@ -127,7 +127,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   }
 
   stopEvent($event: MouseEvent) {
-    console.log($event);
     $event.stopPropagation();
   }
 
@@ -153,7 +152,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   @HostListener('window:keydown.ArrowDown', ['$event'])
   @HostListener('window:keydown.ArrowUp', ['$event'])
   public onKeyEvent(event: KeyboardEvent): void {
-    console.log(this.isLeaf, event);
     if (!this.isLeaf) {
       return;
     }
@@ -195,9 +193,12 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     this.closeLeafMenu.emit({ exceptRootMenu: event.keyCode === ARROW_LEFT_KEYCODE });
   }
 
-  @HostListener('document:click')
-  @HostListener('document:contextmenu')
-  public closeMenu(): void {
+  @HostListener('document:click', ['$event'])
+  @HostListener('document:contextmenu', ['$event'])
+  public closeMenu(event: MouseEvent): void {
+    if (event.type === 'click' && event.button === 2) {
+      return;
+    }
     this.closeAllMenus.emit();
   }
 
@@ -223,7 +224,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   }
 
   private cancelEvent(event): void {
-    console.log(event);
     if (!event) {
       return;
     }
