@@ -893,7 +893,6 @@ var ContextMenuContentComponent = /** @class */ (function () {
         }
     };
     ContextMenuContentComponent.prototype.stopEvent = function ($event) {
-        console.log($event);
         $event.stopPropagation();
     };
     ContextMenuContentComponent.prototype.isMenuItemEnabled = function (menuItem) {
@@ -912,7 +911,6 @@ var ContextMenuContentComponent = /** @class */ (function () {
         return link.enabled && !link.enabled(this.item);
     };
     ContextMenuContentComponent.prototype.onKeyEvent = function (event) {
-        console.log(this.isLeaf, event);
         if (!this.isLeaf) {
             return;
         }
@@ -945,7 +943,10 @@ var ContextMenuContentComponent = /** @class */ (function () {
         this.cancelEvent(event);
         this.closeLeafMenu.emit({ exceptRootMenu: event.keyCode === ARROW_LEFT_KEYCODE });
     };
-    ContextMenuContentComponent.prototype.closeMenu = function () {
+    ContextMenuContentComponent.prototype.closeMenu = function (event) {
+        if (event.type === 'click' && event.button === 2) {
+            return;
+        }
         this.closeAllMenus.emit();
     };
     ContextMenuContentComponent.prototype.onOpenSubMenu = function (menuItem, event) {
@@ -968,7 +969,6 @@ var ContextMenuContentComponent = /** @class */ (function () {
         }
     };
     ContextMenuContentComponent.prototype.cancelEvent = function (event) {
-        console.log(event);
         if (!event) {
             return;
         }
@@ -1055,10 +1055,10 @@ var ContextMenuContentComponent = /** @class */ (function () {
         __metadata("design:returntype", void 0)
     ], ContextMenuContentComponent.prototype, "onCloseLeafMenu", null);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('document:click'),
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('document:contextmenu'),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('document:click', ['$event']),
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* HostListener */])('document:contextmenu', ['$event']),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
+        __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
     ], ContextMenuContentComponent.prototype, "closeMenu", null);
     ContextMenuContentComponent = __decorate([
