@@ -25,12 +25,12 @@ export class ContextMenuAttachDirective {
   }
 
   @HostListener('touchstart', ['$event'])
-  public onTouchStart(event: MouseEvent): void {
+  public onTouchStart(event: TouchEvent): void {
     this.touchStart = event.timeStamp;
   }
 
   @HostListener('touchend', ['$event'])
-  public onTouchEnd(event: MouseEvent): void {
+  public onTouchEnd(event: TouchEvent): void {
     if ( event.timeStamp - this.touchStart < 500 ) return;
     console.log( event );
     this.contextMenuService.show.next({

@@ -11,7 +11,7 @@ import { ContextMenuContentComponent } from './contextMenuContent.component';
 export interface IContextMenuClickEvent {
   anchorElement?: Element;
   contextMenu?: ContextMenuComponent;
-  event?: MouseEvent;
+  event?: MouseEvent | TouchEvent;
   parentContextMenu?: ContextMenuContentComponent;
   item: any;
   activeMenuItemIndex?: number;
@@ -56,14 +56,28 @@ export class ContextMenuService {
     const { anchorElement, event, parentContextMenu } = context;
 
     if (!parentContextMenu) {
-      this.fakeElement.getBoundingClientRect = (): ClientRect => ({
-        bottom: event.clientY || event.pageY,
-        height: 0,
-        left: event.clientX || event.pageX,
-        right: event.clientX || event.pageX,
-        top: event.clientY || event.pageY,
-        width: 0,
-      });
+      if ( event instanceof MouseEvent ) {
+        this.fakeElement.getBoundingClientRect = (): ClientRect => ({
+          bottom: event.clientY,
+          height: 0,
+          left: event.clientX,
+          right: event.clientX,
+          top: event.clientY,
+          width: 0,
+        });
+      }
+
+      if ( event instanceof TouchEvent ) {
+        this.fakeElement.getBoundingClientRect = (): ClientRect => ({
+          bottom: event.touches[0].clientY,
+          height: 0,
+          left: event.touches[0].clientX,
+          right: event.touches[0].clientX,
+          top: event.touches[0].clientY,
+          width: 0,
+        });
+      }
+
       this.closeAllContextMenus();
       const positionStrategy = this.overlay.position().connectedTo(
         { nativeElement: this.fakeElement },

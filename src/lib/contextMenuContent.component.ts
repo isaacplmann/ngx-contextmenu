@@ -21,7 +21,7 @@ import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 
 export interface ILinkConfig {
-  click: (item: any, $event?: MouseEvent) => void;
+  click: (item: any, $event?: MouseEvent | TouchEvent) => void;
   enabled?: (item: any) => boolean;
   html: (item: any) => string;
 }
@@ -71,7 +71,7 @@ const ARROW_LEFT_KEYCODE = 37;
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() public menuItems: ContextMenuItemDirective[] = [];
   @Input() public item: any;
-  @Input() public event: MouseEvent;
+  @Input() public event: MouseEvent | TouchEvent;
   @Input() public parentContextMenu: ContextMenuContentComponent;
   @Input() public overlay: OverlayRef;
   @Input() public isLeaf = false;
@@ -126,7 +126,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     }
   }
 
-  stopEvent($event: MouseEvent) {
+  stopEvent($event: MouseEvent | TouchEvent) {
     console.log($event);
     $event.stopPropagation();
   }
@@ -201,7 +201,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     this.closeAllMenus.emit();
   }
 
-  public onOpenSubMenu(menuItem: ContextMenuItemDirective, event?: MouseEvent): void {
+  public onOpenSubMenu(menuItem: ContextMenuItemDirective, event?: MouseEvent | TouchEvent): void {
     const anchorElementRef = this.menuItemElements.toArray()[this._keyManager.activeItemIndex];
     const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
     this.openSubMenu.emit({
@@ -213,7 +213,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     });
   }
 
-  public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
+  public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent | TouchEvent): void {
     event.preventDefault();
     event.stopPropagation();
     this.onOpenSubMenu(menuItem, event);

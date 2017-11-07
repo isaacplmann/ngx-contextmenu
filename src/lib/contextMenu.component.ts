@@ -22,7 +22,7 @@ import { ContextMenuService, IContextMenuClickEvent } from './contextMenu.servic
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
 
 export interface ILinkConfig {
-  click: (item: any, $event?: MouseEvent) => void;
+  click: (item: any, $event?: MouseEvent | TouchEvent) => void;
   enabled?: (item: any) => boolean;
   html: (item: any) => string;
 }
@@ -66,7 +66,7 @@ export class ContextMenuComponent implements OnDestroy {
 
   public links: ILinkConfig[] = [];
   public item: any;
-  public event: MouseEvent;
+  public event: MouseEvent | TouchEvent;
   private subscription: Subscription = new Subscription();
 
   constructor(
