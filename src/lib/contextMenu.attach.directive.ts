@@ -9,7 +9,9 @@ export class ContextMenuAttachDirective {
   @Input() public contextMenuSubject: any;
   @Input() public contextMenu: ContextMenuComponent;
 
+  private contextMenuOpen: boolean;
   private touchStart: number;
+  private touchMove: boolean;
 
   constructor(private contextMenuService: ContextMenuService) { }
 
@@ -27,17 +29,30 @@ export class ContextMenuAttachDirective {
   @HostListener('touchstart', ['$event'])
   public onTouchStart(event: TouchEvent): void {
     this.touchStart = event.timeStamp;
+    this.touchMove = false;
+  }
+
+  @HostListener('touchmove', ['$event'])
+  public onTouchMove(event: TouchEvent): void {
+    this.touchMove = true;
+    if (this.contextMenuOpen) { 
+      this.contextMenuService.closeAllContextMenus();
+      this.contextMenuOpen = false;
+    }
   }
 
   @HostListener('touchend', ['$event'])
   public onTouchEnd(event: TouchEvent): void {
     if ( event.timeStamp - this.touchStart < 500 ) return;
-    console.log( event );
+    if ( this.touchMove ) return;
+
     this.contextMenuService.show.next({
       contextMenu: this.contextMenu,
       event,
       item: this.contextMenuSubject,
     });
+
+    this.contextMenuOpen = true;
     event.preventDefault();
     event.stopPropagation();
   }
