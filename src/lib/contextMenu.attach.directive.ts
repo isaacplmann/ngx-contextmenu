@@ -9,7 +9,6 @@ export class ContextMenuAttachDirective {
   @Input() public contextMenuSubject: any;
   @Input() public contextMenu: ContextMenuComponent;
 
-  private contextMenuOpen: boolean;
   private touchStart: number;
   private touchMove: boolean;
 
@@ -17,6 +16,7 @@ export class ContextMenuAttachDirective {
 
   @HostListener('contextmenu', ['$event'])
   public onContextMenu(event: MouseEvent): void {
+    console.log(event.type);
     this.contextMenuService.show.next({
       contextMenu: this.contextMenu,
       event,
@@ -27,33 +27,33 @@ export class ContextMenuAttachDirective {
   }
 
   @HostListener('touchstart', ['$event'])
-  public onTouchStart(event: TouchEvent): void {
-    this.touchStart = event.timeStamp;
-    this.touchMove = false;
-  }
-
   @HostListener('touchmove', ['$event'])
-  public onTouchMove(event: TouchEvent): void {
-    this.touchMove = true;
-    if (this.contextMenuOpen) { 
-      this.contextMenuService.closeAllContextMenus();
-      this.contextMenuOpen = false;
-    }
-  }
-
   @HostListener('touchend', ['$event'])
-  public onTouchEnd(event: TouchEvent): void {
-    if ( event.timeStamp - this.touchStart < 500 ) return;
-    if ( this.touchMove ) return;
+  @HostListener('touchcancel', ['$event'])
+  public onTouchEvent( event: TouchEvent ): void {
+    let touch = event.touches[0] || event.changedTouches[0];
 
-    this.contextMenuService.show.next({
-      contextMenu: this.contextMenu,
-      event,
-      item: this.contextMenuSubject,
-    });
+    if ( event.type === 'touchstart' ) {
+      this.touchStart = event.timeStamp;
+      this.touchMove = false;
+    }
 
-    this.contextMenuOpen = true;
-    event.preventDefault();
-    event.stopPropagation();
+    if ( event.type === 'touchcancel' ) {
+      this.touchMove = true;
+      this.contextMenuService.closeAllContextMenus();
+    }
+
+    if ( event.type === 'touchend' ) {
+      if ( event.timeStamp - this.touchStart < 500 || this.touchMove ) return;
+
+      this.contextMenuService.show.next({
+        contextMenu: this.contextMenu,
+        event,
+        item: this.contextMenuSubject,
+      });
+
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 }
