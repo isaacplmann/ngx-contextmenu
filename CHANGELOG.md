@@ -1,3 +1,18 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-06)
+
+
+### BREAKING CHANGES
+
+* **dependencies:** Using @angular/cdk 5.x which requires angular 5.x
+* **dependencies:** Dropping support for angular 4.x
+
+
+### Fixes
+
+* **position:** Add vertical fallback for submenus
+
+
 <a name="2.0.0-beta.7"></a>
 # [2.0.0-beta.7](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-06)
 
