@@ -99,6 +99,12 @@ export class ContextMenuService {
         .withFallbackPosition(
         { originX: 'start', originY: 'top' },
         { overlayX: 'end', overlayY: 'top' })
+        .withFallbackPosition(
+        { originX: 'end', originY: 'bottom' },
+        { overlayX: 'start', overlayY: 'bottom' })
+        .withFallbackPosition(
+        { originX: 'start', originY: 'bottom' },
+        { overlayX: 'end', overlayY: 'bottom' })
         ;
       const newOverlay = this.overlay.create({
         positionStrategy,
