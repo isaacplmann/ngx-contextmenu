@@ -5813,6 +5813,110 @@ function share() {
 
 /***/ }),
 
+/***/ "../../../../rxjs/_esm5/operators/take.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = take;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subscriber__ = __webpack_require__("../../../../rxjs/_esm5/Subscriber.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_ArgumentOutOfRangeError__ = __webpack_require__("../../../../rxjs/_esm5/util/ArgumentOutOfRangeError.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__observable_EmptyObservable__ = __webpack_require__("../../../../rxjs/_esm5/observable/EmptyObservable.js");
+/** PURE_IMPORTS_START .._Subscriber,.._util_ArgumentOutOfRangeError,.._observable_EmptyObservable PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+/**
+ * Emits only the first `count` values emitted by the source Observable.
+ *
+ * <span class="informal">Takes the first `count` values from the source, then
+ * completes.</span>
+ *
+ * <img src="./img/take.png" width="100%">
+ *
+ * `take` returns an Observable that emits only the first `count` values emitted
+ * by the source Observable. If the source emits fewer than `count` values then
+ * all of its values are emitted. After that, it completes, regardless if the
+ * source completes.
+ *
+ * @example <caption>Take the first 5 seconds of an infinite 1-second interval Observable</caption>
+ * var interval = Rx.Observable.interval(1000);
+ * var five = interval.take(5);
+ * five.subscribe(x => console.log(x));
+ *
+ * @see {@link takeLast}
+ * @see {@link takeUntil}
+ * @see {@link takeWhile}
+ * @see {@link skip}
+ *
+ * @throws {ArgumentOutOfRangeError} When using `take(i)`, it delivers an
+ * ArgumentOutOrRangeError to the Observer's `error` callback if `i < 0`.
+ *
+ * @param {number} count The maximum number of `next` values to emit.
+ * @return {Observable<T>} An Observable that emits only the first `count`
+ * values emitted by the source Observable, or all of the values from the source
+ * if the source emits fewer than `count` values.
+ * @method take
+ * @owner Observable
+ */
+function take(count) {
+    return function (source) {
+        if (count === 0) {
+            return new __WEBPACK_IMPORTED_MODULE_2__observable_EmptyObservable__["a" /* EmptyObservable */]();
+        }
+        else {
+            return source.lift(new TakeOperator(count));
+        }
+    };
+}
+var TakeOperator = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function TakeOperator(total) {
+        this.total = total;
+        if (this.total < 0) {
+            throw new __WEBPACK_IMPORTED_MODULE_1__util_ArgumentOutOfRangeError__["a" /* ArgumentOutOfRangeError */];
+        }
+    }
+    TakeOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new TakeSubscriber(subscriber, this.total));
+    };
+    return TakeOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var TakeSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(TakeSubscriber, _super);
+    function TakeSubscriber(destination, total) {
+        _super.call(this, destination);
+        this.total = total;
+        this.count = 0;
+    }
+    TakeSubscriber.prototype._next = function (value) {
+        var total = this.total;
+        var count = ++this.count;
+        if (count <= total) {
+            this.destination.next(value);
+            if (count === total) {
+                this.destination.complete();
+                this.unsubscribe();
+            }
+        }
+    };
+    return TakeSubscriber;
+}(__WEBPACK_IMPORTED_MODULE_0__Subscriber__["a" /* Subscriber */]));
+//# sourceMappingURL=take.js.map 
+
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/operators/takeLast.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -7043,6 +7147,7 @@ function tryCatch(fn) {
 /* unused harmony export __asyncGenerator */
 /* unused harmony export __asyncDelegator */
 /* unused harmony export __asyncValues */
+/* unused harmony export __makeTemplateObject */
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -7105,7 +7210,7 @@ function __metadata(metadataKey, metadataValue) {
 function __awaiter(thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
@@ -7205,6 +7310,12 @@ function __asyncValues(o) {
     return m ? m.call(o) : typeof __values === "function" ? __values(o) : o[Symbol.iterator]();
 }
 
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+
 /***/ }),
 
 /***/ "../../../../webpack/buildin/global.js":
@@ -7239,6 +7350,7 @@ module.exports = g;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export FocusTrapDirective */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ActiveDescendantKeyManager; });
 /* unused harmony export MESSAGES_CONTAINER_ID */
 /* unused harmony export CDK_DESCRIBEDBY_ID_PREFIX */
@@ -7251,7 +7363,7 @@ module.exports = g;
 /* unused harmony export FocusTrap */
 /* unused harmony export FocusTrapFactory */
 /* unused harmony export FocusTrapDeprecatedDirective */
-/* unused harmony export FocusTrapDirective */
+/* unused harmony export CdkTrapFocus */
 /* unused harmony export InteractivityChecker */
 /* unused harmony export ListKeyManager */
 /* unused harmony export LIVE_ANNOUNCER_ELEMENT_TOKEN */
@@ -7264,20 +7376,20 @@ module.exports = g;
 /* unused harmony export FOCUS_MONITOR_PROVIDER_FACTORY */
 /* unused harmony export FOCUS_MONITOR_PROVIDER */
 /* unused harmony export A11yModule */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__ = __webpack_require__("../../../cdk/esm5/keycodes.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operators_debounceTime__ = __webpack_require__("../../../../rxjs/_esm5/operators/debounceTime.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operators_filter__ = __webpack_require__("../../../../rxjs/_esm5/operators/filter.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operators_map__ = __webpack_require__("../../../../rxjs/_esm5/operators/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operators_tap__ = __webpack_require__("../../../../rxjs/_esm5/operators/tap.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__ = __webpack_require__("../../../cdk/esm5/platform.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_cdk_coercion__ = __webpack_require__("../../../cdk/esm5/coercion.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operators_first__ = __webpack_require__("../../../../rxjs/_esm5/operators/first.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_observable_of__ = __webpack_require__("../../../../rxjs/_esm5/observable/of.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_cdk_coercion__ = __webpack_require__("../../../cdk/esm5/coercion.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operators_take__ = __webpack_require__("../../../../rxjs/_esm5/operators/take.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_cdk_platform__ = __webpack_require__("../../../cdk/esm5/platform.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__ = __webpack_require__("../../../cdk/esm5/keycodes.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operators_debounceTime__ = __webpack_require__("../../../../rxjs/_esm5/operators/debounceTime.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_operators_filter__ = __webpack_require__("../../../../rxjs/_esm5/operators/filter.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operators_map__ = __webpack_require__("../../../../rxjs/_esm5/operators/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_operators_tap__ = __webpack_require__("../../../../rxjs/_esm5/operators/tap.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_rxjs_observable_of__ = __webpack_require__("../../../../rxjs/_esm5/observable/of.js");
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -7305,6 +7417,855 @@ module.exports = g;
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
+/**
+ * Utility for checking the interactivity of an element, such as whether is is focusable or
+ * tabbable.
+ */
+var InteractivityChecker = (function () {
+    function InteractivityChecker(_platform) {
+        this._platform = _platform;
+    }
+    /**
+     * Gets whether an element is disabled.
+     *
+     * @param element Element to be checked.
+     * @returns Whether the element is disabled.
+     */
+    /**
+     * Gets whether an element is disabled.
+     *
+     * @param {?} element Element to be checked.
+     * @return {?} Whether the element is disabled.
+     */
+    InteractivityChecker.prototype.isDisabled = /**
+     * Gets whether an element is disabled.
+     *
+     * @param {?} element Element to be checked.
+     * @return {?} Whether the element is disabled.
+     */
+    function (element) {
+        // This does not capture some cases, such as a non-form control with a disabled attribute or
+        // a form control inside of a disabled form, but should capture the most common cases.
+        return element.hasAttribute('disabled');
+    };
+    /**
+     * Gets whether an element is visible for the purposes of interactivity.
+     *
+     * This will capture states like `display: none` and `visibility: hidden`, but not things like
+     * being clipped by an `overflow: hidden` parent or being outside the viewport.
+     *
+     * @returns Whether the element is visible.
+     */
+    /**
+     * Gets whether an element is visible for the purposes of interactivity.
+     *
+     * This will capture states like `display: none` and `visibility: hidden`, but not things like
+     * being clipped by an `overflow: hidden` parent or being outside the viewport.
+     *
+     * @param {?} element
+     * @return {?} Whether the element is visible.
+     */
+    InteractivityChecker.prototype.isVisible = /**
+     * Gets whether an element is visible for the purposes of interactivity.
+     *
+     * This will capture states like `display: none` and `visibility: hidden`, but not things like
+     * being clipped by an `overflow: hidden` parent or being outside the viewport.
+     *
+     * @param {?} element
+     * @return {?} Whether the element is visible.
+     */
+    function (element) {
+        return hasGeometry(element) && getComputedStyle(element).visibility === 'visible';
+    };
+    /**
+     * Gets whether an element can be reached via Tab key.
+     * Assumes that the element has already been checked with isFocusable.
+     *
+     * @param element Element to be checked.
+     * @returns Whether the element is tabbable.
+     */
+    /**
+     * Gets whether an element can be reached via Tab key.
+     * Assumes that the element has already been checked with isFocusable.
+     *
+     * @param {?} element Element to be checked.
+     * @return {?} Whether the element is tabbable.
+     */
+    InteractivityChecker.prototype.isTabbable = /**
+     * Gets whether an element can be reached via Tab key.
+     * Assumes that the element has already been checked with isFocusable.
+     *
+     * @param {?} element Element to be checked.
+     * @return {?} Whether the element is tabbable.
+     */
+    function (element) {
+        // Nothing is tabbable on the the server 😎
+        if (!this._platform.isBrowser) {
+            return false;
+        }
+        var /** @type {?} */ frameElement = /** @type {?} */ (getWindow(element).frameElement);
+        if (frameElement) {
+            var /** @type {?} */ frameType = frameElement && frameElement.nodeName.toLowerCase();
+            // Frame elements inherit their tabindex onto all child elements.
+            if (getTabIndexValue(frameElement) === -1) {
+                return false;
+            }
+            // Webkit and Blink consider anything inside of an <object> element as non-tabbable.
+            if ((this._platform.BLINK || this._platform.WEBKIT) && frameType === 'object') {
+                return false;
+            }
+            // Webkit and Blink disable tabbing to an element inside of an invisible frame.
+            if ((this._platform.BLINK || this._platform.WEBKIT) && !this.isVisible(frameElement)) {
+                return false;
+            }
+        }
+        var /** @type {?} */ nodeName = element.nodeName.toLowerCase();
+        var /** @type {?} */ tabIndexValue = getTabIndexValue(element);
+        if (element.hasAttribute('contenteditable')) {
+            return tabIndexValue !== -1;
+        }
+        if (nodeName === 'iframe') {
+            // The frames may be tabbable depending on content, but it's not possibly to reliably
+            // investigate the content of the frames.
+            return false;
+        }
+        if (nodeName === 'audio') {
+            if (!element.hasAttribute('controls')) {
+                // By default an <audio> element without the controls enabled is not tabbable.
+                return false;
+            }
+            else if (this._platform.BLINK) {
+                // In Blink <audio controls> elements are always tabbable.
+                return true;
+            }
+        }
+        if (nodeName === 'video') {
+            if (!element.hasAttribute('controls') && this._platform.TRIDENT) {
+                // In Trident a <video> element without the controls enabled is not tabbable.
+                return false;
+            }
+            else if (this._platform.BLINK || this._platform.FIREFOX) {
+                // In Chrome and Firefox <video controls> elements are always tabbable.
+                return true;
+            }
+        }
+        if (nodeName === 'object' && (this._platform.BLINK || this._platform.WEBKIT)) {
+            // In all Blink and WebKit based browsers <object> elements are never tabbable.
+            return false;
+        }
+        // In iOS the browser only considers some specific elements as tabbable.
+        if (this._platform.WEBKIT && this._platform.IOS && !isPotentiallyTabbableIOS(element)) {
+            return false;
+        }
+        return element.tabIndex >= 0;
+    };
+    /**
+     * Gets whether an element can be focused by the user.
+     *
+     * @param element Element to be checked.
+     * @returns Whether the element is focusable.
+     */
+    /**
+     * Gets whether an element can be focused by the user.
+     *
+     * @param {?} element Element to be checked.
+     * @return {?} Whether the element is focusable.
+     */
+    InteractivityChecker.prototype.isFocusable = /**
+     * Gets whether an element can be focused by the user.
+     *
+     * @param {?} element Element to be checked.
+     * @return {?} Whether the element is focusable.
+     */
+    function (element) {
+        // Perform checks in order of left to most expensive.
+        // Again, naive approach that does not capture many edge cases and browser quirks.
+        return isPotentiallyFocusable(element) && !this.isDisabled(element) && this.isVisible(element);
+    };
+    InteractivityChecker.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */] },
+    ];
+    /** @nocollapse */
+    InteractivityChecker.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_3__angular_cdk_platform__["a" /* Platform */], },
+    ]; };
+    return InteractivityChecker;
+}());
+/**
+ * Checks whether the specified element has any geometry / rectangles.
+ * @param {?} element
+ * @return {?}
+ */
+function hasGeometry(element) {
+    // Use logic from jQuery to check for an invisible element.
+    // See https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js#L12
+    return !!(element.offsetWidth || element.offsetHeight ||
+        (typeof element.getClientRects === 'function' && element.getClientRects().length));
+}
+/**
+ * Gets whether an element's
+ * @param {?} element
+ * @return {?}
+ */
+function isNativeFormElement(element) {
+    var /** @type {?} */ nodeName = element.nodeName.toLowerCase();
+    return nodeName === 'input' ||
+        nodeName === 'select' ||
+        nodeName === 'button' ||
+        nodeName === 'textarea';
+}
+/**
+ * Gets whether an element is an <input type="hidden">.
+ * @param {?} element
+ * @return {?}
+ */
+function isHiddenInput(element) {
+    return isInputElement(element) && element.type == 'hidden';
+}
+/**
+ * Gets whether an element is an anchor that has an href attribute.
+ * @param {?} element
+ * @return {?}
+ */
+function isAnchorWithHref(element) {
+    return isAnchorElement(element) && element.hasAttribute('href');
+}
+/**
+ * Gets whether an element is an input element.
+ * @param {?} element
+ * @return {?}
+ */
+function isInputElement(element) {
+    return element.nodeName.toLowerCase() == 'input';
+}
+/**
+ * Gets whether an element is an anchor element.
+ * @param {?} element
+ * @return {?}
+ */
+function isAnchorElement(element) {
+    return element.nodeName.toLowerCase() == 'a';
+}
+/**
+ * Gets whether an element has a valid tabindex.
+ * @param {?} element
+ * @return {?}
+ */
+function hasValidTabIndex(element) {
+    if (!element.hasAttribute('tabindex') || element.tabIndex === undefined) {
+        return false;
+    }
+    var /** @type {?} */ tabIndex = element.getAttribute('tabindex');
+    // IE11 parses tabindex="" as the value "-32768"
+    if (tabIndex == '-32768') {
+        return false;
+    }
+    return !!(tabIndex && !isNaN(parseInt(tabIndex, 10)));
+}
+/**
+ * Returns the parsed tabindex from the element attributes instead of returning the
+ * evaluated tabindex from the browsers defaults.
+ * @param {?} element
+ * @return {?}
+ */
+function getTabIndexValue(element) {
+    if (!hasValidTabIndex(element)) {
+        return null;
+    }
+    // See browser issue in Gecko https://bugzilla.mozilla.org/show_bug.cgi?id=1128054
+    var /** @type {?} */ tabIndex = parseInt(element.getAttribute('tabindex') || '', 10);
+    return isNaN(tabIndex) ? -1 : tabIndex;
+}
+/**
+ * Checks whether the specified element is potentially tabbable on iOS
+ * @param {?} element
+ * @return {?}
+ */
+function isPotentiallyTabbableIOS(element) {
+    var /** @type {?} */ nodeName = element.nodeName.toLowerCase();
+    var /** @type {?} */ inputType = nodeName === 'input' && (/** @type {?} */ (element)).type;
+    return inputType === 'text'
+        || inputType === 'password'
+        || nodeName === 'select'
+        || nodeName === 'textarea';
+}
+/**
+ * Gets whether an element is potentially focusable without taking current visible/disabled state
+ * into account.
+ * @param {?} element
+ * @return {?}
+ */
+function isPotentiallyFocusable(element) {
+    // Inputs are potentially focusable *unless* they're type="hidden".
+    if (isHiddenInput(element)) {
+        return false;
+    }
+    return isNativeFormElement(element) ||
+        isAnchorWithHref(element) ||
+        element.hasAttribute('contenteditable') ||
+        hasValidTabIndex(element);
+}
+/**
+ * Gets the parent window of a DOM node with regards of being inside of an iframe.
+ * @param {?} node
+ * @return {?}
+ */
+function getWindow(node) {
+    return node.ownerDocument.defaultView || window;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Class that allows for trapping focus within a DOM element.
+ *
+ * This class currently uses a relatively simple approach to focus trapping.
+ * It assumes that the tab order is the same as DOM order, which is not necessarily true.
+ * Things like tabIndex > 0, flex `order`, and shadow roots can cause to two to misalign.
+ */
+var FocusTrap = (function () {
+    function FocusTrap(_element, _checker, _ngZone, _document, deferAnchors) {
+        if (deferAnchors === void 0) { deferAnchors = false; }
+        this._element = _element;
+        this._checker = _checker;
+        this._ngZone = _ngZone;
+        this._document = _document;
+        this._enabled = true;
+        if (!deferAnchors) {
+            this.attachAnchors();
+        }
+    }
+    Object.defineProperty(FocusTrap.prototype, "enabled", {
+        /** Whether the focus trap is active. */
+        get: /**
+         * Whether the focus trap is active.
+         * @return {?}
+         */
+        function () { return this._enabled; },
+        set: /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            this._enabled = val;
+            if (this._startAnchor && this._endAnchor) {
+                this._startAnchor.tabIndex = this._endAnchor.tabIndex = this._enabled ? 0 : -1;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Destroys the focus trap by cleaning up the anchors. */
+    /**
+     * Destroys the focus trap by cleaning up the anchors.
+     * @return {?}
+     */
+    FocusTrap.prototype.destroy = /**
+     * Destroys the focus trap by cleaning up the anchors.
+     * @return {?}
+     */
+    function () {
+        if (this._startAnchor && this._startAnchor.parentNode) {
+            this._startAnchor.parentNode.removeChild(this._startAnchor);
+        }
+        if (this._endAnchor && this._endAnchor.parentNode) {
+            this._endAnchor.parentNode.removeChild(this._endAnchor);
+        }
+        this._startAnchor = this._endAnchor = null;
+    };
+    /**
+     * Inserts the anchors into the DOM. This is usually done automatically
+     * in the constructor, but can be deferred for cases like directives with `*ngIf`.
+     */
+    /**
+     * Inserts the anchors into the DOM. This is usually done automatically
+     * in the constructor, but can be deferred for cases like directives with `*ngIf`.
+     * @return {?}
+     */
+    FocusTrap.prototype.attachAnchors = /**
+     * Inserts the anchors into the DOM. This is usually done automatically
+     * in the constructor, but can be deferred for cases like directives with `*ngIf`.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this._startAnchor) {
+            this._startAnchor = this._createAnchor();
+        }
+        if (!this._endAnchor) {
+            this._endAnchor = this._createAnchor();
+        }
+        this._ngZone.runOutsideAngular(function () {
+            /** @type {?} */ ((_this._startAnchor)).addEventListener('focus', function () {
+                _this.focusLastTabbableElement();
+            }); /** @type {?} */
+            ((_this._endAnchor)).addEventListener('focus', function () {
+                _this.focusFirstTabbableElement();
+            });
+            if (_this._element.parentNode) {
+                _this._element.parentNode.insertBefore(/** @type {?} */ ((_this._startAnchor)), _this._element);
+                _this._element.parentNode.insertBefore(/** @type {?} */ ((_this._endAnchor)), _this._element.nextSibling);
+            }
+        });
+    };
+    /**
+     * Waits for the zone to stabilize, then either focuses the first element that the
+     * user specified, or the first tabbable element.
+     * @returns Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    /**
+     * Waits for the zone to stabilize, then either focuses the first element that the
+     * user specified, or the first tabbable element.
+     * @return {?} Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusInitialElementWhenReady = /**
+     * Waits for the zone to stabilize, then either focuses the first element that the
+     * user specified, or the first tabbable element.
+     * @return {?} Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this._executeOnStable(function () { return resolve(_this.focusInitialElement()); });
+        });
+    };
+    /**
+     * Waits for the zone to stabilize, then focuses
+     * the first tabbable element within the focus trap region.
+     * @returns Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    /**
+     * Waits for the zone to stabilize, then focuses
+     * the first tabbable element within the focus trap region.
+     * @return {?} Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusFirstTabbableElementWhenReady = /**
+     * Waits for the zone to stabilize, then focuses
+     * the first tabbable element within the focus trap region.
+     * @return {?} Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this._executeOnStable(function () { return resolve(_this.focusFirstTabbableElement()); });
+        });
+    };
+    /**
+     * Waits for the zone to stabilize, then focuses
+     * the last tabbable element within the focus trap region.
+     * @returns Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    /**
+     * Waits for the zone to stabilize, then focuses
+     * the last tabbable element within the focus trap region.
+     * @return {?} Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusLastTabbableElementWhenReady = /**
+     * Waits for the zone to stabilize, then focuses
+     * the last tabbable element within the focus trap region.
+     * @return {?} Returns a promise that resolves with a boolean, depending
+     * on whether focus was moved successfuly.
+     */
+    function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this._executeOnStable(function () { return resolve(_this.focusLastTabbableElement()); });
+        });
+    };
+    /**
+     * Get the specified boundary element of the trapped region.
+     * @param {?} bound The boundary to get (start or end of trapped region).
+     * @return {?} The boundary element.
+     */
+    FocusTrap.prototype._getRegionBoundary = /**
+     * Get the specified boundary element of the trapped region.
+     * @param {?} bound The boundary to get (start or end of trapped region).
+     * @return {?} The boundary element.
+     */
+    function (bound) {
+        // Contains the deprecated version of selector, for temporary backwards comparability.
+        var /** @type {?} */ markers = /** @type {?} */ (this._element.querySelectorAll("[cdk-focus-region-" + bound + "], " +
+            ("[cdkFocusRegion" + bound + "], ") +
+            ("[cdk-focus-" + bound + "]")));
+        for (var /** @type {?} */ i = 0; i < markers.length; i++) {
+            if (markers[i].hasAttribute("cdk-focus-" + bound)) {
+                console.warn("Found use of deprecated attribute 'cdk-focus-" + bound + "'," +
+                    (" use 'cdkFocusRegion" + bound + "' instead."), markers[i]);
+            }
+            else if (markers[i].hasAttribute("cdk-focus-region-" + bound)) {
+                console.warn("Found use of deprecated attribute 'cdk-focus-region-" + bound + "'," +
+                    (" use 'cdkFocusRegion" + bound + "' instead."), markers[i]);
+            }
+        }
+        if (bound == 'start') {
+            return markers.length ? markers[0] : this._getFirstTabbableElement(this._element);
+        }
+        return markers.length ?
+            markers[markers.length - 1] : this._getLastTabbableElement(this._element);
+    };
+    /**
+     * Focuses the element that should be focused when the focus trap is initialized.
+     * @returns Whether focus was moved successfuly.
+     */
+    /**
+     * Focuses the element that should be focused when the focus trap is initialized.
+     * @return {?} Whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusInitialElement = /**
+     * Focuses the element that should be focused when the focus trap is initialized.
+     * @return {?} Whether focus was moved successfuly.
+     */
+    function () {
+        // Contains the deprecated version of selector, for temporary backwards comparability.
+        var /** @type {?} */ redirectToElement = /** @type {?} */ (this._element.querySelector("[cdk-focus-initial], " +
+            "[cdkFocusInitial]"));
+        if (this._element.hasAttribute("cdk-focus-initial")) {
+            console.warn("Found use of deprecated attribute 'cdk-focus-initial'," +
+                " use 'cdkFocusInitial' instead.", this._element);
+        }
+        if (redirectToElement) {
+            redirectToElement.focus();
+            return true;
+        }
+        return this.focusFirstTabbableElement();
+    };
+    /**
+     * Focuses the first tabbable element within the focus trap region.
+     * @returns Whether focus was moved successfuly.
+     */
+    /**
+     * Focuses the first tabbable element within the focus trap region.
+     * @return {?} Whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusFirstTabbableElement = /**
+     * Focuses the first tabbable element within the focus trap region.
+     * @return {?} Whether focus was moved successfuly.
+     */
+    function () {
+        var /** @type {?} */ redirectToElement = this._getRegionBoundary('start');
+        if (redirectToElement) {
+            redirectToElement.focus();
+        }
+        return !!redirectToElement;
+    };
+    /**
+     * Focuses the last tabbable element within the focus trap region.
+     * @returns Whether focus was moved successfuly.
+     */
+    /**
+     * Focuses the last tabbable element within the focus trap region.
+     * @return {?} Whether focus was moved successfuly.
+     */
+    FocusTrap.prototype.focusLastTabbableElement = /**
+     * Focuses the last tabbable element within the focus trap region.
+     * @return {?} Whether focus was moved successfuly.
+     */
+    function () {
+        var /** @type {?} */ redirectToElement = this._getRegionBoundary('end');
+        if (redirectToElement) {
+            redirectToElement.focus();
+        }
+        return !!redirectToElement;
+    };
+    /**
+     * Get the first tabbable element from a DOM subtree (inclusive).
+     * @param {?} root
+     * @return {?}
+     */
+    FocusTrap.prototype._getFirstTabbableElement = /**
+     * Get the first tabbable element from a DOM subtree (inclusive).
+     * @param {?} root
+     * @return {?}
+     */
+    function (root) {
+        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
+            return root;
+        }
+        // Iterate in DOM order. Note that IE doesn't have `children` for SVG so we fall
+        // back to `childNodes` which includes text nodes, comments etc.
+        var /** @type {?} */ children = root.children || root.childNodes;
+        for (var /** @type {?} */ i = 0; i < children.length; i++) {
+            var /** @type {?} */ tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
+                this._getFirstTabbableElement(/** @type {?} */ (children[i])) :
+                null;
+            if (tabbableChild) {
+                return tabbableChild;
+            }
+        }
+        return null;
+    };
+    /**
+     * Get the last tabbable element from a DOM subtree (inclusive).
+     * @param {?} root
+     * @return {?}
+     */
+    FocusTrap.prototype._getLastTabbableElement = /**
+     * Get the last tabbable element from a DOM subtree (inclusive).
+     * @param {?} root
+     * @return {?}
+     */
+    function (root) {
+        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
+            return root;
+        }
+        // Iterate in reverse DOM order.
+        var /** @type {?} */ children = root.children || root.childNodes;
+        for (var /** @type {?} */ i = children.length - 1; i >= 0; i--) {
+            var /** @type {?} */ tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
+                this._getLastTabbableElement(/** @type {?} */ (children[i])) :
+                null;
+            if (tabbableChild) {
+                return tabbableChild;
+            }
+        }
+        return null;
+    };
+    /**
+     * Creates an anchor element.
+     * @return {?}
+     */
+    FocusTrap.prototype._createAnchor = /**
+     * Creates an anchor element.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ anchor = this._document.createElement('div');
+        anchor.tabIndex = this._enabled ? 0 : -1;
+        anchor.classList.add('cdk-visually-hidden');
+        anchor.classList.add('cdk-focus-trap-anchor');
+        return anchor;
+    };
+    /**
+     * Executes a function when the zone is stable.
+     * @param {?} fn
+     * @return {?}
+     */
+    FocusTrap.prototype._executeOnStable = /**
+     * Executes a function when the zone is stable.
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        if (this._ngZone.isStable) {
+            fn();
+        }
+        else {
+            this._ngZone.onStable.asObservable().pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators_take__["a" /* take */])(1)).subscribe(fn);
+        }
+    };
+    return FocusTrap;
+}());
+/**
+ * Factory that allows easy instantiation of focus traps.
+ */
+var FocusTrapFactory = (function () {
+    function FocusTrapFactory(_checker, _ngZone, _document) {
+        this._checker = _checker;
+        this._ngZone = _ngZone;
+        this._document = _document;
+    }
+    /**
+     * Creates a focus-trapped region around the given element.
+     * @param element The element around which focus will be trapped.
+     * @param deferCaptureElements Defers the creation of focus-capturing elements to be done
+     *     manually by the user.
+     * @returns The created focus trap instance.
+     */
+    /**
+     * Creates a focus-trapped region around the given element.
+     * @param {?} element The element around which focus will be trapped.
+     * @param {?=} deferCaptureElements Defers the creation of focus-capturing elements to be done
+     *     manually by the user.
+     * @return {?} The created focus trap instance.
+     */
+    FocusTrapFactory.prototype.create = /**
+     * Creates a focus-trapped region around the given element.
+     * @param {?} element The element around which focus will be trapped.
+     * @param {?=} deferCaptureElements Defers the creation of focus-capturing elements to be done
+     *     manually by the user.
+     * @return {?} The created focus trap instance.
+     */
+    function (element, deferCaptureElements) {
+        if (deferCaptureElements === void 0) { deferCaptureElements = false; }
+        return new FocusTrap(element, this._checker, this._ngZone, this._document, deferCaptureElements);
+    };
+    FocusTrapFactory.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */] },
+    ];
+    /** @nocollapse */
+    FocusTrapFactory.ctorParameters = function () { return [
+        { type: InteractivityChecker, },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* NgZone */], },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_4__angular_common__["c" /* DOCUMENT */],] },] },
+    ]; };
+    return FocusTrapFactory;
+}());
+/**
+ * Directive for trapping focus within a region.
+ * \@docs-private
+ * @deprecated
+ */
+var FocusTrapDeprecatedDirective = (function () {
+    function FocusTrapDeprecatedDirective(_elementRef, _focusTrapFactory) {
+        this._elementRef = _elementRef;
+        this._focusTrapFactory = _focusTrapFactory;
+        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
+    }
+    Object.defineProperty(FocusTrapDeprecatedDirective.prototype, "disabled", {
+        get: /**
+         * Whether the focus trap is active.
+         * @return {?}
+         */
+        function () { return !this.focusTrap.enabled; },
+        set: /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            this.focusTrap.enabled = !Object(__WEBPACK_IMPORTED_MODULE_1__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(val);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    FocusTrapDeprecatedDirective.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.focusTrap.destroy();
+    };
+    /**
+     * @return {?}
+     */
+    FocusTrapDeprecatedDirective.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        this.focusTrap.attachAnchors();
+    };
+    FocusTrapDeprecatedDirective.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* Directive */], args: [{
+                    selector: 'cdk-focus-trap',
+                },] },
+    ];
+    /** @nocollapse */
+    FocusTrapDeprecatedDirective.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */], },
+        { type: FocusTrapFactory, },
+    ]; };
+    FocusTrapDeprecatedDirective.propDecorators = {
+        "disabled": [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */] },],
+    };
+    return FocusTrapDeprecatedDirective;
+}());
+/**
+ * Directive for trapping focus within a region.
+ */
+var CdkTrapFocus = (function () {
+    function CdkTrapFocus(_elementRef, _focusTrapFactory, _document) {
+        this._elementRef = _elementRef;
+        this._focusTrapFactory = _focusTrapFactory;
+        /**
+         * Previously focused element to restore focus to upon destroy when using autoCapture.
+         */
+        this._previouslyFocusedElement = null;
+        this._document = _document;
+        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
+    }
+    Object.defineProperty(CdkTrapFocus.prototype, "enabled", {
+        get: /**
+         * Whether the focus trap is active.
+         * @return {?}
+         */
+        function () { return this.focusTrap.enabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this.focusTrap.enabled = Object(__WEBPACK_IMPORTED_MODULE_1__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CdkTrapFocus.prototype, "autoCapture", {
+        get: /**
+         * Whether the directive should automatially move focus into the trapped region upon
+         * initialization and return focus to the previous activeElement upon destruction.
+         * @return {?}
+         */
+        function () { return this._autoCapture; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._autoCapture = Object(__WEBPACK_IMPORTED_MODULE_1__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(value); },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    CdkTrapFocus.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.focusTrap.destroy();
+        // If we stored a previously focused element when using autoCapture, return focus to that
+        // element now that the trapped region is being destroyed.
+        if (this._previouslyFocusedElement) {
+            this._previouslyFocusedElement.focus();
+            this._previouslyFocusedElement = null;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    CdkTrapFocus.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        this.focusTrap.attachAnchors();
+        if (this.autoCapture) {
+            this._previouslyFocusedElement = /** @type {?} */ (this._document.activeElement);
+            this.focusTrap.focusInitialElementWhenReady();
+        }
+    };
+    CdkTrapFocus.decorators = [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* Directive */], args: [{
+                    selector: '[cdkTrapFocus]',
+                    exportAs: 'cdkTrapFocus',
+                },] },
+    ];
+    /** @nocollapse */
+    CdkTrapFocus.ctorParameters = function () { return [
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */], },
+        { type: FocusTrapFactory, },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_4__angular_common__["c" /* DOCUMENT */],] },] },
+    ]; };
+    CdkTrapFocus.propDecorators = {
+        "enabled": [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */], args: ['cdkTrapFocus',] },],
+        "autoCapture": [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */], args: ['cdkTrapFocusAutoCapture',] },],
+    };
+    return CdkTrapFocus;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * This interface is for items that can be passed to a ListKeyManager.
  * @record
@@ -7319,18 +8280,18 @@ var ListKeyManager = (function () {
         this._items = _items;
         this._activeItemIndex = -1;
         this._wrap = false;
-        this._letterKeyStream = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
-        this._typeaheadSubscription = __WEBPACK_IMPORTED_MODULE_2_rxjs_Subscription__["a" /* Subscription */].EMPTY;
+        this._letterKeyStream = new __WEBPACK_IMPORTED_MODULE_6_rxjs_Subject__["a" /* Subject */]();
+        this._typeaheadSubscription = __WEBPACK_IMPORTED_MODULE_7_rxjs_Subscription__["a" /* Subscription */].EMPTY;
         this._pressedLetters = [];
         /**
          * Stream that emits any time the TAB key is pressed, so components can react
          * when focus is shifted off of the list.
          */
-        this.tabOut = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+        this.tabOut = new __WEBPACK_IMPORTED_MODULE_6_rxjs_Subject__["a" /* Subject */]();
         /**
          * Stream that emits whenever the active item of the list manager changes.
          */
-        this.change = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+        this.change = new __WEBPACK_IMPORTED_MODULE_6_rxjs_Subject__["a" /* Subject */]();
     }
     /**
      * Turns on wrapping mode, which ensures that the active item will wrap to
@@ -7374,7 +8335,7 @@ var ListKeyManager = (function () {
         // Debounce the presses of non-navigational keys, collect the ones that correspond to letters
         // and convert those letters back into a string. Afterwards find the first item that starts
         // with that string and select it.
-        this._typeaheadSubscription = this._letterKeyStream.pipe(Object(__WEBPACK_IMPORTED_MODULE_7_rxjs_operators_tap__["a" /* tap */])(function (keyCode) { return _this._pressedLetters.push(keyCode); }), Object(__WEBPACK_IMPORTED_MODULE_4_rxjs_operators_debounceTime__["a" /* debounceTime */])(debounceInterval), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators_filter__["a" /* filter */])(function () { return _this._pressedLetters.length > 0; }), Object(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators_map__["a" /* map */])(function () { return _this._pressedLetters.join(''); })).subscribe(function (inputString) {
+        this._typeaheadSubscription = this._letterKeyStream.pipe(Object(__WEBPACK_IMPORTED_MODULE_12_rxjs_operators_tap__["a" /* tap */])(function (keyCode) { return _this._pressedLetters.push(keyCode); }), Object(__WEBPACK_IMPORTED_MODULE_9_rxjs_operators_debounceTime__["a" /* debounceTime */])(debounceInterval), Object(__WEBPACK_IMPORTED_MODULE_10_rxjs_operators_filter__["a" /* filter */])(function () { return _this._pressedLetters.length > 0; }), Object(__WEBPACK_IMPORTED_MODULE_11_rxjs_operators_map__["a" /* map */])(function () { return _this._pressedLetters.join(''); })).subscribe(function (inputString) {
             var /** @type {?} */ items = _this._items.toArray();
             // Start at 1 because we want to start searching at the item immediately
             // following the current active item.
@@ -7428,13 +8389,13 @@ var ListKeyManager = (function () {
      */
     function (event) {
         switch (event.keyCode) {
-            case __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["b" /* DOWN_ARROW */]:
+            case __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__["b" /* DOWN_ARROW */]:
                 this.setNextItemActive();
                 break;
-            case __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["f" /* UP_ARROW */]:
+            case __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__["f" /* UP_ARROW */]:
                 this.setPreviousItemActive();
                 break;
-            case __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["e" /* TAB */]:
+            case __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__["e" /* TAB */]:
                 this.tabOut.next();
                 return;
             default:
@@ -7444,7 +8405,7 @@ var ListKeyManager = (function () {
                 if (event.key && event.key.length === 1) {
                     this._letterKeyStream.next(event.key.toLocaleUpperCase());
                 }
-                else if ((keyCode >= __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["a" /* A */] && keyCode <= __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["g" /* Z */]) || (keyCode >= __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["h" /* ZERO */] && keyCode <= __WEBPACK_IMPORTED_MODULE_3__angular_cdk_keycodes__["d" /* NINE */])) {
+                else if ((keyCode >= __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__["a" /* A */] && keyCode <= __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__["g" /* Z */]) || (keyCode >= __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__["h" /* ZERO */] && keyCode <= __WEBPACK_IMPORTED_MODULE_8__angular_cdk_keycodes__["d" /* NINE */])) {
                     this._letterKeyStream.next(String.fromCharCode(keyCode));
                 }
                 // Note that we return here, in order to avoid preventing
@@ -7658,7 +8619,7 @@ var ListKeyManager = (function () {
  */
 
 var ActiveDescendantKeyManager = (function (_super) {
-    Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["b" /* __extends */])(ActiveDescendantKeyManager, _super);
+    Object(__WEBPACK_IMPORTED_MODULE_5_tslib__["b" /* __extends */])(ActiveDescendantKeyManager, _super);
     function ActiveDescendantKeyManager() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -7749,7 +8710,7 @@ function getAriaReferenceIds(el, attr) {
 
 /**
  * Interface used to register message elements and keep a count of how many registrations have
- * the same message and the reference to the message element used for the aria-describedby.
+ * the same message and the reference to the message element used for the `aria-describedby`.
  * @record
  */
 
@@ -7784,8 +8745,8 @@ var messagesContainer = null;
  * \@docs-private
  */
 var AriaDescriber = (function () {
-    function AriaDescriber(_platform) {
-        this._platform = _platform;
+    function AriaDescriber(_document) {
+        this._document = _document;
     }
     /**
      * Adds to the host element an aria-describedby reference to a hidden element that contains
@@ -7809,14 +8770,14 @@ var AriaDescriber = (function () {
      * @return {?}
      */
     function (hostElement, message) {
-        if (!this._platform.isBrowser || !message.trim()) {
+        if (!message.trim()) {
             return;
         }
         if (!messageRegistry.has(message)) {
-            createMessageElement(message);
+            this._createMessageElement(message);
         }
-        if (!isElementDescribedByMessage(hostElement, message)) {
-            addMessageReference(hostElement, message);
+        if (!this._isElementDescribedByMessage(hostElement, message)) {
+            this._addMessageReference(hostElement, message);
         }
     };
     /** Removes the host element's aria-describedby reference to the message element. */
@@ -7833,18 +8794,18 @@ var AriaDescriber = (function () {
      * @return {?}
      */
     function (hostElement, message) {
-        if (!this._platform.isBrowser || !message.trim()) {
+        if (!message.trim()) {
             return;
         }
-        if (isElementDescribedByMessage(hostElement, message)) {
-            removeMessageReference(hostElement, message);
+        if (this._isElementDescribedByMessage(hostElement, message)) {
+            this._removeMessageReference(hostElement, message);
         }
         var /** @type {?} */ registeredMessage = messageRegistry.get(message);
         if (registeredMessage && registeredMessage.referenceCount === 0) {
-            deleteMessageElement(message);
+            this._deleteMessageElement(message);
         }
         if (messagesContainer && messagesContainer.childNodes.length === 0) {
-            deleteMessagesContainer();
+            this._deleteMessagesContainer();
         }
     };
     /** Unregisters all created message elements and removes the message container. */
@@ -7857,134 +8818,176 @@ var AriaDescriber = (function () {
      * @return {?}
      */
     function () {
-        if (!this._platform.isBrowser) {
-            return;
-        }
-        var /** @type {?} */ describedElements = document.querySelectorAll("[" + CDK_DESCRIBEDBY_HOST_ATTRIBUTE + "]");
+        var /** @type {?} */ describedElements = this._document.querySelectorAll("[" + CDK_DESCRIBEDBY_HOST_ATTRIBUTE + "]");
         for (var /** @type {?} */ i = 0; i < describedElements.length; i++) {
-            removeCdkDescribedByReferenceIds(describedElements[i]);
+            this._removeCdkDescribedByReferenceIds(describedElements[i]);
             describedElements[i].removeAttribute(CDK_DESCRIBEDBY_HOST_ATTRIBUTE);
         }
         if (messagesContainer) {
-            deleteMessagesContainer();
+            this._deleteMessagesContainer();
         }
         messageRegistry.clear();
     };
+    /**
+     * Creates a new element in the visually hidden message container element with the message
+     * as its content and adds it to the message registry.
+     * @param {?} message
+     * @return {?}
+     */
+    AriaDescriber.prototype._createMessageElement = /**
+     * Creates a new element in the visually hidden message container element with the message
+     * as its content and adds it to the message registry.
+     * @param {?} message
+     * @return {?}
+     */
+    function (message) {
+        var /** @type {?} */ messageElement = this._document.createElement('div');
+        messageElement.setAttribute('id', CDK_DESCRIBEDBY_ID_PREFIX + "-" + nextId++);
+        messageElement.appendChild(/** @type {?} */ ((this._document.createTextNode(message))));
+        if (!messagesContainer) {
+            this._createMessagesContainer();
+        } /** @type {?} */
+        ((messagesContainer)).appendChild(messageElement);
+        messageRegistry.set(message, { messageElement: messageElement, referenceCount: 0 });
+    };
+    /**
+     * Deletes the message element from the global messages container.
+     * @param {?} message
+     * @return {?}
+     */
+    AriaDescriber.prototype._deleteMessageElement = /**
+     * Deletes the message element from the global messages container.
+     * @param {?} message
+     * @return {?}
+     */
+    function (message) {
+        var /** @type {?} */ registeredMessage = messageRegistry.get(message);
+        var /** @type {?} */ messageElement = registeredMessage && registeredMessage.messageElement;
+        if (messagesContainer && messageElement) {
+            messagesContainer.removeChild(messageElement);
+        }
+        messageRegistry.delete(message);
+    };
+    /**
+     * Creates the global container for all aria-describedby messages.
+     * @return {?}
+     */
+    AriaDescriber.prototype._createMessagesContainer = /**
+     * Creates the global container for all aria-describedby messages.
+     * @return {?}
+     */
+    function () {
+        messagesContainer = this._document.createElement('div');
+        messagesContainer.setAttribute('id', MESSAGES_CONTAINER_ID);
+        messagesContainer.setAttribute('aria-hidden', 'true');
+        messagesContainer.style.display = 'none';
+        this._document.body.appendChild(messagesContainer);
+    };
+    /**
+     * Deletes the global messages container.
+     * @return {?}
+     */
+    AriaDescriber.prototype._deleteMessagesContainer = /**
+     * Deletes the global messages container.
+     * @return {?}
+     */
+    function () {
+        this._document.body.removeChild(/** @type {?} */ ((messagesContainer)));
+        messagesContainer = null;
+    };
+    /**
+     * Removes all cdk-describedby messages that are hosted through the element.
+     * @param {?} element
+     * @return {?}
+     */
+    AriaDescriber.prototype._removeCdkDescribedByReferenceIds = /**
+     * Removes all cdk-describedby messages that are hosted through the element.
+     * @param {?} element
+     * @return {?}
+     */
+    function (element) {
+        // Remove all aria-describedby reference IDs that are prefixed by CDK_DESCRIBEDBY_ID_PREFIX
+        var /** @type {?} */ originalReferenceIds = getAriaReferenceIds(element, 'aria-describedby')
+            .filter(function (id) { return id.indexOf(CDK_DESCRIBEDBY_ID_PREFIX) != 0; });
+        element.setAttribute('aria-describedby', originalReferenceIds.join(' '));
+    };
+    /**
+     * Adds a message reference to the element using aria-describedby and increments the registered
+     * message's reference count.
+     * @param {?} element
+     * @param {?} message
+     * @return {?}
+     */
+    AriaDescriber.prototype._addMessageReference = /**
+     * Adds a message reference to the element using aria-describedby and increments the registered
+     * message's reference count.
+     * @param {?} element
+     * @param {?} message
+     * @return {?}
+     */
+    function (element, message) {
+        var /** @type {?} */ registeredMessage = /** @type {?} */ ((messageRegistry.get(message)));
+        // Add the aria-describedby reference and set the
+        // describedby_host attribute to mark the element.
+        addAriaReferencedId(element, 'aria-describedby', registeredMessage.messageElement.id);
+        element.setAttribute(CDK_DESCRIBEDBY_HOST_ATTRIBUTE, '');
+        registeredMessage.referenceCount++;
+    };
+    /**
+     * Removes a message reference from the element using aria-describedby
+     * and decrements the registered message's reference count.
+     * @param {?} element
+     * @param {?} message
+     * @return {?}
+     */
+    AriaDescriber.prototype._removeMessageReference = /**
+     * Removes a message reference from the element using aria-describedby
+     * and decrements the registered message's reference count.
+     * @param {?} element
+     * @param {?} message
+     * @return {?}
+     */
+    function (element, message) {
+        var /** @type {?} */ registeredMessage = /** @type {?} */ ((messageRegistry.get(message)));
+        registeredMessage.referenceCount--;
+        removeAriaReferencedId(element, 'aria-describedby', registeredMessage.messageElement.id);
+        element.removeAttribute(CDK_DESCRIBEDBY_HOST_ATTRIBUTE);
+    };
+    /**
+     * Returns true if the element has been described by the provided message ID.
+     * @param {?} element
+     * @param {?} message
+     * @return {?}
+     */
+    AriaDescriber.prototype._isElementDescribedByMessage = /**
+     * Returns true if the element has been described by the provided message ID.
+     * @param {?} element
+     * @param {?} message
+     * @return {?}
+     */
+    function (element, message) {
+        var /** @type {?} */ referenceIds = getAriaReferenceIds(element, 'aria-describedby');
+        var /** @type {?} */ registeredMessage = messageRegistry.get(message);
+        var /** @type {?} */ messageId = registeredMessage && registeredMessage.messageElement.id;
+        return !!messageId && referenceIds.indexOf(messageId) != -1;
+    };
     AriaDescriber.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["A" /* Injectable */] },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */] },
     ];
     /** @nocollapse */
     AriaDescriber.ctorParameters = function () { return [
-        { type: __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["a" /* Platform */], },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_4__angular_common__["c" /* DOCUMENT */],] },] },
     ]; };
     return AriaDescriber;
 }());
 /**
- * Creates a new element in the visually hidden message container element with the message
- * as its content and adds it to the message registry.
- * @param {?} message
- * @return {?}
- */
-function createMessageElement(message) {
-    var /** @type {?} */ messageElement = document.createElement('div');
-    messageElement.setAttribute('id', CDK_DESCRIBEDBY_ID_PREFIX + "-" + nextId++);
-    messageElement.appendChild(/** @type {?} */ ((document.createTextNode(message))));
-    if (!messagesContainer) {
-        createMessagesContainer();
-    } /** @type {?} */
-    ((messagesContainer)).appendChild(messageElement);
-    messageRegistry.set(message, { messageElement: messageElement, referenceCount: 0 });
-}
-/**
- * Deletes the message element from the global messages container.
- * @param {?} message
- * @return {?}
- */
-function deleteMessageElement(message) {
-    var /** @type {?} */ registeredMessage = messageRegistry.get(message);
-    var /** @type {?} */ messageElement = registeredMessage && registeredMessage.messageElement;
-    if (messagesContainer && messageElement) {
-        messagesContainer.removeChild(messageElement);
-    }
-    messageRegistry.delete(message);
-}
-/**
- * Creates the global container for all aria-describedby messages.
- * @return {?}
- */
-function createMessagesContainer() {
-    messagesContainer = document.createElement('div');
-    messagesContainer.setAttribute('id', MESSAGES_CONTAINER_ID);
-    messagesContainer.setAttribute('aria-hidden', 'true');
-    messagesContainer.style.display = 'none';
-    document.body.appendChild(messagesContainer);
-}
-/**
- * Deletes the global messages container.
- * @return {?}
- */
-function deleteMessagesContainer() {
-    document.body.removeChild(/** @type {?} */ ((messagesContainer)));
-    messagesContainer = null;
-}
-/**
- * Removes all cdk-describedby messages that are hosted through the element.
- * @param {?} element
- * @return {?}
- */
-function removeCdkDescribedByReferenceIds(element) {
-    // Remove all aria-describedby reference IDs that are prefixed by CDK_DESCRIBEDBY_ID_PREFIX
-    var /** @type {?} */ originalReferenceIds = getAriaReferenceIds(element, 'aria-describedby')
-        .filter(function (id) { return id.indexOf(CDK_DESCRIBEDBY_ID_PREFIX) != 0; });
-    element.setAttribute('aria-describedby', originalReferenceIds.join(' '));
-}
-/**
- * Adds a message reference to the element using aria-describedby and increments the registered
- * message's reference count.
- * @param {?} element
- * @param {?} message
- * @return {?}
- */
-function addMessageReference(element, message) {
-    var /** @type {?} */ registeredMessage = /** @type {?} */ ((messageRegistry.get(message)));
-    // Add the aria-describedby reference and set the describedby_host attribute to mark the element.
-    addAriaReferencedId(element, 'aria-describedby', registeredMessage.messageElement.id);
-    element.setAttribute(CDK_DESCRIBEDBY_HOST_ATTRIBUTE, '');
-    registeredMessage.referenceCount++;
-}
-/**
- * Removes a message reference from the element using aria-describedby and decrements the registered
- * message's reference count.
- * @param {?} element
- * @param {?} message
- * @return {?}
- */
-function removeMessageReference(element, message) {
-    var /** @type {?} */ registeredMessage = /** @type {?} */ ((messageRegistry.get(message)));
-    registeredMessage.referenceCount--;
-    removeAriaReferencedId(element, 'aria-describedby', registeredMessage.messageElement.id);
-    element.removeAttribute(CDK_DESCRIBEDBY_HOST_ATTRIBUTE);
-}
-/**
- * Returns true if the element has been described by the provided message ID.
- * @param {?} element
- * @param {?} message
- * @return {?}
- */
-function isElementDescribedByMessage(element, message) {
-    var /** @type {?} */ referenceIds = getAriaReferenceIds(element, 'aria-describedby');
-    var /** @type {?} */ registeredMessage = messageRegistry.get(message);
-    var /** @type {?} */ messageId = registeredMessage && registeredMessage.messageElement.id;
-    return !!messageId && referenceIds.indexOf(messageId) != -1;
-}
-/**
  * \@docs-private
  * @param {?} parentDispatcher
- * @param {?} platform
+ * @param {?} _document
  * @return {?}
  */
-function ARIA_DESCRIBER_PROVIDER_FACTORY(parentDispatcher, platform) {
-    return parentDispatcher || new AriaDescriber(platform);
+function ARIA_DESCRIBER_PROVIDER_FACTORY(parentDispatcher, _document) {
+    return parentDispatcher || new AriaDescriber(_document);
 }
 /**
  * \@docs-private
@@ -7993,8 +8996,8 @@ var ARIA_DESCRIBER_PROVIDER = {
     // If there is already an AriaDescriber available, use that. Otherwise, provide a new one.
     provide: AriaDescriber,
     deps: [
-        [new __WEBPACK_IMPORTED_MODULE_8__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_8__angular_core__["_1" /* SkipSelf */](), AriaDescriber],
-        __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["a" /* Platform */]
+        [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* SkipSelf */](), AriaDescriber],
+        /** @type {?} */ (__WEBPACK_IMPORTED_MODULE_4__angular_common__["c" /* DOCUMENT */])
     ],
     useFactory: ARIA_DESCRIBER_PROVIDER_FACTORY
 };
@@ -8028,7 +9031,7 @@ function isFakeMousedownFromScreenReader(event) {
  */
 
 var FocusKeyManager = (function (_super) {
-    Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["b" /* __extends */])(FocusKeyManager, _super);
+    Object(__WEBPACK_IMPORTED_MODULE_5_tslib__["b" /* __extends */])(FocusKeyManager, _super);
     function FocusKeyManager() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -8062,843 +9065,14 @@ var FocusKeyManager = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-/**
- * Utility for checking the interactivity of an element, such as whether is is focusable or
- * tabbable.
- */
-var InteractivityChecker = (function () {
-    function InteractivityChecker(_platform) {
-        this._platform = _platform;
-    }
-    /**
-     * Gets whether an element is disabled.
-     *
-     * @param element Element to be checked.
-     * @returns Whether the element is disabled.
-     */
-    /**
-     * Gets whether an element is disabled.
-     *
-     * @param {?} element Element to be checked.
-     * @return {?} Whether the element is disabled.
-     */
-    InteractivityChecker.prototype.isDisabled = /**
-     * Gets whether an element is disabled.
-     *
-     * @param {?} element Element to be checked.
-     * @return {?} Whether the element is disabled.
-     */
-    function (element) {
-        // This does not capture some cases, such as a non-form control with a disabled attribute or
-        // a form control inside of a disabled form, but should capture the most common cases.
-        return element.hasAttribute('disabled');
-    };
-    /**
-     * Gets whether an element is visible for the purposes of interactivity.
-     *
-     * This will capture states like `display: none` and `visibility: hidden`, but not things like
-     * being clipped by an `overflow: hidden` parent or being outside the viewport.
-     *
-     * @returns Whether the element is visible.
-     */
-    /**
-     * Gets whether an element is visible for the purposes of interactivity.
-     *
-     * This will capture states like `display: none` and `visibility: hidden`, but not things like
-     * being clipped by an `overflow: hidden` parent or being outside the viewport.
-     *
-     * @param {?} element
-     * @return {?} Whether the element is visible.
-     */
-    InteractivityChecker.prototype.isVisible = /**
-     * Gets whether an element is visible for the purposes of interactivity.
-     *
-     * This will capture states like `display: none` and `visibility: hidden`, but not things like
-     * being clipped by an `overflow: hidden` parent or being outside the viewport.
-     *
-     * @param {?} element
-     * @return {?} Whether the element is visible.
-     */
-    function (element) {
-        return hasGeometry(element) && getComputedStyle(element).visibility === 'visible';
-    };
-    /**
-     * Gets whether an element can be reached via Tab key.
-     * Assumes that the element has already been checked with isFocusable.
-     *
-     * @param element Element to be checked.
-     * @returns Whether the element is tabbable.
-     */
-    /**
-     * Gets whether an element can be reached via Tab key.
-     * Assumes that the element has already been checked with isFocusable.
-     *
-     * @param {?} element Element to be checked.
-     * @return {?} Whether the element is tabbable.
-     */
-    InteractivityChecker.prototype.isTabbable = /**
-     * Gets whether an element can be reached via Tab key.
-     * Assumes that the element has already been checked with isFocusable.
-     *
-     * @param {?} element Element to be checked.
-     * @return {?} Whether the element is tabbable.
-     */
-    function (element) {
-        // Nothing is tabbable on the the server 😎
-        if (!this._platform.isBrowser) {
-            return false;
-        }
-        var /** @type {?} */ frameElement = /** @type {?} */ (getWindow(element).frameElement);
-        if (frameElement) {
-            var /** @type {?} */ frameType = frameElement && frameElement.nodeName.toLowerCase();
-            // Frame elements inherit their tabindex onto all child elements.
-            if (getTabIndexValue(frameElement) === -1) {
-                return false;
-            }
-            // Webkit and Blink consider anything inside of an <object> element as non-tabbable.
-            if ((this._platform.BLINK || this._platform.WEBKIT) && frameType === 'object') {
-                return false;
-            }
-            // Webkit and Blink disable tabbing to an element inside of an invisible frame.
-            if ((this._platform.BLINK || this._platform.WEBKIT) && !this.isVisible(frameElement)) {
-                return false;
-            }
-        }
-        var /** @type {?} */ nodeName = element.nodeName.toLowerCase();
-        var /** @type {?} */ tabIndexValue = getTabIndexValue(element);
-        if (element.hasAttribute('contenteditable')) {
-            return tabIndexValue !== -1;
-        }
-        if (nodeName === 'iframe') {
-            // The frames may be tabbable depending on content, but it's not possibly to reliably
-            // investigate the content of the frames.
-            return false;
-        }
-        if (nodeName === 'audio') {
-            if (!element.hasAttribute('controls')) {
-                // By default an <audio> element without the controls enabled is not tabbable.
-                return false;
-            }
-            else if (this._platform.BLINK) {
-                // In Blink <audio controls> elements are always tabbable.
-                return true;
-            }
-        }
-        if (nodeName === 'video') {
-            if (!element.hasAttribute('controls') && this._platform.TRIDENT) {
-                // In Trident a <video> element without the controls enabled is not tabbable.
-                return false;
-            }
-            else if (this._platform.BLINK || this._platform.FIREFOX) {
-                // In Chrome and Firefox <video controls> elements are always tabbable.
-                return true;
-            }
-        }
-        if (nodeName === 'object' && (this._platform.BLINK || this._platform.WEBKIT)) {
-            // In all Blink and WebKit based browsers <object> elements are never tabbable.
-            return false;
-        }
-        // In iOS the browser only considers some specific elements as tabbable.
-        if (this._platform.WEBKIT && this._platform.IOS && !isPotentiallyTabbableIOS(element)) {
-            return false;
-        }
-        return element.tabIndex >= 0;
-    };
-    /**
-     * Gets whether an element can be focused by the user.
-     *
-     * @param element Element to be checked.
-     * @returns Whether the element is focusable.
-     */
-    /**
-     * Gets whether an element can be focused by the user.
-     *
-     * @param {?} element Element to be checked.
-     * @return {?} Whether the element is focusable.
-     */
-    InteractivityChecker.prototype.isFocusable = /**
-     * Gets whether an element can be focused by the user.
-     *
-     * @param {?} element Element to be checked.
-     * @return {?} Whether the element is focusable.
-     */
-    function (element) {
-        // Perform checks in order of left to most expensive.
-        // Again, naive approach that does not capture many edge cases and browser quirks.
-        return isPotentiallyFocusable(element) && !this.isDisabled(element) && this.isVisible(element);
-    };
-    InteractivityChecker.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["A" /* Injectable */] },
-    ];
-    /** @nocollapse */
-    InteractivityChecker.ctorParameters = function () { return [
-        { type: __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["a" /* Platform */], },
-    ]; };
-    return InteractivityChecker;
-}());
-/**
- * Checks whether the specified element has any geometry / rectangles.
- * @param {?} element
- * @return {?}
- */
-function hasGeometry(element) {
-    // Use logic from jQuery to check for an invisible element.
-    // See https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js#L12
-    return !!(element.offsetWidth || element.offsetHeight ||
-        (typeof element.getClientRects === 'function' && element.getClientRects().length));
-}
-/**
- * Gets whether an element's
- * @param {?} element
- * @return {?}
- */
-function isNativeFormElement(element) {
-    var /** @type {?} */ nodeName = element.nodeName.toLowerCase();
-    return nodeName === 'input' ||
-        nodeName === 'select' ||
-        nodeName === 'button' ||
-        nodeName === 'textarea';
-}
-/**
- * Gets whether an element is an <input type="hidden">.
- * @param {?} element
- * @return {?}
- */
-function isHiddenInput(element) {
-    return isInputElement(element) && element.type == 'hidden';
-}
-/**
- * Gets whether an element is an anchor that has an href attribute.
- * @param {?} element
- * @return {?}
- */
-function isAnchorWithHref(element) {
-    return isAnchorElement(element) && element.hasAttribute('href');
-}
-/**
- * Gets whether an element is an input element.
- * @param {?} element
- * @return {?}
- */
-function isInputElement(element) {
-    return element.nodeName.toLowerCase() == 'input';
-}
-/**
- * Gets whether an element is an anchor element.
- * @param {?} element
- * @return {?}
- */
-function isAnchorElement(element) {
-    return element.nodeName.toLowerCase() == 'a';
-}
-/**
- * Gets whether an element has a valid tabindex.
- * @param {?} element
- * @return {?}
- */
-function hasValidTabIndex(element) {
-    if (!element.hasAttribute('tabindex') || element.tabIndex === undefined) {
-        return false;
-    }
-    var /** @type {?} */ tabIndex = element.getAttribute('tabindex');
-    // IE11 parses tabindex="" as the value "-32768"
-    if (tabIndex == '-32768') {
-        return false;
-    }
-    return !!(tabIndex && !isNaN(parseInt(tabIndex, 10)));
-}
-/**
- * Returns the parsed tabindex from the element attributes instead of returning the
- * evaluated tabindex from the browsers defaults.
- * @param {?} element
- * @return {?}
- */
-function getTabIndexValue(element) {
-    if (!hasValidTabIndex(element)) {
-        return null;
-    }
-    // See browser issue in Gecko https://bugzilla.mozilla.org/show_bug.cgi?id=1128054
-    var /** @type {?} */ tabIndex = parseInt(element.getAttribute('tabindex') || '', 10);
-    return isNaN(tabIndex) ? -1 : tabIndex;
-}
-/**
- * Checks whether the specified element is potentially tabbable on iOS
- * @param {?} element
- * @return {?}
- */
-function isPotentiallyTabbableIOS(element) {
-    var /** @type {?} */ nodeName = element.nodeName.toLowerCase();
-    var /** @type {?} */ inputType = nodeName === 'input' && (/** @type {?} */ (element)).type;
-    return inputType === 'text'
-        || inputType === 'password'
-        || nodeName === 'select'
-        || nodeName === 'textarea';
-}
-/**
- * Gets whether an element is potentially focusable without taking current visible/disabled state
- * into account.
- * @param {?} element
- * @return {?}
- */
-function isPotentiallyFocusable(element) {
-    // Inputs are potentially focusable *unless* they're type="hidden".
-    if (isHiddenInput(element)) {
-        return false;
-    }
-    return isNativeFormElement(element) ||
-        isAnchorWithHref(element) ||
-        element.hasAttribute('contenteditable') ||
-        hasValidTabIndex(element);
-}
-/**
- * Gets the parent window of a DOM node with regards of being inside of an iframe.
- * @param {?} node
- * @return {?}
- */
-function getWindow(node) {
-    return node.ownerDocument.defaultView || window;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * Class that allows for trapping focus within a DOM element.
- *
- * This class currently uses a relatively simple approach to focus trapping.
- * It assumes that the tab order is the same as DOM order, which is not necessarily true.
- * Things like tabIndex > 0, flex `order`, and shadow roots can cause to two to misalign.
- */
-var FocusTrap = (function () {
-    function FocusTrap(_element, _platform, _checker, _ngZone, deferAnchors) {
-        if (deferAnchors === void 0) { deferAnchors = false; }
-        this._element = _element;
-        this._platform = _platform;
-        this._checker = _checker;
-        this._ngZone = _ngZone;
-        this._enabled = true;
-        if (!deferAnchors) {
-            this.attachAnchors();
-        }
-    }
-    Object.defineProperty(FocusTrap.prototype, "enabled", {
-        /** Whether the focus trap is active. */
-        get: /**
-         * Whether the focus trap is active.
-         * @return {?}
-         */
-        function () { return this._enabled; },
-        set: /**
-         * @param {?} val
-         * @return {?}
-         */
-        function (val) {
-            this._enabled = val;
-            if (this._startAnchor && this._endAnchor) {
-                this._startAnchor.tabIndex = this._endAnchor.tabIndex = this._enabled ? 0 : -1;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /** Destroys the focus trap by cleaning up the anchors. */
-    /**
-     * Destroys the focus trap by cleaning up the anchors.
-     * @return {?}
-     */
-    FocusTrap.prototype.destroy = /**
-     * Destroys the focus trap by cleaning up the anchors.
-     * @return {?}
-     */
-    function () {
-        if (this._startAnchor && this._startAnchor.parentNode) {
-            this._startAnchor.parentNode.removeChild(this._startAnchor);
-        }
-        if (this._endAnchor && this._endAnchor.parentNode) {
-            this._endAnchor.parentNode.removeChild(this._endAnchor);
-        }
-        this._startAnchor = this._endAnchor = null;
-    };
-    /**
-     * Inserts the anchors into the DOM. This is usually done automatically
-     * in the constructor, but can be deferred for cases like directives with `*ngIf`.
-     */
-    /**
-     * Inserts the anchors into the DOM. This is usually done automatically
-     * in the constructor, but can be deferred for cases like directives with `*ngIf`.
-     * @return {?}
-     */
-    FocusTrap.prototype.attachAnchors = /**
-     * Inserts the anchors into the DOM. This is usually done automatically
-     * in the constructor, but can be deferred for cases like directives with `*ngIf`.
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        // If we're not on the browser, there can be no focus to trap.
-        if (!this._platform.isBrowser) {
-            return;
-        }
-        if (!this._startAnchor) {
-            this._startAnchor = this._createAnchor();
-        }
-        if (!this._endAnchor) {
-            this._endAnchor = this._createAnchor();
-        }
-        this._ngZone.runOutsideAngular(function () {
-            /** @type {?} */ ((_this._startAnchor)).addEventListener('focus', function () {
-                _this.focusLastTabbableElement();
-            }); /** @type {?} */
-            ((_this._endAnchor)).addEventListener('focus', function () {
-                _this.focusFirstTabbableElement();
-            });
-            if (_this._element.parentNode) {
-                _this._element.parentNode.insertBefore(/** @type {?} */ ((_this._startAnchor)), _this._element);
-                _this._element.parentNode.insertBefore(/** @type {?} */ ((_this._endAnchor)), _this._element.nextSibling);
-            }
-        });
-    };
-    /**
-     * Waits for the zone to stabilize, then either focuses the first element that the
-     * user specified, or the first tabbable element.
-     * @returns Returns a promise that resolves with a boolean, depending
-     * on whether focus was moved successfuly.
-     */
-    /**
-     * Waits for the zone to stabilize, then either focuses the first element that the
-     * user specified, or the first tabbable element.
-     * @return {?} Returns a promise that resolves with a boolean, depending
-     * on whether focus was moved successfuly.
-     */
-    FocusTrap.prototype.focusInitialElementWhenReady = /**
-     * Waits for the zone to stabilize, then either focuses the first element that the
-     * user specified, or the first tabbable element.
-     * @return {?} Returns a promise that resolves with a boolean, depending
-     * on whether focus was moved successfuly.
-     */
-    function () {
-        var _this = this;
-        return new Promise(function (resolve) {
-            _this._executeOnStable(function () { return resolve(_this.focusInitialElement()); });
-        });
-    };
-    /**
-     * Waits for the zone to stabilize, then focuses
-     * the first tabbable element within the focus trap region.
-     * @returns Returns a promise that resolves with a boolean, depending
-     * on whether focus was moved successfuly.
-     */
-    /**
-     * Waits for the zone to stabilize, then focuses
-     * the first tabbable element within the focus trap region.
-     * @return {?} Returns a promise that resolves with a boolean, depending
-     * on whether focus was moved successfuly.
-     */
-    FocusTrap.prototype.focusFirstTabbableElementWhenReady = /**
-     * Waits for the zone to stabilize, then focuses
-     * the first tabbable element within the focus trap region.
-     * @return {?} Returns a promise that resolves with a boolean, depending
-     * on whether focus was moved successfuly.
-     */
-    function () {
-        var _this = this;
-        return new Promise(function (resolve) {
-            _this._executeOnStable(function () { return resolve(_this.focusFirstTabbableElement()); });
-        });
-    };
-    /**
-     * Waits for the zone to stabilize, then focuses
-     * the last tabbable element within the focus trap region.
-     * @returns Returns a promise that resolves with a boolean, depending
-     * on whether focus was moved successfuly.
-     */
-    /**
-     * Waits for the zone to stabilize, then focuses
-     * the last tabbable element within the focus trap region.
-     * @return {?} Returns a promise that resolves with a boolean, depending
-     * on whether focus was moved successfuly.
-     */
-    FocusTrap.prototype.focusLastTabbableElementWhenReady = /**
-     * Waits for the zone to stabilize, then focuses
-     * the last tabbable element within the focus trap region.
-     * @return {?} Returns a promise that resolves with a boolean, depending
-     * on whether focus was moved successfuly.
-     */
-    function () {
-        var _this = this;
-        return new Promise(function (resolve) {
-            _this._executeOnStable(function () { return resolve(_this.focusLastTabbableElement()); });
-        });
-    };
-    /**
-     * Get the specified boundary element of the trapped region.
-     * @param {?} bound The boundary to get (start or end of trapped region).
-     * @return {?} The boundary element.
-     */
-    FocusTrap.prototype._getRegionBoundary = /**
-     * Get the specified boundary element of the trapped region.
-     * @param {?} bound The boundary to get (start or end of trapped region).
-     * @return {?} The boundary element.
-     */
-    function (bound) {
-        if (!this._platform.isBrowser) {
-            return null;
-        }
-        // Contains the deprecated version of selector, for temporary backwards comparability.
-        var /** @type {?} */ markers = /** @type {?} */ (this._element.querySelectorAll("[cdk-focus-region-" + bound + "], " +
-            ("[cdkFocusRegion" + bound + "], ") +
-            ("[cdk-focus-" + bound + "]")));
-        for (var /** @type {?} */ i = 0; i < markers.length; i++) {
-            if (markers[i].hasAttribute("cdk-focus-" + bound)) {
-                console.warn("Found use of deprecated attribute 'cdk-focus-" + bound + "'," +
-                    (" use 'cdkFocusRegion" + bound + "' instead."), markers[i]);
-            }
-            else if (markers[i].hasAttribute("cdk-focus-region-" + bound)) {
-                console.warn("Found use of deprecated attribute 'cdk-focus-region-" + bound + "'," +
-                    (" use 'cdkFocusRegion" + bound + "' instead."), markers[i]);
-            }
-        }
-        if (bound == 'start') {
-            return markers.length ? markers[0] : this._getFirstTabbableElement(this._element);
-        }
-        return markers.length ?
-            markers[markers.length - 1] : this._getLastTabbableElement(this._element);
-    };
-    /**
-     * Focuses the element that should be focused when the focus trap is initialized.
-     * @returns Whether focus was moved successfuly.
-     */
-    /**
-     * Focuses the element that should be focused when the focus trap is initialized.
-     * @return {?} Whether focus was moved successfuly.
-     */
-    FocusTrap.prototype.focusInitialElement = /**
-     * Focuses the element that should be focused when the focus trap is initialized.
-     * @return {?} Whether focus was moved successfuly.
-     */
-    function () {
-        if (!this._platform.isBrowser) {
-            return false;
-        }
-        // Contains the deprecated version of selector, for temporary backwards comparability.
-        var /** @type {?} */ redirectToElement = /** @type {?} */ (this._element.querySelector("[cdk-focus-initial], " +
-            "[cdkFocusInitial]"));
-        if (this._element.hasAttribute("cdk-focus-initial")) {
-            console.warn("Found use of deprecated attribute 'cdk-focus-initial'," +
-                " use 'cdkFocusInitial' instead.", this._element);
-        }
-        if (redirectToElement) {
-            redirectToElement.focus();
-            return true;
-        }
-        return this.focusFirstTabbableElement();
-    };
-    /**
-     * Focuses the first tabbable element within the focus trap region.
-     * @returns Whether focus was moved successfuly.
-     */
-    /**
-     * Focuses the first tabbable element within the focus trap region.
-     * @return {?} Whether focus was moved successfuly.
-     */
-    FocusTrap.prototype.focusFirstTabbableElement = /**
-     * Focuses the first tabbable element within the focus trap region.
-     * @return {?} Whether focus was moved successfuly.
-     */
-    function () {
-        var /** @type {?} */ redirectToElement = this._getRegionBoundary('start');
-        if (redirectToElement) {
-            redirectToElement.focus();
-        }
-        return !!redirectToElement;
-    };
-    /**
-     * Focuses the last tabbable element within the focus trap region.
-     * @returns Whether focus was moved successfuly.
-     */
-    /**
-     * Focuses the last tabbable element within the focus trap region.
-     * @return {?} Whether focus was moved successfuly.
-     */
-    FocusTrap.prototype.focusLastTabbableElement = /**
-     * Focuses the last tabbable element within the focus trap region.
-     * @return {?} Whether focus was moved successfuly.
-     */
-    function () {
-        var /** @type {?} */ redirectToElement = this._getRegionBoundary('end');
-        if (redirectToElement) {
-            redirectToElement.focus();
-        }
-        return !!redirectToElement;
-    };
-    /**
-     * Get the first tabbable element from a DOM subtree (inclusive).
-     * @param {?} root
-     * @return {?}
-     */
-    FocusTrap.prototype._getFirstTabbableElement = /**
-     * Get the first tabbable element from a DOM subtree (inclusive).
-     * @param {?} root
-     * @return {?}
-     */
-    function (root) {
-        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
-            return root;
-        }
-        // Iterate in DOM order. Note that IE doesn't have `children` for SVG so we fall
-        // back to `childNodes` which includes text nodes, comments etc.
-        var /** @type {?} */ children = root.children || root.childNodes;
-        for (var /** @type {?} */ i = 0; i < children.length; i++) {
-            var /** @type {?} */ tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
-                this._getFirstTabbableElement(/** @type {?} */ (children[i])) :
-                null;
-            if (tabbableChild) {
-                return tabbableChild;
-            }
-        }
-        return null;
-    };
-    /**
-     * Get the last tabbable element from a DOM subtree (inclusive).
-     * @param {?} root
-     * @return {?}
-     */
-    FocusTrap.prototype._getLastTabbableElement = /**
-     * Get the last tabbable element from a DOM subtree (inclusive).
-     * @param {?} root
-     * @return {?}
-     */
-    function (root) {
-        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
-            return root;
-        }
-        // Iterate in reverse DOM order.
-        var /** @type {?} */ children = root.children || root.childNodes;
-        for (var /** @type {?} */ i = children.length - 1; i >= 0; i--) {
-            var /** @type {?} */ tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
-                this._getLastTabbableElement(/** @type {?} */ (children[i])) :
-                null;
-            if (tabbableChild) {
-                return tabbableChild;
-            }
-        }
-        return null;
-    };
-    /**
-     * Creates an anchor element.
-     * @return {?}
-     */
-    FocusTrap.prototype._createAnchor = /**
-     * Creates an anchor element.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ anchor = document.createElement('div');
-        anchor.tabIndex = this._enabled ? 0 : -1;
-        anchor.classList.add('cdk-visually-hidden');
-        anchor.classList.add('cdk-focus-trap-anchor');
-        return anchor;
-    };
-    /**
-     * Executes a function when the zone is stable.
-     * @param {?} fn
-     * @return {?}
-     */
-    FocusTrap.prototype._executeOnStable = /**
-     * Executes a function when the zone is stable.
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) {
-        if (this._ngZone.isStable) {
-            fn();
-        }
-        else {
-            this._ngZone.onStable.asObservable().pipe(Object(__WEBPACK_IMPORTED_MODULE_11_rxjs_operators_first__["a" /* first */])()).subscribe(fn);
-        }
-    };
-    return FocusTrap;
-}());
-/**
- * Factory that allows easy instantiation of focus traps.
- */
-var FocusTrapFactory = (function () {
-    function FocusTrapFactory(_checker, _platform, _ngZone) {
-        this._checker = _checker;
-        this._platform = _platform;
-        this._ngZone = _ngZone;
-    }
-    /**
-     * Creates a focus-trapped region around the given element.
-     * @param element The element around which focus will be trapped.
-     * @param deferCaptureElements Defers the creation of focus-capturing elements to be done
-     *     manually by the user.
-     * @returns The created focus trap instance.
-     */
-    /**
-     * Creates a focus-trapped region around the given element.
-     * @param {?} element The element around which focus will be trapped.
-     * @param {?=} deferCaptureElements Defers the creation of focus-capturing elements to be done
-     *     manually by the user.
-     * @return {?} The created focus trap instance.
-     */
-    FocusTrapFactory.prototype.create = /**
-     * Creates a focus-trapped region around the given element.
-     * @param {?} element The element around which focus will be trapped.
-     * @param {?=} deferCaptureElements Defers the creation of focus-capturing elements to be done
-     *     manually by the user.
-     * @return {?} The created focus trap instance.
-     */
-    function (element, deferCaptureElements) {
-        if (deferCaptureElements === void 0) { deferCaptureElements = false; }
-        return new FocusTrap(element, this._platform, this._checker, this._ngZone, deferCaptureElements);
-    };
-    FocusTrapFactory.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["A" /* Injectable */] },
-    ];
-    /** @nocollapse */
-    FocusTrapFactory.ctorParameters = function () { return [
-        { type: InteractivityChecker, },
-        { type: __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["a" /* Platform */], },
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["N" /* NgZone */], },
-    ]; };
-    return FocusTrapFactory;
-}());
-/**
- * Directive for trapping focus within a region.
- * \@docs-private
- * @deprecated
- */
-var FocusTrapDeprecatedDirective = (function () {
-    function FocusTrapDeprecatedDirective(_elementRef, _focusTrapFactory) {
-        this._elementRef = _elementRef;
-        this._focusTrapFactory = _focusTrapFactory;
-        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
-    }
-    Object.defineProperty(FocusTrapDeprecatedDirective.prototype, "disabled", {
-        get: /**
-         * Whether the focus trap is active.
-         * @return {?}
-         */
-        function () { return !this.focusTrap.enabled; },
-        set: /**
-         * @param {?} val
-         * @return {?}
-         */
-        function (val) {
-            this.focusTrap.enabled = !Object(__WEBPACK_IMPORTED_MODULE_10__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(val);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    FocusTrapDeprecatedDirective.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.focusTrap.destroy();
-    };
-    /**
-     * @return {?}
-     */
-    FocusTrapDeprecatedDirective.prototype.ngAfterContentInit = /**
-     * @return {?}
-     */
-    function () {
-        this.focusTrap.attachAnchors();
-    };
-    FocusTrapDeprecatedDirective.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["s" /* Directive */], args: [{
-                    selector: 'cdk-focus-trap',
-                },] },
-    ];
-    /** @nocollapse */
-    FocusTrapDeprecatedDirective.ctorParameters = function () { return [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["t" /* ElementRef */], },
-        { type: FocusTrapFactory, },
-    ]; };
-    FocusTrapDeprecatedDirective.propDecorators = {
-        "disabled": [{ type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["D" /* Input */] },],
-    };
-    return FocusTrapDeprecatedDirective;
-}());
-/**
- * Directive for trapping focus within a region.
- */
-var FocusTrapDirective = (function () {
-    function FocusTrapDirective(_elementRef, _focusTrapFactory) {
-        this._elementRef = _elementRef;
-        this._focusTrapFactory = _focusTrapFactory;
-        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
-    }
-    Object.defineProperty(FocusTrapDirective.prototype, "enabled", {
-        get: /**
-         * Whether the focus trap is active.
-         * @return {?}
-         */
-        function () { return this.focusTrap.enabled; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this.focusTrap.enabled = Object(__WEBPACK_IMPORTED_MODULE_10__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(value); },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    FocusTrapDirective.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.focusTrap.destroy();
-    };
-    /**
-     * @return {?}
-     */
-    FocusTrapDirective.prototype.ngAfterContentInit = /**
-     * @return {?}
-     */
-    function () {
-        this.focusTrap.attachAnchors();
-    };
-    FocusTrapDirective.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["s" /* Directive */], args: [{
-                    selector: '[cdkTrapFocus]',
-                    exportAs: 'cdkTrapFocus',
-                },] },
-    ];
-    /** @nocollapse */
-    FocusTrapDirective.ctorParameters = function () { return [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["t" /* ElementRef */], },
-        { type: FocusTrapFactory, },
-    ]; };
-    FocusTrapDirective.propDecorators = {
-        "enabled": [{ type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["D" /* Input */], args: ['cdkTrapFocus',] },],
-    };
-    return FocusTrapDirective;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-var LIVE_ANNOUNCER_ELEMENT_TOKEN = new __WEBPACK_IMPORTED_MODULE_8__angular_core__["B" /* InjectionToken */]('liveAnnouncerElement');
+var LIVE_ANNOUNCER_ELEMENT_TOKEN = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* InjectionToken */]('liveAnnouncerElement');
 var LiveAnnouncer = (function () {
-    function LiveAnnouncer(elementToken, platform) {
-        // Only do anything if we're on the browser platform.
-        if (platform.isBrowser) {
-            // We inject the live element as `any` because the constructor signature cannot reference
-            // browser globals (HTMLElement) on non-browser environments, since having a class decorator
-            // causes TypeScript to preserve the constructor signature types.
-            this._liveElement = elementToken || this._createLiveElement();
-        }
+    function LiveAnnouncer(elementToken, _document) {
+        this._document = _document;
+        // We inject the live element as `any` because the constructor signature cannot reference
+        // browser globals (HTMLElement) on non-browser environments, since having a class decorator
+        // causes TypeScript to preserve the constructor signature types.
+        this._liveElement = elementToken || this._createLiveElement();
     }
     /**
      * Announces a message to screenreaders.
@@ -8948,20 +9122,20 @@ var LiveAnnouncer = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ liveEl = document.createElement('div');
+        var /** @type {?} */ liveEl = this._document.createElement('div');
         liveEl.classList.add('cdk-visually-hidden');
         liveEl.setAttribute('aria-atomic', 'true');
         liveEl.setAttribute('aria-live', 'polite');
-        document.body.appendChild(liveEl);
+        this._document.body.appendChild(liveEl);
         return liveEl;
     };
     LiveAnnouncer.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["A" /* Injectable */] },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */] },
     ];
     /** @nocollapse */
     LiveAnnouncer.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["O" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["z" /* Inject */], args: [LIVE_ANNOUNCER_ELEMENT_TOKEN,] },] },
-        { type: __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["a" /* Platform */], },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [LIVE_ANNOUNCER_ELEMENT_TOKEN,] },] },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_4__angular_common__["c" /* DOCUMENT */],] },] },
     ]; };
     return LiveAnnouncer;
 }());
@@ -8969,11 +9143,11 @@ var LiveAnnouncer = (function () {
  * \@docs-private
  * @param {?} parentDispatcher
  * @param {?} liveElement
- * @param {?} platform
+ * @param {?} _document
  * @return {?}
  */
-function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher, liveElement, platform) {
-    return parentDispatcher || new LiveAnnouncer(liveElement, platform);
+function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher, liveElement, _document) {
+    return parentDispatcher || new LiveAnnouncer(liveElement, _document);
 }
 /**
  * \@docs-private
@@ -8982,9 +9156,9 @@ var LIVE_ANNOUNCER_PROVIDER = {
     // If there is already a LiveAnnouncer available, use that. Otherwise, provide a new one.
     provide: LiveAnnouncer,
     deps: [
-        [new __WEBPACK_IMPORTED_MODULE_8__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_8__angular_core__["_1" /* SkipSelf */](), LiveAnnouncer],
-        [new __WEBPACK_IMPORTED_MODULE_8__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_8__angular_core__["z" /* Inject */](LIVE_ANNOUNCER_ELEMENT_TOKEN)],
-        __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["a" /* Platform */],
+        [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* SkipSelf */](), LiveAnnouncer],
+        [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */](LIVE_ANNOUNCER_ELEMENT_TOKEN)],
+        __WEBPACK_IMPORTED_MODULE_4__angular_common__["c" /* DOCUMENT */],
     ],
     useFactory: LIVE_ANNOUNCER_PROVIDER_FACTORY
 };
@@ -9002,7 +9176,6 @@ var TOUCH_BUFFER_MS = 650;
  */
 var FocusMonitor = (function () {
     function FocusMonitor(_ngZone, _platform) {
-        var _this = this;
         this._ngZone = _ngZone;
         this._platform = _platform;
         /**
@@ -9017,37 +9190,37 @@ var FocusMonitor = (function () {
          * Weak map of elements being monitored to their info.
          */
         this._elementInfo = new WeakMap();
-        this._ngZone.runOutsideAngular(function () { return _this._registerDocumentEvents(); });
+        /**
+         * A map of global objects to lists of current listeners.
+         */
+        this._unregisterGlobalListeners = function () { };
+        /**
+         * The number of elements currently being monitored.
+         */
+        this._monitoredElementCount = 0;
     }
     /**
-     * Monitors focus on an element and applies appropriate CSS classes.
-     * @param element The element to monitor
-     * @param renderer The renderer to use to apply CSS classes to the element.
-     * @param checkChildren Whether to count the element as focused when its children are focused.
-     * @returns An observable that emits when the focus state of the element changes.
-     *     When the element is blurred, null will be emitted.
-     */
-    /**
-     * Monitors focus on an element and applies appropriate CSS classes.
-     * @param {?} element The element to monitor
-     * @param {?} renderer The renderer to use to apply CSS classes to the element.
-     * @param {?} checkChildren Whether to count the element as focused when its children are focused.
-     * @return {?} An observable that emits when the focus state of the element changes.
-     *     When the element is blurred, null will be emitted.
+     * @param {?} element
+     * @param {?} renderer
+     * @param {?=} checkChildren
+     * @return {?}
      */
     FocusMonitor.prototype.monitor = /**
-     * Monitors focus on an element and applies appropriate CSS classes.
-     * @param {?} element The element to monitor
-     * @param {?} renderer The renderer to use to apply CSS classes to the element.
-     * @param {?} checkChildren Whether to count the element as focused when its children are focused.
-     * @return {?} An observable that emits when the focus state of the element changes.
-     *     When the element is blurred, null will be emitted.
+     * @param {?} element
+     * @param {?} renderer
+     * @param {?=} checkChildren
+     * @return {?}
      */
     function (element, renderer, checkChildren) {
         var _this = this;
+        // TODO(mmalerba): clean up after deprecated signature is removed.
+        if (!(renderer instanceof __WEBPACK_IMPORTED_MODULE_0__angular_core__["W" /* Renderer2 */])) {
+            checkChildren = renderer;
+        }
+        checkChildren = !!checkChildren;
         // Do nothing if we're not on the browser platform.
         if (!this._platform.isBrowser) {
-            return Object(__WEBPACK_IMPORTED_MODULE_12_rxjs_observable_of__["a" /* of */])(null);
+            return Object(__WEBPACK_IMPORTED_MODULE_13_rxjs_observable_of__["a" /* of */])(null);
         }
         // Check if we're already monitoring this element.
         if (this._elementInfo.has(element)) {
@@ -9059,10 +9232,10 @@ var FocusMonitor = (function () {
         var /** @type {?} */ info = {
             unlisten: function () { },
             checkChildren: checkChildren,
-            renderer: renderer,
-            subject: new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]()
+            subject: new __WEBPACK_IMPORTED_MODULE_6_rxjs_Subject__["a" /* Subject */]()
         };
         this._elementInfo.set(element, info);
+        this._incrementMonitoredElementCount();
         // Start listening. We need to listen in capture phase since focus events don't bubble.
         var /** @type {?} */ focusListener = function (event) { return _this._onFocus(event, element); };
         var /** @type {?} */ blurListener = function (event) { return _this._onBlur(event, element); };
@@ -9098,6 +9271,7 @@ var FocusMonitor = (function () {
             elementInfo.subject.complete();
             this._setClasses(element);
             this._elementInfo.delete(element);
+            this._decrementMonitoredElementCount();
         }
     };
     /**
@@ -9125,7 +9299,7 @@ var FocusMonitor = (function () {
      * Register necessary event listeners on the document and window.
      * @return {?}
      */
-    FocusMonitor.prototype._registerDocumentEvents = /**
+    FocusMonitor.prototype._registerGlobalListeners = /**
      * Register necessary event listeners on the document and window.
      * @return {?}
      */
@@ -9135,38 +9309,68 @@ var FocusMonitor = (function () {
         if (!this._platform.isBrowser) {
             return;
         }
-        // Note: we listen to events in the capture phase so we can detect them even if the user stops
-        // propagation.
         // On keydown record the origin and clear any touch event that may be in progress.
-        document.addEventListener('keydown', function () {
+        var /** @type {?} */ documentKeydownListener = function () {
             _this._lastTouchTarget = null;
             _this._setOriginForCurrentEventQueue('keyboard');
-        }, true);
+        };
         // On mousedown record the origin only if there is not touch target, since a mousedown can
         // happen as a result of a touch event.
-        document.addEventListener('mousedown', function () {
+        var /** @type {?} */ documentMousedownListener = function () {
             if (!_this._lastTouchTarget) {
                 _this._setOriginForCurrentEventQueue('mouse');
             }
-        }, true);
+        };
         // When the touchstart event fires the focus event is not yet in the event queue. This means
         // we can't rely on the trick used above (setting timeout of 0ms). Instead we wait 650ms to
         // see if a focus happens.
-        document.addEventListener('touchstart', function (event) {
+        var /** @type {?} */ documentTouchstartListener = function (event) {
             if (_this._touchTimeout != null) {
                 clearTimeout(_this._touchTimeout);
             }
             _this._lastTouchTarget = event.target;
             _this._touchTimeout = setTimeout(function () { return _this._lastTouchTarget = null; }, TOUCH_BUFFER_MS);
-            // Note that we need to cast the event options to `any`, because at the time of writing
-            // (TypeScript 2.5), the built-in types don't support the `addEventListener` options param.
-        }, Object(__WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["c" /* supportsPassiveEventListeners */])() ? (/** @type {?} */ ({ passive: true, capture: true })) : true);
+        };
         // Make a note of when the window regains focus, so we can restore the origin info for the
         // focused element.
-        window.addEventListener('focus', function () {
+        var /** @type {?} */ windowFocusListener = function () {
             _this._windowFocused = true;
             setTimeout(function () { return _this._windowFocused = false; }, 0);
+        };
+        // Note: we listen to events in the capture phase so we can detect them even if the user stops
+        // propagation.
+        this._ngZone.runOutsideAngular(function () {
+            document.addEventListener('keydown', documentKeydownListener, true);
+            document.addEventListener('mousedown', documentMousedownListener, true);
+            document.addEventListener('touchstart', documentTouchstartListener, Object(__WEBPACK_IMPORTED_MODULE_3__angular_cdk_platform__["c" /* supportsPassiveEventListeners */])() ? (/** @type {?} */ ({ passive: true, capture: true })) : true);
+            window.addEventListener('focus', windowFocusListener);
         });
+        this._unregisterGlobalListeners = function () {
+            document.removeEventListener('keydown', documentKeydownListener, true);
+            document.removeEventListener('mousedown', documentMousedownListener, true);
+            document.removeEventListener('touchstart', documentTouchstartListener, Object(__WEBPACK_IMPORTED_MODULE_3__angular_cdk_platform__["c" /* supportsPassiveEventListeners */])() ? (/** @type {?} */ ({ passive: true, capture: true })) : true);
+            window.removeEventListener('focus', windowFocusListener);
+        };
+    };
+    /**
+     * @param {?} element
+     * @param {?} className
+     * @param {?} shouldSet
+     * @return {?}
+     */
+    FocusMonitor.prototype._toggleClass = /**
+     * @param {?} element
+     * @param {?} className
+     * @param {?} shouldSet
+     * @return {?}
+     */
+    function (element, className, shouldSet) {
+        if (shouldSet) {
+            element.classList.add(className);
+        }
+        else {
+            element.classList.remove(className);
+        }
     };
     /**
      * Sets the focus classes on the element based on the given focus origin.
@@ -9183,15 +9387,11 @@ var FocusMonitor = (function () {
     function (element, origin) {
         var /** @type {?} */ elementInfo = this._elementInfo.get(element);
         if (elementInfo) {
-            var /** @type {?} */ toggleClass = function (className, shouldSet) {
-                shouldSet ? elementInfo.renderer.addClass(element, className) :
-                    elementInfo.renderer.removeClass(element, className);
-            };
-            toggleClass('cdk-focused', !!origin);
-            toggleClass('cdk-touch-focused', origin === 'touch');
-            toggleClass('cdk-keyboard-focused', origin === 'keyboard');
-            toggleClass('cdk-mouse-focused', origin === 'mouse');
-            toggleClass('cdk-program-focused', origin === 'program');
+            this._toggleClass(element, 'cdk-focused', !!origin);
+            this._toggleClass(element, 'cdk-touch-focused', origin === 'touch');
+            this._toggleClass(element, 'cdk-keyboard-focused', origin === 'keyboard');
+            this._toggleClass(element, 'cdk-mouse-focused', origin === 'mouse');
+            this._toggleClass(element, 'cdk-program-focused', origin === 'program');
         }
     };
     /**
@@ -9231,7 +9431,7 @@ var FocusMonitor = (function () {
         // result, this code will still consider it to have been caused by the touch event and will
         // apply the cdk-touch-focused class rather than the cdk-program-focused class. This is a
         // relatively small edge-case that can be worked around by using
-        // focusVia(parentEl, renderer,  'program') to focus the parent element.
+        // focusVia(parentEl, 'program') to focus the parent element.
         //
         // If we decide that we absolutely must handle this case correctly, we can do so by listening
         // for the first focus event after the touchstart, and then the first blur event after that
@@ -9314,13 +9514,38 @@ var FocusMonitor = (function () {
         this._setClasses(element);
         elementInfo.subject.next(null);
     };
+    /**
+     * @return {?}
+     */
+    FocusMonitor.prototype._incrementMonitoredElementCount = /**
+     * @return {?}
+     */
+    function () {
+        // Register global listeners when first element is monitored.
+        if (++this._monitoredElementCount == 1) {
+            this._registerGlobalListeners();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    FocusMonitor.prototype._decrementMonitoredElementCount = /**
+     * @return {?}
+     */
+    function () {
+        // Unregister global listeners when last element is unmonitored.
+        if (!--this._monitoredElementCount) {
+            this._unregisterGlobalListeners();
+            this._unregisterGlobalListeners = function () { };
+        }
+    };
     FocusMonitor.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["A" /* Injectable */] },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */] },
     ];
     /** @nocollapse */
     FocusMonitor.ctorParameters = function () { return [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["N" /* NgZone */], },
-        { type: __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["a" /* Platform */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* NgZone */], },
+        { type: __WEBPACK_IMPORTED_MODULE_3__angular_cdk_platform__["a" /* Platform */], },
     ]; };
     return FocusMonitor;
 }());
@@ -9334,12 +9559,12 @@ var FocusMonitor = (function () {
  * 2) cdkMonitorSubtreeFocus: considers an element focused if it or any of its children are focused.
  */
 var CdkMonitorFocus = (function () {
-    function CdkMonitorFocus(_elementRef, _focusMonitor, renderer) {
+    function CdkMonitorFocus(_elementRef, _focusMonitor) {
         var _this = this;
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
-        this.cdkFocusChange = new __WEBPACK_IMPORTED_MODULE_8__angular_core__["v" /* EventEmitter */]();
-        this._monitorSubscription = this._focusMonitor.monitor(this._elementRef.nativeElement, renderer, this._elementRef.nativeElement.hasAttribute('cdkMonitorSubtreeFocus'))
+        this.cdkFocusChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
+        this._monitorSubscription = this._focusMonitor.monitor(this._elementRef.nativeElement, this._elementRef.nativeElement.hasAttribute('cdkMonitorSubtreeFocus'))
             .subscribe(function (origin) { return _this.cdkFocusChange.emit(origin); });
     }
     /**
@@ -9353,18 +9578,17 @@ var CdkMonitorFocus = (function () {
         this._monitorSubscription.unsubscribe();
     };
     CdkMonitorFocus.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["s" /* Directive */], args: [{
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* Directive */], args: [{
                     selector: '[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]',
                 },] },
     ];
     /** @nocollapse */
     CdkMonitorFocus.ctorParameters = function () { return [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["t" /* ElementRef */], },
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */], },
         { type: FocusMonitor, },
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["W" /* Renderer2 */], },
     ]; };
     CdkMonitorFocus.propDecorators = {
-        "cdkFocusChange": [{ type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["P" /* Output */] },],
+        "cdkFocusChange": [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* Output */] },],
     };
     return CdkMonitorFocus;
 }());
@@ -9384,7 +9608,7 @@ function FOCUS_MONITOR_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
 var FOCUS_MONITOR_PROVIDER = {
     // If there is already a FocusMonitor available, use that. Otherwise, provide a new one.
     provide: FocusMonitor,
-    deps: [[new __WEBPACK_IMPORTED_MODULE_8__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_8__angular_core__["_1" /* SkipSelf */](), FocusMonitor], __WEBPACK_IMPORTED_MODULE_8__angular_core__["N" /* NgZone */], __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["a" /* Platform */]],
+    deps: [[new __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* SkipSelf */](), FocusMonitor], __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* NgZone */], __WEBPACK_IMPORTED_MODULE_3__angular_cdk_platform__["a" /* Platform */]],
     useFactory: FOCUS_MONITOR_PROVIDER_FACTORY
 };
 
@@ -9397,10 +9621,10 @@ var A11yModule = (function () {
     function A11yModule() {
     }
     A11yModule.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_8__angular_core__["I" /* NgModule */], args: [{
-                    imports: [__WEBPACK_IMPORTED_MODULE_13__angular_common__["b" /* CommonModule */], __WEBPACK_IMPORTED_MODULE_9__angular_cdk_platform__["b" /* PlatformModule */]],
-                    declarations: [FocusTrapDirective, FocusTrapDeprecatedDirective, CdkMonitorFocus],
-                    exports: [FocusTrapDirective, FocusTrapDeprecatedDirective, CdkMonitorFocus],
+        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */], args: [{
+                    imports: [__WEBPACK_IMPORTED_MODULE_4__angular_common__["b" /* CommonModule */], __WEBPACK_IMPORTED_MODULE_3__angular_cdk_platform__["b" /* PlatformModule */]],
+                    declarations: [CdkTrapFocus, FocusTrapDeprecatedDirective, CdkMonitorFocus],
+                    exports: [CdkTrapFocus, FocusTrapDeprecatedDirective, CdkMonitorFocus],
                     providers: [
                         InteractivityChecker,
                         FocusTrapFactory,
@@ -9444,7 +9668,7 @@ var A11yModule = (function () {
 /* unused harmony export Dir */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BidiModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -9600,7 +9824,7 @@ var BidiModule = (function () {
                     exports: [Dir],
                     declarations: [Dir],
                     providers: [
-                        { provide: DIR_DOCUMENT, useExisting: __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["b" /* DOCUMENT */] },
+                        { provide: DIR_DOCUMENT, useExisting: __WEBPACK_IMPORTED_MODULE_1__angular_common__["c" /* DOCUMENT */] },
                         Directionality,
                     ]
                 },] },
@@ -9661,7 +9885,6 @@ function coerceBooleanProperty(value) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Coerces a data-bound value (typically a string) to a number.
  * @param {?} value
  * @param {?=} fallbackValue
  * @return {?}
@@ -9791,6 +10014,7 @@ var COMMA = 188;
 /* unused harmony export CdkConnectedOverlay */
 /* unused harmony export FullscreenOverlayContainer */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return OverlayRef; });
+/* unused harmony export OverlayKeyboardDispatcher */
 /* unused harmony export GlobalPositionStrategy */
 /* unused harmony export ConnectedPositionStrategy */
 /* unused harmony export ConnectedOverlayDirective */
@@ -9806,27 +10030,27 @@ var COMMA = 188;
 /* unused harmony export BlockScrollStrategy */
 /* unused harmony export OVERLAY_PROVIDERS */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return OverlayModule; });
-/* unused harmony export ɵi */
-/* unused harmony export ɵh */
 /* unused harmony export ɵg */
+/* unused harmony export ɵf */
 /* unused harmony export ɵb */
 /* unused harmony export ɵa */
 /* unused harmony export ɵc */
 /* unused harmony export ɵe */
 /* unused harmony export ɵd */
-/* unused harmony export ɵf */
+/* unused harmony export ɵh */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_cdk_scrolling__ = __webpack_require__("../../../cdk/esm5/scrolling.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_cdk_bidi__ = __webpack_require__("../../../cdk/esm5/bidi.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_cdk_portal__ = __webpack_require__("../../../cdk/esm5/portal.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operators_first__ = __webpack_require__("../../../../rxjs/_esm5/operators/first.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_operators_take__ = __webpack_require__("../../../../rxjs/_esm5/operators/take.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operators_filter__ = __webpack_require__("../../../../rxjs/_esm5/operators/filter.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_observable_fromEvent__ = __webpack_require__("../../../../rxjs/_esm5/observable/fromEvent.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_cdk_coercion__ = __webpack_require__("../../../cdk/esm5/coercion.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_cdk_keycodes__ = __webpack_require__("../../../cdk/esm5/keycodes.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_operators_filter__ = __webpack_require__("../../../../rxjs/_esm5/operators/filter.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_observable_fromEvent__ = __webpack_require__("../../../../rxjs/_esm5/observable/fromEvent.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_cdk_coercion__ = __webpack_require__("../../../cdk/esm5/coercion.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_cdk_keycodes__ = __webpack_require__("../../../cdk/esm5/keycodes.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
 /* unused harmony reexport ViewportRuler */
 /* unused harmony reexport VIEWPORT_RULER_PROVIDER */
 /* unused harmony reexport CdkScrollable */
@@ -9838,6 +10062,7 @@ var COMMA = 188;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+
 
 
 
@@ -10014,8 +10239,7 @@ var ConnectedOverlayPositionChange = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Describes a strategy that will be used by an overlay
- * to handle scroll events while it is open.
+ * Describes a strategy that will be used by an overlay to handle scroll events while it is open.
  * @record
  */
 
@@ -10196,6 +10420,43 @@ var BlockScrollStrategy = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Gets whether an element is scrolled outside of view by any of its parent scrolling containers.
+ * \@docs-private
+ * @param {?} element Dimensions of the element (from getBoundingClientRect)
+ * @param {?} scrollContainers Dimensions of element's scrolling containers (from getBoundingClientRect)
+ * @return {?} Whether the element is scrolled out of view
+ */
+function isElementScrolledOutsideView(element, scrollContainers) {
+    return scrollContainers.some(function (containerBounds) {
+        var /** @type {?} */ outsideAbove = element.bottom < containerBounds.top;
+        var /** @type {?} */ outsideBelow = element.top > containerBounds.bottom;
+        var /** @type {?} */ outsideLeft = element.right < containerBounds.left;
+        var /** @type {?} */ outsideRight = element.left > containerBounds.right;
+        return outsideAbove || outsideBelow || outsideLeft || outsideRight;
+    });
+}
+/**
+ * Gets whether an element is clipped by any of its scrolling containers.
+ * \@docs-private
+ * @param {?} element Dimensions of the element (from getBoundingClientRect)
+ * @param {?} scrollContainers Dimensions of element's scrolling containers (from getBoundingClientRect)
+ * @return {?} Whether the element is clipped
+ */
+function isElementClippedByScrolling(element, scrollContainers) {
+    return scrollContainers.some(function (scrollContainerRect) {
+        var /** @type {?} */ clippedAbove = element.top < scrollContainerRect.top;
+        var /** @type {?} */ clippedBelow = element.bottom > scrollContainerRect.bottom;
+        var /** @type {?} */ clippedLeft = element.left < scrollContainerRect.left;
+        var /** @type {?} */ clippedRight = element.right > scrollContainerRect.right;
+        return clippedAbove || clippedBelow || clippedLeft || clippedRight;
+    });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Config options for the RepositionScrollStrategy.
  * @record
  */
@@ -10204,8 +10465,10 @@ var BlockScrollStrategy = (function () {
  * Strategy that will update the element position as the user is scrolling.
  */
 var RepositionScrollStrategy = (function () {
-    function RepositionScrollStrategy(_scrollDispatcher, _config) {
+    function RepositionScrollStrategy(_scrollDispatcher, _viewportRuler, _ngZone, _config) {
         this._scrollDispatcher = _scrollDispatcher;
+        this._viewportRuler = _viewportRuler;
+        this._ngZone = _ngZone;
         this._config = _config;
         this._scrollSubscription = null;
     }
@@ -10241,6 +10504,18 @@ var RepositionScrollStrategy = (function () {
             var /** @type {?} */ throttle = this._config ? this._config.scrollThrottle : 0;
             this._scrollSubscription = this._scrollDispatcher.scrolled(throttle).subscribe(function () {
                 _this._overlayRef.updatePosition();
+                // TODO(crisbeto): make `close` on by default once all components can handle it.
+                if (_this._config && _this._config.autoClose) {
+                    var /** @type {?} */ overlayRect = _this._overlayRef.overlayElement.getBoundingClientRect();
+                    var _a = _this._viewportRuler.getViewportSize(), width = _a.width, height = _a.height;
+                    // TODO(crisbeto): include all ancestor scroll containers here once
+                    // we have a way of exposing the trigger element to the scroll strategy.
+                    var /** @type {?} */ parentRects = [{ width: width, height: height, bottom: height, right: width, top: 0, left: 0 }];
+                    if (isElementScrolledOutsideView(overlayRect, parentRects)) {
+                        _this.disable();
+                        _this._ngZone.run(function () { return _this._overlayRef.detach(); });
+                    }
+                }
             });
         }
     };
@@ -10297,7 +10572,7 @@ var ScrollStrategyOptions = (function () {
          * Allows debouncing the reposition calls.
          */
         this.reposition = function (config) {
-            return new RepositionScrollStrategy(_this._scrollDispatcher, config);
+            return new RepositionScrollStrategy(_this._scrollDispatcher, _this._viewportRuler, _this._ngZone, config);
         };
     }
     ScrollStrategyOptions.decorators = [
@@ -10387,7 +10662,7 @@ var OverlayRef = (function () {
         // Update the position once the zone is stable so that the overlay will be fully rendered
         // before attempting to position it, as the position may depend on the size of the rendered
         // content.
-        this._ngZone.onStable.asObservable().pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators_first__["a" /* first */])()).subscribe(function () {
+        this._ngZone.onStable.asObservable().pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators_take__["a" /* take */])(1)).subscribe(function () {
             _this.updatePosition();
         });
         // Enable pointer events for the overlay pane element.
@@ -10464,9 +10739,11 @@ var OverlayRef = (function () {
             this._config.scrollStrategy.disable();
         }
         this.detachBackdrop();
+        this._keyboardDispatcher.remove(this);
         this._portalOutlet.dispose();
         this._attachments.complete();
         this._backdropClick.complete();
+        this._keydownEvents.complete();
         if (isAttached) {
             this._detachments.next();
         }
@@ -10723,43 +11000,6 @@ function formatCssUnit(value) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Gets whether an element is scrolled outside of view by any of its parent scrolling containers.
- * \@docs-private
- * @param {?} element Dimensions of the element (from getBoundingClientRect)
- * @param {?} scrollContainers Dimensions of element's scrolling containers (from getBoundingClientRect)
- * @return {?} Whether the element is scrolled out of view
- */
-function isElementScrolledOutsideView(element, scrollContainers) {
-    return scrollContainers.some(function (containerBounds) {
-        var /** @type {?} */ outsideAbove = element.bottom < containerBounds.top;
-        var /** @type {?} */ outsideBelow = element.top > containerBounds.bottom;
-        var /** @type {?} */ outsideLeft = element.right < containerBounds.left;
-        var /** @type {?} */ outsideRight = element.left > containerBounds.right;
-        return outsideAbove || outsideBelow || outsideLeft || outsideRight;
-    });
-}
-/**
- * Gets whether an element is clipped by any of its scrolling containers.
- * \@docs-private
- * @param {?} element Dimensions of the element (from getBoundingClientRect)
- * @param {?} scrollContainers Dimensions of element's scrolling containers (from getBoundingClientRect)
- * @return {?} Whether the element is clipped
- */
-function isElementClippedByScrolling(element, scrollContainers) {
-    return scrollContainers.some(function (scrollContainerRect) {
-        var /** @type {?} */ clippedAbove = element.top < scrollContainerRect.top;
-        var /** @type {?} */ clippedBelow = element.bottom > scrollContainerRect.bottom;
-        var /** @type {?} */ clippedLeft = element.left < scrollContainerRect.left;
-        var /** @type {?} */ clippedRight = element.right > scrollContainerRect.right;
-        return clippedAbove || clippedBelow || clippedLeft || clippedRight;
-    });
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * A strategy for positioning overlays. Using this strategy, an overlay is given an
  * implicit position relative some origin element. The relative position is defined in terms of
  * a point on the origin element that is connected to a point on the overlay element. For example,
@@ -10767,9 +11007,10 @@ function isElementClippedByScrolling(element, scrollContainers) {
  * of the overlay.
  */
 var ConnectedPositionStrategy = (function () {
-    function ConnectedPositionStrategy(originPos, overlayPos, _connectedTo, _viewportRuler) {
+    function ConnectedPositionStrategy(originPos, overlayPos, _connectedTo, _viewportRuler, _document) {
         this._connectedTo = _connectedTo;
         this._viewportRuler = _viewportRuler;
+        this._document = _document;
         /**
          * Layout direction of the position strategy.
          */
@@ -10794,6 +11035,14 @@ var ConnectedPositionStrategy = (function () {
          * Ordered list of preferred positions, from most to least desirable.
          */
         this._preferredPositions = [];
+        /**
+         * Whether the position strategy is applied currently.
+         */
+        this._applied = false;
+        /**
+         * Whether the overlay position is locked.
+         */
+        this._positionLocked = false;
         this._onPositionChange = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["a" /* Subject */]();
         this._origin = this._connectedTo.nativeElement;
         this.withFallbackPosition(originPos, overlayPos);
@@ -10862,6 +11111,7 @@ var ConnectedPositionStrategy = (function () {
      * @return {?}
      */
     function () {
+        this._applied = false;
         this._resizeSubscription.unsubscribe();
     };
     /** @docs-private */
@@ -10874,30 +11124,35 @@ var ConnectedPositionStrategy = (function () {
      * @return {?}
      */
     function () {
+        this._applied = false;
         this._resizeSubscription.unsubscribe();
     };
     /**
      * Updates the position of the overlay element, using whichever preferred position relative
      * to the origin fits on-screen.
      * @docs-private
-     *
-     * @returns Resolves when the styles have been applied.
      */
     /**
      * Updates the position of the overlay element, using whichever preferred position relative
      * to the origin fits on-screen.
      * \@docs-private
-     *
-     * @return {?} Resolves when the styles have been applied.
+     * @return {?}
      */
     ConnectedPositionStrategy.prototype.apply = /**
      * Updates the position of the overlay element, using whichever preferred position relative
      * to the origin fits on-screen.
      * \@docs-private
-     *
-     * @return {?} Resolves when the styles have been applied.
+     * @return {?}
      */
     function () {
+        // If the position has been applied already (e.g. when the overlay was opened) and the
+        // consumer opted into locking in the position, re-use the  old position, in order to
+        // prevent the overlay from jumping around.
+        if (this._applied && this._positionLocked && this._lastConnectedPosition) {
+            this.recalculateLastPosition();
+            return;
+        }
+        this._applied = true;
         // We need the bounding rects for the origin and the overlay to determine how to position
         // the overlay relative to the origin.
         var /** @type {?} */ element = this._pane;
@@ -11065,6 +11320,30 @@ var ConnectedPositionStrategy = (function () {
         return this;
     };
     /**
+     * Sets whether the overlay's position should be locked in after it is positioned
+     * initially. When an overlay is locked in, it won't attempt to reposition itself
+     * when the position is re-applied (e.g. when the user scrolls away).
+     * @param isLocked Whether the overlay should locked in.
+     */
+    /**
+     * Sets whether the overlay's position should be locked in after it is positioned
+     * initially. When an overlay is locked in, it won't attempt to reposition itself
+     * when the position is re-applied (e.g. when the user scrolls away).
+     * @param {?} isLocked Whether the overlay should locked in.
+     * @return {?}
+     */
+    ConnectedPositionStrategy.prototype.withLockedPosition = /**
+     * Sets whether the overlay's position should be locked in after it is positioned
+     * initially. When an overlay is locked in, it won't attempt to reposition itself
+     * when the position is re-applied (e.g. when the user scrolls away).
+     * @param {?} isLocked Whether the overlay should locked in.
+     * @return {?}
+     */
+    function (isLocked) {
+        this._positionLocked = isLocked;
+        return this;
+    };
+    /**
      * Gets the horizontal (x) "start" dimension based on whether the overlay is in an RTL context.
      * @param {?} rect
      * @return {?}
@@ -11227,7 +11506,7 @@ var ConnectedPositionStrategy = (function () {
         // from the bottom of the viewport rather than the top.
         var /** @type {?} */ y = verticalStyleProperty === 'top' ?
             overlayPoint.y :
-            document.documentElement.clientHeight - (overlayPoint.y + overlayRect.height);
+            this._document.documentElement.clientHeight - (overlayPoint.y + overlayRect.height);
         // We want to set either `left` or `right` based on whether the overlay wants to appear "before"
         // or "after" the origin, which determines the direction in which the element will expand.
         // For the horizontal axis, the meaning of "before" and "after" change based on whether the
@@ -11243,7 +11522,7 @@ var ConnectedPositionStrategy = (function () {
         // from the right edge of the viewport rather than the left edge.
         var /** @type {?} */ x = horizontalStyleProperty === 'left' ?
             overlayPoint.x :
-            document.documentElement.clientWidth - (overlayPoint.x + overlayRect.width);
+            this._document.documentElement.clientWidth - (overlayPoint.x + overlayRect.width);
         // Reset any existing styles. This is necessary in case the preferred position has
         // changed since the last `apply`.
         ['top', 'bottom', 'left', 'right'].forEach(function (p) { return element.style[p] = null; });
@@ -11289,7 +11568,8 @@ var ConnectedPositionStrategy = (function () {
  * element to become blurry.
  */
 var GlobalPositionStrategy = (function () {
-    function GlobalPositionStrategy() {
+    function GlobalPositionStrategy(_document) {
+        this._document = _document;
         this._cssPosition = 'static';
         this._topOffset = '';
         this._bottomOffset = '';
@@ -11517,10 +11797,10 @@ var GlobalPositionStrategy = (function () {
     function () {
         var /** @type {?} */ element = this._overlayRef.overlayElement;
         if (!this._wrapper && element.parentNode) {
-            this._wrapper = document.createElement('div');
-            this._wrapper.classList.add('cdk-global-overlay-wrapper');
-            element.parentNode.insertBefore(this._wrapper, element);
-            this._wrapper.appendChild(element);
+            this._wrapper = this._document.createElement('div'); /** @type {?} */
+            ((this._wrapper)).classList.add('cdk-global-overlay-wrapper');
+            element.parentNode.insertBefore(/** @type {?} */ ((this._wrapper)), element); /** @type {?} */
+            ((this._wrapper)).appendChild(element);
         }
         var /** @type {?} */ styles = element.style;
         var /** @type {?} */ parentStyles = (/** @type {?} */ (element.parentNode)).style;
@@ -11561,8 +11841,9 @@ var GlobalPositionStrategy = (function () {
  * Builder for overlay position strategy.
  */
 var OverlayPositionBuilder = (function () {
-    function OverlayPositionBuilder(_viewportRuler) {
+    function OverlayPositionBuilder(_viewportRuler, _document) {
         this._viewportRuler = _viewportRuler;
+        this._document = _document;
     }
     /**
      * Creates a global position strategy.
@@ -11576,7 +11857,7 @@ var OverlayPositionBuilder = (function () {
      * @return {?}
      */
     function () {
-        return new GlobalPositionStrategy();
+        return new GlobalPositionStrategy(this._document);
     };
     /**
      * Creates a relative position strategy.
@@ -11599,7 +11880,7 @@ var OverlayPositionBuilder = (function () {
      * @return {?}
      */
     function (elementRef, originPos, overlayPos) {
-        return new ConnectedPositionStrategy(originPos, overlayPos, elementRef, this._viewportRuler);
+        return new ConnectedPositionStrategy(originPos, overlayPos, elementRef, this._viewportRuler, this._document);
     };
     OverlayPositionBuilder.decorators = [
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */] },
@@ -11607,6 +11888,7 @@ var OverlayPositionBuilder = (function () {
     /** @nocollapse */
     OverlayPositionBuilder.ctorParameters = function () { return [
         { type: __WEBPACK_IMPORTED_MODULE_1__angular_cdk_scrolling__["d" /* ViewportRuler */], },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_7__angular_common__["c" /* DOCUMENT */],] },] },
     ]; };
     return OverlayPositionBuilder;
 }());
@@ -11622,7 +11904,8 @@ var OverlayPositionBuilder = (function () {
  * on event target and order of overlay opens.
  */
 var OverlayKeyboardDispatcher = (function () {
-    function OverlayKeyboardDispatcher() {
+    function OverlayKeyboardDispatcher(_document) {
+        this._document = _document;
         /**
          * Currently attached overlays in the order they were attached.
          */
@@ -11635,10 +11918,7 @@ var OverlayKeyboardDispatcher = (function () {
      * @return {?}
      */
     function () {
-        if (this._keydownEventSubscription) {
-            this._keydownEventSubscription.unsubscribe();
-            this._keydownEventSubscription = null;
-        }
+        this._unsubscribeFromKeydownEvents();
     };
     /** Add a new overlay to the list of attached overlay refs. */
     /**
@@ -11674,6 +11954,10 @@ var OverlayKeyboardDispatcher = (function () {
         if (index > -1) {
             this._attachedOverlays.splice(index, 1);
         }
+        // Remove the global listener once there are no more overlays.
+        if (this._attachedOverlays.length === 0) {
+            this._unsubscribeFromKeydownEvents();
+        }
     };
     /**
      * Subscribe to keydown events that land on the body and dispatch those
@@ -11687,12 +11971,26 @@ var OverlayKeyboardDispatcher = (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ bodyKeydownEvents = Object(__WEBPACK_IMPORTED_MODULE_8_rxjs_observable_fromEvent__["a" /* fromEvent */])(document.body, 'keydown');
-        this._keydownEventSubscription = bodyKeydownEvents.pipe(Object(__WEBPACK_IMPORTED_MODULE_7_rxjs_operators_filter__["a" /* filter */])(function () { return !!_this._attachedOverlays.length; })).subscribe(function (event) {
+        var /** @type {?} */ bodyKeydownEvents = Object(__WEBPACK_IMPORTED_MODULE_9_rxjs_observable_fromEvent__["a" /* fromEvent */])(this._document.body, 'keydown');
+        this._keydownEventSubscription = bodyKeydownEvents.pipe(Object(__WEBPACK_IMPORTED_MODULE_8_rxjs_operators_filter__["a" /* filter */])(function () { return !!_this._attachedOverlays.length; })).subscribe(function (event) {
             // Dispatch keydown event to correct overlay reference
             // Dispatch keydown event to correct overlay reference
             _this._selectOverlayFromEvent(event)._keydownEvents.next(event);
         });
+    };
+    /**
+     * Removes the global keydown subscription.
+     * @return {?}
+     */
+    OverlayKeyboardDispatcher.prototype._unsubscribeFromKeydownEvents = /**
+     * Removes the global keydown subscription.
+     * @return {?}
+     */
+    function () {
+        if (this._keydownEventSubscription) {
+            this._keydownEventSubscription.unsubscribe();
+            this._keydownEventSubscription = null;
+        }
     };
     /**
      * Select the appropriate overlay from a keydown event.
@@ -11717,16 +12015,19 @@ var OverlayKeyboardDispatcher = (function () {
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */] },
     ];
     /** @nocollapse */
-    OverlayKeyboardDispatcher.ctorParameters = function () { return []; };
+    OverlayKeyboardDispatcher.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_7__angular_common__["c" /* DOCUMENT */],] },] },
+    ]; };
     return OverlayKeyboardDispatcher;
 }());
 /**
  * \@docs-private
  * @param {?} dispatcher
+ * @param {?} _document
  * @return {?}
  */
-function OVERLAY_KEYBOARD_DISPATCHER_PROVIDER_FACTORY(dispatcher) {
-    return dispatcher || new OverlayKeyboardDispatcher();
+function OVERLAY_KEYBOARD_DISPATCHER_PROVIDER_FACTORY(dispatcher, _document) {
+    return dispatcher || new OverlayKeyboardDispatcher(_document);
 }
 /**
  * \@docs-private
@@ -11735,7 +12036,13 @@ var OVERLAY_KEYBOARD_DISPATCHER_PROVIDER = {
     // If there is already an OverlayKeyboardDispatcher available, use that.
     // Otherwise, provide a new one.
     provide: OverlayKeyboardDispatcher,
-    deps: [[new __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* SkipSelf */](), OverlayKeyboardDispatcher]],
+    deps: [
+        [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* SkipSelf */](), OverlayKeyboardDispatcher],
+        /** @type {?} */ (
+        // Coerce to `InjectionToken` so that the `deps` match the "shape"
+        // of the type expected by Angular
+        __WEBPACK_IMPORTED_MODULE_7__angular_common__["c" /* DOCUMENT */])
+    ],
     useFactory: OVERLAY_KEYBOARD_DISPATCHER_PROVIDER_FACTORY
 };
 
@@ -11748,7 +12055,8 @@ var OVERLAY_KEYBOARD_DISPATCHER_PROVIDER = {
  * Container inside which all overlays will render.
  */
 var OverlayContainer = (function () {
-    function OverlayContainer() {
+    function OverlayContainer(_document) {
+        this._document = _document;
     }
     /**
      * @return {?}
@@ -11800,25 +12108,28 @@ var OverlayContainer = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ container = document.createElement('div');
+        var /** @type {?} */ container = this._document.createElement('div');
         container.classList.add('cdk-overlay-container');
-        document.body.appendChild(container);
+        this._document.body.appendChild(container);
         this._containerElement = container;
     };
     OverlayContainer.decorators = [
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */] },
     ];
     /** @nocollapse */
-    OverlayContainer.ctorParameters = function () { return []; };
+    OverlayContainer.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_7__angular_common__["c" /* DOCUMENT */],] },] },
+    ]; };
     return OverlayContainer;
 }());
 /**
  * \@docs-private
  * @param {?} parentContainer
+ * @param {?} _document
  * @return {?}
  */
-function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
-    return parentContainer || new OverlayContainer();
+function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer, _document) {
+    return parentContainer || new OverlayContainer(_document);
 }
 /**
  * \@docs-private
@@ -11826,7 +12137,11 @@ function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
 var OVERLAY_CONTAINER_PROVIDER = {
     // If there is already an OverlayContainer available, use that. Otherwise, provide a new one.
     provide: OverlayContainer,
-    deps: [[new __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* SkipSelf */](), OverlayContainer]],
+    deps: [
+        [new __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */](), new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* SkipSelf */](), OverlayContainer],
+        /** @type {?} */ (__WEBPACK_IMPORTED_MODULE_7__angular_common__["c" /* DOCUMENT */] // We need to use the InjectionToken somewhere to keep TS happy
+        ) // We need to use the InjectionToken somewhere to keep TS happy
+    ],
     useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
 };
 
@@ -11852,7 +12167,7 @@ var defaultConfig = new OverlayConfig();
  * An overlay *is* a PortalOutlet, so any kind of Portal can be loaded into one.
  */
 var Overlay = (function () {
-    function Overlay(scrollStrategies, _overlayContainer, _componentFactoryResolver, _positionBuilder, _keyboardDispatcher, _appRef, _injector, _ngZone) {
+    function Overlay(scrollStrategies, _overlayContainer, _componentFactoryResolver, _positionBuilder, _keyboardDispatcher, _appRef, _injector, _ngZone, _document) {
         this.scrollStrategies = scrollStrategies;
         this._overlayContainer = _overlayContainer;
         this._componentFactoryResolver = _componentFactoryResolver;
@@ -11861,6 +12176,7 @@ var Overlay = (function () {
         this._appRef = _appRef;
         this._injector = _injector;
         this._ngZone = _ngZone;
+        this._document = _document;
     }
     /**
      * Creates an overlay.
@@ -11910,7 +12226,7 @@ var Overlay = (function () {
      * @return {?} Newly-created pane element
      */
     function () {
-        var /** @type {?} */ pane = document.createElement('div');
+        var /** @type {?} */ pane = this._document.createElement('div');
         pane.id = "cdk-overlay-" + nextUniqueId++;
         pane.classList.add('cdk-overlay-pane');
         this._overlayContainer.getContainerElement().appendChild(pane);
@@ -11942,6 +12258,7 @@ var Overlay = (function () {
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["g" /* ApplicationRef */], },
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injector */], },
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* NgZone */], },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_7__angular_common__["c" /* DOCUMENT */],] },] },
     ]; };
     return Overlay;
 }());
@@ -12003,17 +12320,17 @@ var CdkOverlayOrigin = (function () {
  */
 var CdkConnectedOverlay = (function () {
     // TODO(jelbourn): inputs for size, scroll behavior, animation, etc.
-    function CdkConnectedOverlay(_overlay, _renderer, templateRef, viewContainerRef, _scrollStrategy, _dir) {
+    function CdkConnectedOverlay(_overlay, templateRef, viewContainerRef, _scrollStrategy, _dir, _document) {
+        var _this = this;
         this._overlay = _overlay;
-        this._renderer = _renderer;
         this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
+        this._document = _document;
         this._hasBackdrop = false;
         this._backdropSubscription = __WEBPACK_IMPORTED_MODULE_6_rxjs_Subscription__["a" /* Subscription */].EMPTY;
         this._positionSubscription = __WEBPACK_IMPORTED_MODULE_6_rxjs_Subscription__["a" /* Subscription */].EMPTY;
         this._offsetX = 0;
         this._offsetY = 0;
-        this._escapeListener = function () { };
         /**
          * Strategy to be used when handling scroll events while the overlay is open.
          */
@@ -12038,6 +12355,14 @@ var CdkConnectedOverlay = (function () {
          * Event emitted when the overlay has been detached.
          */
         this.detach = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
+        /**
+         * Event listener that will close the overlay when the user presses escape.
+         */
+        this._escapeListener = function (event) {
+            if (event.keyCode === __WEBPACK_IMPORTED_MODULE_11__angular_cdk_keycodes__["c" /* ESCAPE */]) {
+                _this._detachOverlay();
+            }
+        };
         this._templatePortal = new __WEBPACK_IMPORTED_MODULE_3__angular_cdk_portal__["d" /* TemplatePortal */](templateRef, viewContainerRef);
     }
     Object.defineProperty(CdkConnectedOverlay.prototype, "offsetX", {
@@ -12088,7 +12413,7 @@ var CdkConnectedOverlay = (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._hasBackdrop = Object(__WEBPACK_IMPORTED_MODULE_9__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(value); },
+        function (value) { this._hasBackdrop = Object(__WEBPACK_IMPORTED_MODULE_10__angular_cdk_coercion__["a" /* coerceBooleanProperty */])(value); },
         enumerable: true,
         configurable: true
     });
@@ -12404,7 +12729,7 @@ var CdkConnectedOverlay = (function () {
         }
         this._position.withDirection(this.dir);
         this._overlayRef.getConfig().direction = this.dir;
-        this._initEscapeListener();
+        this._document.addEventListener('keydown', this._escapeListener);
         if (!this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._templatePortal);
             this.attach.emit();
@@ -12429,7 +12754,7 @@ var CdkConnectedOverlay = (function () {
             this.detach.emit();
         }
         this._backdropSubscription.unsubscribe();
-        this._escapeListener();
+        this._document.removeEventListener('keydown', this._escapeListener);
     };
     /**
      * Destroys the overlay created by this directive.
@@ -12445,23 +12770,7 @@ var CdkConnectedOverlay = (function () {
         }
         this._backdropSubscription.unsubscribe();
         this._positionSubscription.unsubscribe();
-        this._escapeListener();
-    };
-    /**
-     * Sets the event listener that closes the overlay when pressing Escape.
-     * @return {?}
-     */
-    CdkConnectedOverlay.prototype._initEscapeListener = /**
-     * Sets the event listener that closes the overlay when pressing Escape.
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this._escapeListener = this._renderer.listen('document', 'keydown', function (event) {
-            if (event.keyCode === __WEBPACK_IMPORTED_MODULE_10__angular_cdk_keycodes__["c" /* ESCAPE */]) {
-                _this._detachOverlay();
-            }
-        });
+        this._document.removeEventListener('keydown', this._escapeListener);
     };
     CdkConnectedOverlay.decorators = [
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* Directive */], args: [{
@@ -12472,11 +12781,11 @@ var CdkConnectedOverlay = (function () {
     /** @nocollapse */
     CdkConnectedOverlay.ctorParameters = function () { return [
         { type: Overlay, },
-        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["W" /* Renderer2 */], },
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* TemplateRef */], },
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewContainerRef */], },
         { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY,] },] },
         { type: __WEBPACK_IMPORTED_MODULE_2__angular_cdk_bidi__["b" /* Directionality */], decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */] },] },
+        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Optional */] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_7__angular_common__["c" /* DOCUMENT */],] },] },
     ]; };
     CdkConnectedOverlay.propDecorators = {
         "origin": [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */], args: ['cdkConnectedOverlayOrigin',] },],
@@ -12552,7 +12861,7 @@ var OverlayModule = (function () {
  * Should be provided in the root component.
  */
 var FullscreenOverlayContainer = (function (_super) {
-    Object(__WEBPACK_IMPORTED_MODULE_11_tslib__["b" /* __extends */])(FullscreenOverlayContainer, _super);
+    Object(__WEBPACK_IMPORTED_MODULE_12_tslib__["b" /* __extends */])(FullscreenOverlayContainer, _super);
     function FullscreenOverlayContainer() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -12938,6 +13247,7 @@ function throwNoPortalAttachedError() {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Interface that can be used to generically type a class.
  * @record
  */
 
@@ -13722,11 +14032,21 @@ var ScrollDispatcher = (function () {
      * Returns an observable that emits an event whenever any of the registered Scrollable
      * references (or window, document, or body) fire a scrolled event. Can provide a time in ms
      * to override the default "throttle" time.
+     *
+     * **Note:** in order to avoid hitting change detection for every scroll event,
+     * all of the events emitted from this stream will be run outside the Angular zone.
+     * If you need to update any data bindings as a result of a scroll event, you have
+     * to run the callback using `NgZone.run`.
      */
     /**
      * Returns an observable that emits an event whenever any of the registered Scrollable
      * references (or window, document, or body) fire a scrolled event. Can provide a time in ms
      * to override the default "throttle" time.
+     *
+     * **Note:** in order to avoid hitting change detection for every scroll event,
+     * all of the events emitted from this stream will be run outside the Angular zone.
+     * If you need to update any data bindings as a result of a scroll event, you have
+     * to run the callback using `NgZone.run`.
      * @param {?=} auditTimeInMs
      * @return {?}
      */
@@ -13734,6 +14054,11 @@ var ScrollDispatcher = (function () {
      * Returns an observable that emits an event whenever any of the registered Scrollable
      * references (or window, document, or body) fire a scrolled event. Can provide a time in ms
      * to override the default "throttle" time.
+     *
+     * **Note:** in order to avoid hitting change detection for every scroll event,
+     * all of the events emitted from this stream will be run outside the Angular zone.
+     * If you need to update any data bindings as a result of a scroll event, you have
+     * to run the callback using `NgZone.run`.
      * @param {?=} auditTimeInMs
      * @return {?}
      */
@@ -13886,12 +14211,13 @@ var SCROLL_DISPATCHER_PROVIDER = {
  * can be listened to through the service.
  */
 var CdkScrollable = (function () {
-    function CdkScrollable(_elementRef, _scroll, _ngZone, _renderer) {
+    function CdkScrollable(_elementRef, _scroll, _ngZone) {
+        var _this = this;
         this._elementRef = _elementRef;
         this._scroll = _scroll;
         this._ngZone = _ngZone;
-        this._renderer = _renderer;
         this._elementScrolled = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["a" /* Subject */]();
+        this._scrollListener = function (event) { return _this._elementScrolled.next(event); };
     }
     /**
      * @return {?}
@@ -13901,10 +14227,8 @@ var CdkScrollable = (function () {
      */
     function () {
         var _this = this;
-        this._scrollListener = this._ngZone.runOutsideAngular(function () {
-            return _this._renderer.listen(_this.getElementRef().nativeElement, 'scroll', function (event) {
-                _this._elementScrolled.next(event);
-            });
+        this._ngZone.runOutsideAngular(function () {
+            _this.getElementRef().nativeElement.addEventListener('scroll', _this._scrollListener);
         });
         this._scroll.register(this);
     };
@@ -13917,8 +14241,7 @@ var CdkScrollable = (function () {
     function () {
         this._scroll.deregister(this);
         if (this._scrollListener) {
-            this._scrollListener();
-            this._scrollListener = null;
+            this.getElementRef().nativeElement.removeEventListener('scroll', this._scrollListener);
         }
     };
     /**
@@ -13954,7 +14277,6 @@ var CdkScrollable = (function () {
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */], },
         { type: ScrollDispatcher, },
         { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* NgZone */], },
-        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["W" /* Renderer2 */], },
     ]; };
     return CdkScrollable;
 }());
@@ -14246,7 +14568,7 @@ var ScrollDispatchModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
 /**
- * @license Angular v5.0.2
+ * @license Angular v5.0.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -20692,7 +21014,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* Version */]('5.0.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* Version */]('5.0.3');
 
 /**
  * @fileoverview added by tsickle
@@ -20967,7 +21289,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* Version */
 /* unused harmony export removeSummaryDuplicates */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
 /**
- * @license Angular v5.0.2
+ * @license Angular v5.0.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -21587,7 +21909,7 @@ var Version = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.2');
+var VERSION = new Version('5.0.3');
 
 /**
  * @fileoverview added by tsickle
@@ -47545,6 +47867,28 @@ var TypeCheckCompiler = (function () {
     return TypeCheckCompiler;
 }());
 var DYNAMIC_VAR_NAME = '_any';
+var TypeCheckLocalResolver = (function () {
+    function TypeCheckLocalResolver() {
+    }
+    /**
+     * @param {?} name
+     * @return {?}
+     */
+    TypeCheckLocalResolver.prototype.getLocal = /**
+     * @param {?} name
+     * @return {?}
+     */
+    function (name) {
+        if (name === EventHandlerVars.event.name) {
+            // References to the event should not be type-checked.
+            // TODO(chuckj): determine a better type for the event.
+            return variable(DYNAMIC_VAR_NAME);
+        }
+        return null;
+    };
+    return TypeCheckLocalResolver;
+}());
+var defaultResolver = new TypeCheckLocalResolver();
 var ViewBuilder = (function () {
     function ViewBuilder(options, reflector, externalReferenceVars, parent, component, isHostComponent, embeddedViewIndex, pipes, viewBuilderFactory) {
         this.options = options;
@@ -47619,7 +47963,7 @@ var ViewBuilder = (function () {
         this.updates.forEach(function (expression) {
             var _a = _this.preprocessUpdateExpression(expression), sourceSpan = _a.sourceSpan, context = _a.context, value = _a.value;
             var /** @type {?} */ bindingId = "" + bindingCount++;
-            var /** @type {?} */ nameResolver = context === _this.component ? _this : null;
+            var /** @type {?} */ nameResolver = context === _this.component ? _this : defaultResolver;
             var _b = convertPropertyBinding(nameResolver, variable(_this.getOutputVar(context)), value, bindingId), stmts = _b.stmts, currValExpr = _b.currValExpr;
             stmts.push(new ExpressionStatement(currValExpr));
             viewStmts.push.apply(viewStmts, stmts.map(function (stmt) { return applySourceSpanToStatementIfNeeded(stmt, sourceSpan); }));
@@ -47627,7 +47971,7 @@ var ViewBuilder = (function () {
         this.actions.forEach(function (_a) {
             var sourceSpan = _a.sourceSpan, context = _a.context, value = _a.value;
             var /** @type {?} */ bindingId = "" + bindingCount++;
-            var /** @type {?} */ nameResolver = context === _this.component ? _this : null;
+            var /** @type {?} */ nameResolver = context === _this.component ? _this : defaultResolver;
             var stmts = convertActionBinding(nameResolver, variable(_this.getOutputVar(context)), value, bindingId).stmts;
             viewStmts.push.apply(viewStmts, stmts.map(function (stmt) { return applySourceSpanToStatementIfNeeded(stmt, sourceSpan); }));
         });
@@ -50405,7 +50749,7 @@ var AotCompiler = (function () {
             // These can be used by the type check block for components,
             // and they also cause TypeScript to include these files into the program too,
             // which will make them part of the analyzedFiles.
-            var /** @type {?} */ externalReferences = ngModuleMeta.transitiveModule.directives.map(function (d) { return d.reference; }).concat(ngModuleMeta.transitiveModule.pipes.map(function (d) { return d.reference; }), ngModuleMeta.importedModules.map(function (m) { return m.type.reference; }), ngModuleMeta.exportedModules.map(function (m) { return m.type.reference; }));
+            var /** @type {?} */ externalReferences = ngModuleMeta.transitiveModule.directives.map(function (d) { return d.reference; }).concat(ngModuleMeta.transitiveModule.pipes.map(function (d) { return d.reference; }), ngModuleMeta.importedModules.map(function (m) { return m.type.reference; }), ngModuleMeta.exportedModules.map(function (m) { return m.type.reference; }), _this._externalIdentifierReferences([Identifiers.TemplateRef, Identifiers.ElementRef]));
             var /** @type {?} */ externalReferenceVars = new Map();
             externalReferences.forEach(function (ref, typeIndex) {
                 if (_this._host.isSourceFile(ref.filePath)) {
@@ -50433,6 +50777,25 @@ var AotCompiler = (function () {
         if (outputCtx.statements.length === 0) {
             _createEmptyStub(outputCtx);
         }
+    };
+    /**
+     * @param {?} references
+     * @return {?}
+     */
+    AotCompiler.prototype._externalIdentifierReferences = /**
+     * @param {?} references
+     * @return {?}
+     */
+    function (references) {
+        var /** @type {?} */ result = [];
+        for (var _i = 0, references_1 = references; _i < references_1.length; _i++) {
+            var reference = references_1[_i];
+            var /** @type {?} */ token = createTokenForExternalReference(this._reflector, reference);
+            if (token.identifier) {
+                result.push(token.identifier.reference);
+            }
+        }
+        return result;
     };
     /**
      * @param {?} ctx
@@ -55542,7 +55905,7 @@ var Extractor = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_share__ = __webpack_require__("../../../../rxjs/_esm5/operator/share.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
 /**
- * @license Angular v5.0.2
+ * @license Angular v5.0.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -56210,7 +56573,7 @@ var Version = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.2');
+var VERSION = new Version('5.0.3');
 
 /**
  * @fileoverview added by tsickle
@@ -72059,7 +72422,7 @@ function transition$$1(stateChangeExpr, steps) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
 /**
- * @license Angular v5.0.2
+ * @license Angular v5.0.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -72623,7 +72986,7 @@ var ResourceLoaderImpl = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 var INTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS = [
-    __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["c" /* ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS */],
+    __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["b" /* ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS */],
     {
         provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["i" /* COMPILER_OPTIONS */],
         useValue: { providers: [{ provide: __WEBPACK_IMPORTED_MODULE_0__angular_compiler__["s" /* ResourceLoader */], useClass: ResourceLoaderImpl, deps: [] }] },
@@ -72710,7 +73073,7 @@ var CachedResourceLoader = (function (_super) {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_7" /* Version */]('5.0.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_7" /* Version */]('5.0.3');
 
 /**
  * @fileoverview added by tsickle
@@ -72779,7 +73142,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__[
 /* unused harmony export TransferState */
 /* unused harmony export makeStateKey */
 /* unused harmony export By */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DOCUMENT$1; });
+/* unused harmony export DOCUMENT */
 /* unused harmony export EVENT_MANAGER_PLUGINS */
 /* unused harmony export EventManager */
 /* unused harmony export HAMMER_GESTURE_CONFIG */
@@ -72787,7 +73150,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__[
 /* unused harmony export DomSanitizer */
 /* unused harmony export VERSION */
 /* unused harmony export ɵBROWSER_SANITIZATION_PROVIDERS */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return INTERNAL_BROWSER_PLATFORM_PROVIDERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return INTERNAL_BROWSER_PLATFORM_PROVIDERS; });
 /* unused harmony export ɵinitDomAdapter */
 /* unused harmony export ɵBrowserDomAdapter */
 /* unused harmony export ɵBrowserPlatformLocation */
@@ -72796,7 +73159,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__[
 /* unused harmony export ɵescapeHtml */
 /* unused harmony export ɵELEMENT_PROBE_PROVIDERS */
 /* unused harmony export ɵDomAdapter */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getDOM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getDOM; });
 /* unused harmony export ɵsetRootDomAdapter */
 /* unused harmony export ɵDomRendererFactory2 */
 /* unused harmony export ɵNAMESPACE_URIS */
@@ -72821,7 +73184,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__[
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
 /**
- * @license Angular v5.0.2
+ * @license Angular v5.0.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -75966,6 +76329,9 @@ var FALSE = 'FALSE';
 var ANGULAR = 'ANGULAR';
 var NATIVE_ADD_LISTENER = 'addEventListener';
 var NATIVE_REMOVE_LISTENER = 'removeEventListener';
+// use the same symbol string which is used in zone.js
+var stopSymbol = '__zone_symbol__propagationStopped';
+var stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
 var blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
 var blackListedMap;
 if (blackListedEvents) {
@@ -76006,6 +76372,11 @@ var globalListener = function (event) {
         // itself or others
         var /** @type {?} */ copiedTasks = taskDatas.slice();
         for (var /** @type {?} */ i = 0; i < copiedTasks.length; i++) {
+            // if other listener call event.stopImmediatePropagation
+            // just break
+            if ((/** @type {?} */ (event))[stopSymbol] === true) {
+                break;
+            }
             var /** @type {?} */ taskData = copiedTasks[i];
             if (taskData.zone !== Zone.current) {
                 // only use Zone.run when Zone.current not equals to stored zone
@@ -76022,8 +76393,35 @@ var DomEventsPlugin = (function (_super) {
     function DomEventsPlugin(doc, ngZone) {
         var _this = _super.call(this, doc) || this;
         _this.ngZone = ngZone;
+        _this.patchEvent();
         return _this;
     }
+    /**
+     * @return {?}
+     */
+    DomEventsPlugin.prototype.patchEvent = /**
+     * @return {?}
+     */
+    function () {
+        if (!Event || !Event.prototype) {
+            return;
+        }
+        if ((/** @type {?} */ (Event.prototype))[stopMethodSymbol]) {
+            // already patched by zone.js
+            return;
+        }
+        var /** @type {?} */ delegate = (/** @type {?} */ (Event.prototype))[stopMethodSymbol] =
+            Event.prototype.stopImmediatePropagation;
+        Event.prototype.stopImmediatePropagation = function () {
+            if (this) {
+                this[stopSymbol] = true;
+            }
+            // should call native delegate in case
+            // in some enviroment part of the application
+            // will not use the patched Event
+            delegate && delegate.apply(this, arguments);
+        };
+    };
     // This plugin should come last in the list of plugins, because it accepts all
     // events.
     /**
@@ -76127,16 +76525,27 @@ var DomEventsPlugin = (function (_super) {
             // just call native removeEventListener
             return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
+        // fix issue 20532, should be able to remove
+        // listener which was added inside of ngZone
+        var /** @type {?} */ found = false;
         for (var /** @type {?} */ i = 0; i < taskDatas.length; i++) {
             // remove listener from taskDatas if the callback equals
             if (taskDatas[i].handler === callback) {
+                found = true;
                 taskDatas.splice(i, 1);
                 break;
             }
         }
-        if (taskDatas.length === 0) {
-            // all listeners are removed, we can remove the globalListener from target
-            underlyingRemove.apply(target, [eventName, globalListener, false]);
+        if (found) {
+            if (taskDatas.length === 0) {
+                // all listeners are removed, we can remove the globalListener from target
+                underlyingRemove.apply(target, [eventName, globalListener, false]);
+            }
+        }
+        else {
+            // not found in taskDatas, the callback may be added inside of ngZone
+            // use native remove listener to remove the calback
+            target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
     };
     DomEventsPlugin.decorators = [
@@ -77944,7 +78353,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_7" /* Version */]('5.0.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_7" /* Version */]('5.0.3');
 
 /**
  * @fileoverview added by tsickle
@@ -78078,7 +78487,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_7" /* Version */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_rxjs_operator_filter__ = __webpack_require__("../../../../rxjs/_esm5/operator/filter.js");
 /**
- * @license Angular v5.0.2
+ * @license Angular v5.0.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -85140,7 +85549,7 @@ function setupRouter(ref, urlSerializer, contexts, location, injector, loader, c
         router.errorHandler = opts.errorHandler;
     }
     if (opts.enableTracing) {
-        var /** @type {?} */ dom_1 = Object(__WEBPACK_IMPORTED_MODULE_20__angular_platform_browser__["d" /* ɵgetDOM */])();
+        var /** @type {?} */ dom_1 = Object(__WEBPACK_IMPORTED_MODULE_20__angular_platform_browser__["c" /* ɵgetDOM */])();
         router.events.subscribe(function (e) {
             dom_1.logGroup("Router Event: " + ((/** @type {?} */ (e.constructor))).name);
             dom_1.log(e.toString());
@@ -85331,7 +85740,7 @@ function provideRouterInitializer() {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_7" /* Version */]('5.0.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_7" /* Version */]('5.0.3');
 
 /**
  * @fileoverview added by tsickle

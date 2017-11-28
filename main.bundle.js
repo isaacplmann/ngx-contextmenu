@@ -42,7 +42,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var AppComponent = (function () {
+var AppComponent = /** @class */ (function () {
     function AppComponent(contextMenuService) {
         this.contextMenuService = contextMenuService;
         this.disableBasicMenu = false;
@@ -162,7 +162,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -215,7 +215,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var ChildOneComponent = (function () {
+var ChildOneComponent = /** @class */ (function () {
     function ChildOneComponent(router) {
         this.router = router;
         this.items = [{
@@ -264,7 +264,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var ChildTwoComponent = (function () {
+var ChildTwoComponent = /** @class */ (function () {
     function ChildTwoComponent(router) {
         this.router = router;
         this.items = [{
@@ -331,7 +331,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var ContextMenuAttachDirective = (function () {
+var ContextMenuAttachDirective = /** @class */ (function () {
     function ContextMenuAttachDirective(contextMenuService) {
         this.contextMenuService = contextMenuService;
     }
@@ -406,7 +406,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
-var ContextMenuComponent = (function () {
+var ContextMenuComponent = /** @class */ (function () {
     function ContextMenuComponent(_contextMenuService, changeDetector, elementRef, options) {
         var _this = this;
         this._contextMenuService = _contextMenuService;
@@ -522,7 +522,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var ContextMenuItemDirective = (function () {
+var ContextMenuItemDirective = /** @class */ (function () {
     function ContextMenuItemDirective(template, elementRef) {
         this.template = template;
         this.elementRef = elementRef;
@@ -624,7 +624,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var ContextMenuService = (function () {
+var ContextMenuService = /** @class */ (function () {
     function ContextMenuService(overlay, scrollStrategy) {
         this.overlay = overlay;
         this.scrollStrategy = scrollStrategy;
@@ -828,7 +828,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 var ARROW_LEFT_KEYCODE = 37;
-var ContextMenuContentComponent = (function () {
+var ContextMenuContentComponent = /** @class */ (function () {
     function ContextMenuContentComponent(changeDetector, elementRef, options, renderer) {
         this.changeDetector = changeDetector;
         this.elementRef = elementRef;
@@ -1108,7 +1108,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ContextMenuModule = (function () {
+var ContextMenuModule = /** @class */ (function () {
     function ContextMenuModule() {
     }
     ContextMenuModule_1 = ContextMenuModule;
