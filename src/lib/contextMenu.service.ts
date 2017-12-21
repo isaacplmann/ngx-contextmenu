@@ -9,7 +9,7 @@ import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { ContextMenuContentComponent } from './contextMenuContent.component';
 
 export interface IContextMenuClickEvent {
-  anchorElement?: Element;
+  anchorElement?: Element | EventTarget;
   contextMenu?: ContextMenuComponent;
   event?: MouseEvent;
   parentContextMenu?: ContextMenuContentComponent;

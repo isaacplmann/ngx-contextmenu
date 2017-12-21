@@ -1,3 +1,12 @@
+<a name="4.1.1"></a>
+# [4.1.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-12-21)
+
+
+### Fixes
+
+* **types:** Allow anchorElement to be Element | EventTarget
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-12-21)
 
