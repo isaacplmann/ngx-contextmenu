@@ -7,6 +7,24 @@
 * **provider:** Provide ContextMenuService in the forRoot instead of ContextMenuModule itself
 
 
+<a name="3.0.2"></a>
+# [3.0.2](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-28)
+
+
+### Fixes
+
+* **build:** Fix build error
+
+
+<a name="3.0.1"></a>
+# [3.0.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-28)
+
+
+### Fixes
+
+* **dependencies:** Allow @angular/cdk rc0, rc.1 or rc.2
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-06)
 

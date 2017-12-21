@@ -44,4 +44,3 @@ export class ContextMenuModule {
     };
   }
 }
-export default ContextMenuModule;
