@@ -1,3 +1,12 @@
+<a name="4.0.1"></a>
+# [4.0.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-12-21)
+
+
+### Fixes
+
+* **build:** Build error
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-12-21)
 
