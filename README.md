@@ -212,6 +212,25 @@ with a left click instead of a right click, use this html:
 
 This could be `(keydown)`, `(mouseover)`, or `(myCustomEvent)` as well.
 
+## Positioning the Context Menu around an element
+If you want to override the context menu positioning to be appended to an element instead of based on mouse position,
+provide an `anchorElement` to the `contextMenuService`.  This makes sense if you want to trigger the context menu with
+a non-MouseEvent.
+
+```ts
+public onContextMenu($event: KeyboardEvent, item: any): void {
+  this.contextMenuService.show.next({
+    anchorElement: $event.target,
+    // Optional - if unspecified, all context menu components will open
+    contextMenu: this.contextMenu,
+    event: <any>$event,
+    item: item,
+  });
+  $event.preventDefault();
+  $event.stopPropagation();
+}
+```
+
 ## Custom Styles
 
 The html that is generated for the context menu looks like this:

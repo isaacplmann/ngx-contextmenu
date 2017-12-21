@@ -66,18 +66,18 @@ export class ContextMenuService {
       });
       this.closeAllContextMenus();
       const positionStrategy = this.overlay.position().connectedTo(
-        { nativeElement: this.fakeElement },
-        { originX: 'end', originY: 'bottom' },
+        { nativeElement: anchorElement || this.fakeElement },
+        { originX: 'start', originY: 'bottom' },
         { overlayX: 'start', overlayY: 'top' })
         .withFallbackPosition(
-        { originX: 'start', originY: 'bottom' },
-        { overlayX: 'end', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'end', originY: 'top' },
+        { originX: 'start', originY: 'top' },
         { overlayX: 'start', overlayY: 'bottom' })
         .withFallbackPosition(
+        { originX: 'end', originY: 'top' },
+        { overlayX: 'start', overlayY: 'top' })
+        .withFallbackPosition(
         { originX: 'start', originY: 'top' },
-        { overlayX: 'end', overlayY: 'bottom' })
+        { overlayX: 'end', overlayY: 'top' })
         .withFallbackPosition(
         { originX: 'end', originY: 'center' },
         { overlayX: 'start', overlayY: 'center' })

@@ -1,3 +1,12 @@
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-12-21)
+
+
+### Features
+
+* **position:** Allow passing an anchorElement to override positioning
+
+
 <a name="4.0.1"></a>
 # [4.0.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-12-21)
 
