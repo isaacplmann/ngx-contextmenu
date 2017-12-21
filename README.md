@@ -5,7 +5,7 @@ A context menu built with Angular (2+) inspired by [ui.bootstrap.contextMenu](ht
 ## Installation
 
 - `npm install ngx-contextmenu @angular/cdk@2.0.0-beta.12`
-- import ContextMenuModule into your app module
+- import ContextMenuModule.forRoot() into your app module
 - Make sure to include `<!doctype html>` at the top of your `index.html`
 
 ## Usage
@@ -372,8 +372,3 @@ export class MyContextMenuClass {
 
 I'm available for (paid) one on one sessions through Code Mentor. I'd love to help you with your app or library.
 [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/isaacplmann?utm_source=github&utm_medium=button&utm_term=isaacplmann&utm_campaign=github)
-
-## Sponsor Link
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/nfmq92vFC4p9tYPkg1bFpsoZ/isaacplmann/ngx-contextmenu'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nfmq92vFC4p9tYPkg1bFpsoZ/isaacplmann/ngx-contextmenu.svg' />
-</a>

@@ -1,3 +1,12 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-12-21)
+
+
+### BREAKING CHANGES
+
+* **provider:** Provide ContextMenuService in the forRoot instead of ContextMenuModule itself
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2017-11-06)
 

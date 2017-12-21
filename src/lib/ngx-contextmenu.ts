@@ -29,15 +29,13 @@ import { ContextMenuContentComponent } from './contextMenuContent.component';
     CommonModule,
     OverlayModule,
   ],
-  providers: [
-    ContextMenuService,
-  ],
 })
 export class ContextMenuModule {
-  public static forRoot(options: IContextMenuOptions): ModuleWithProviders {
+  public static forRoot(options?: IContextMenuOptions): ModuleWithProviders {
     return {
       ngModule: ContextMenuModule,
       providers: [
+        ContextMenuService,
         {
           provide: CONTEXT_MENU_OPTIONS,
           useValue: options,
