@@ -15,10 +15,11 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { first } from 'rxjs/operators';
 
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { IContextMenuOptions } from './contextMenu.options';
-import { ContextMenuService, IContextMenuClickEvent } from './contextMenu.service';
+import { ContextMenuService, IContextMenuClickEvent, CloseContextMenuEvent } from './contextMenu.service';
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
 
 export interface ILinkConfig {
@@ -58,15 +59,15 @@ export class ContextMenuComponent implements OnDestroy {
   @Input() public autoFocus = false;
   @Input() public useBootstrap4 = false;
   @Input() public disabled = false;
-  @Output() public close: EventEmitter<any> = new EventEmitter<any>();
-  @Output() public open: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public close: EventEmitter<CloseContextMenuEvent> = new EventEmitter();
+  @Output() public open: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
   @ContentChildren(ContextMenuItemDirective) public menuItems: QueryList<ContextMenuItemDirective>;
   @ViewChild('menu') public menuElement: ElementRef;
   public visibleMenuItems: ContextMenuItemDirective[] = [];
 
   public links: ILinkConfig[] = [];
   public item: any;
-  public event: MouseEvent;
+  public event: MouseEvent | KeyboardEvent;
   private subscription: Subscription = new Subscription();
 
   constructor(
@@ -80,8 +81,9 @@ export class ContextMenuComponent implements OnDestroy {
       this.autoFocus = options.autoFocus;
       this.useBootstrap4 = options.useBootstrap4;
     }
-    this.subscription.add(_contextMenuService.show.subscribe(menuEvent => this.onMenuEvent(menuEvent)));
-    this.subscription.add(_contextMenuService.close.subscribe(event => this.close.emit(event)));
+    this.subscription.add(_contextMenuService.show.subscribe(menuEvent => {
+      this.onMenuEvent(menuEvent);
+    }));
   }
 
   public ngOnDestroy(): void {
@@ -100,7 +102,8 @@ export class ContextMenuComponent implements OnDestroy {
     this.item = item;
     this.setVisibleMenuItems();
     this._contextMenuService.openContextMenu({ ...menuEvent, menuItems: this.visibleMenuItems });
-    this.open.next(menuEvent);
+    this._contextMenuService.close.asObservable().pipe(first()).subscribe(closeEvent => this.close.emit(closeEvent));
+    this.open.emit(menuEvent);
   }
 
   public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {

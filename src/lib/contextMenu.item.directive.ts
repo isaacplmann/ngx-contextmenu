@@ -38,7 +38,7 @@ export class ContextMenuItemDirective implements Highlightable {
     this.isActive = false;
   }
 
-  public triggerExecute(item: any, $event?: MouseEvent): void {
+  public triggerExecute(item: any, $event?: MouseEvent | KeyboardEvent): void {
     if (!this.evaluateIfFunction(this.enabled, item)) {
       return;
     }

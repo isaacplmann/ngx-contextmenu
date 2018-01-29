@@ -12,7 +12,7 @@
         <ul>
           <li *ngFor="let item of items" [contextMenu]="static">Right Click: {{item?.name}}</li>
         </ul>
-        <context-menu #static (close)="showMessage('closed', $event)" (open)="showMessage('open', $event)">
+        <context-menu #static (close)="showMessage('closed static', $event)" (open)="showMessage('open', $event)">
           <ng-template contextMenuItem [visible]="true" [enabled]="false" (execute)="showMessage('Hi, someone')">
             Say hi
           </ng-template>
@@ -29,7 +29,7 @@
           <ul>
             <li *ngFor="let item of items" [contextMenu]="enableAndVisible" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
           </ul>
-          <context-menu #enableAndVisible (close)="showMessage('closed', $event)">
+          <context-menu #enableAndVisible (close)="showMessage('closed enableAndVisible', $event)">
             <ng-template contextMenuItem let-item [visible]="true" [enabled]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
               Say hi, {{item?.name}}! With access to the outside context: {{ outsideValue }}
             </ng-template>

@@ -71,14 +71,15 @@ const ARROW_LEFT_KEYCODE = 37;
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() public menuItems: ContextMenuItemDirective[] = [];
   @Input() public item: any;
-  @Input() public event: MouseEvent;
+  @Input() public event: MouseEvent | KeyboardEvent;
   @Input() public parentContextMenu: ContextMenuContentComponent;
   @Input() public overlay: OverlayRef;
   @Input() public isLeaf = false;
-  @Output() public execute: EventEmitter<{ event: Event, item: any, menuItem: ContextMenuItemDirective }> = new EventEmitter();
+  @Output() public execute: EventEmitter<{ event: MouseEvent | KeyboardEvent, item: any, menuItem: ContextMenuItemDirective }>
+    = new EventEmitter();
   @Output() public openSubMenu: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
   @Output() public closeLeafMenu: EventEmitter<CloseLeafMenuEvent> = new EventEmitter();
-  @Output() public closeAllMenus: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public closeAllMenus: EventEmitter<{ event: MouseEvent }> = new EventEmitter();
   @ViewChild('menu') public menuElement: ElementRef;
   @ViewChildren('li') public menuItemElements: QueryList<ElementRef>;
 
@@ -179,7 +180,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     this.cancelEvent(event);
     const menuItem = this.menuItems[this._keyManager.activeItemIndex];
     if (menuItem) {
-      this.onMenuItemSelect(menuItem, <any>event);
+      this.onMenuItemSelect(menuItem, event);
     }
   }
 
@@ -190,7 +191,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
       return;
     }
     this.cancelEvent(event);
-    this.closeLeafMenu.emit({ exceptRootMenu: event.keyCode === ARROW_LEFT_KEYCODE });
+    this.closeLeafMenu.emit({ exceptRootMenu: event.keyCode === ARROW_LEFT_KEYCODE, event });
   }
 
   @HostListener('document:click', ['$event'])
@@ -199,10 +200,10 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (event.type === 'click' && event.button === 2) {
       return;
     }
-    this.closeAllMenus.emit();
+    this.closeAllMenus.emit({event});
   }
 
-  public onOpenSubMenu(menuItem: ContextMenuItemDirective, event?: MouseEvent): void {
+  public onOpenSubMenu(menuItem: ContextMenuItemDirective, event?: MouseEvent | KeyboardEvent): void {
     const anchorElementRef = this.menuItemElements.toArray()[this._keyManager.activeItemIndex];
     const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
     this.openSubMenu.emit({
@@ -214,7 +215,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     });
   }
 
-  public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent): void {
+  public onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent | KeyboardEvent): void {
     event.preventDefault();
     event.stopPropagation();
     this.onOpenSubMenu(menuItem, event);

@@ -11,7 +11,7 @@ import { ContextMenuContentComponent } from './contextMenuContent.component';
 export interface IContextMenuClickEvent {
   anchorElement?: Element | EventTarget;
   contextMenu?: ContextMenuComponent;
-  event?: MouseEvent;
+  event?: MouseEvent | KeyboardEvent;
   parentContextMenu?: ContextMenuContentComponent;
   item: any;
   activeMenuItemIndex?: number;
@@ -21,10 +21,23 @@ export interface IContextMenuContext extends IContextMenuClickEvent {
 }
 export interface CloseLeafMenuEvent {
   exceptRootMenu?: boolean;
+  event?: MouseEvent | KeyboardEvent;
 }
 export interface OverlayRefWithContextMenu extends OverlayRef {
   contextMenu?: ContextMenuContentComponent;
 }
+
+export interface CancelContextMenuEvent {
+  eventType: 'cancel';
+  event?: MouseEvent | KeyboardEvent;
+}
+export interface ExecuteContextMenuEvent {
+  eventType: 'execute';
+  event?: MouseEvent | KeyboardEvent;
+  item: any;
+  menuItem: ContextMenuItemDirective;
+}
+export type CloseContextMenuEvent = ExecuteContextMenuEvent | CancelContextMenuEvent;
 
 @Injectable()
 export class ContextMenuService {
@@ -32,7 +45,7 @@ export class ContextMenuService {
 
   public show: Subject<IContextMenuClickEvent> = new Subject<IContextMenuClickEvent>();
   public triggerClose: Subject<ContextMenuContentComponent> = new Subject();
-  public close: Subject<Event> = new Subject();
+  public close: Subject<CloseContextMenuEvent> = new Subject();
 
   private contextMenuContent: ComponentRef<ContextMenuContentComponent>;
   private overlays: OverlayRef[] = [];
@@ -56,15 +69,16 @@ export class ContextMenuService {
     const { anchorElement, event, parentContextMenu } = context;
 
     if (!parentContextMenu) {
+      const mouseEvent = event as MouseEvent;
       this.fakeElement.getBoundingClientRect = (): ClientRect => ({
-        bottom: event.clientY,
+        bottom: mouseEvent.clientY,
         height: 0,
-        left: event.clientX,
-        right: event.clientX,
-        top: event.clientY,
+        left: mouseEvent.clientX,
+        right: mouseEvent.clientX,
+        top: mouseEvent.clientY,
         width: 0,
       });
-      this.closeAllContextMenus();
+      this.closeAllContextMenus({ eventType: 'cancel', event });
       const positionStrategy = this.overlay.position().connectedTo(
         { nativeElement: anchorElement || this.fakeElement },
         { originX: 'start', originY: 'bottom' },
@@ -130,9 +144,9 @@ export class ContextMenuService {
 
     const subscriptions: Subscription = new Subscription();
     subscriptions.add(contextMenuContent.instance.execute.asObservable()
-      .subscribe(() => this.closeAllContextMenus()));
+      .subscribe((executeEvent) => this.closeAllContextMenus({ eventType: 'execute', ...executeEvent })));
     subscriptions.add(contextMenuContent.instance.closeAllMenus.asObservable()
-      .subscribe(() => this.closeAllContextMenus()));
+      .subscribe((closeAllEvent) => this.closeAllContextMenus({ eventType: 'cancel', ...closeAllEvent })));
     subscriptions.add(contextMenuContent.instance.closeLeafMenu.asObservable()
       .subscribe(closeLeafMenuEvent => this.destroyLeafMenu(closeLeafMenuEvent)));
     subscriptions.add(contextMenuContent.instance.openSubMenu.asObservable()
@@ -151,8 +165,9 @@ export class ContextMenuService {
     });
   }
 
-  public closeAllContextMenus(): void {
+  public closeAllContextMenus(closeEvent: CloseContextMenuEvent): void {
     if (this.overlays) {
+      this.close.next(closeEvent);
       this.overlays.forEach((overlay, index) => {
         overlay.detach();
         overlay.dispose();
@@ -172,7 +187,7 @@ export class ContextMenuService {
     return overlay;
   }
 
-  public destroyLeafMenu({ exceptRootMenu }: { exceptRootMenu?: boolean } = {}): void {
+  public destroyLeafMenu({ exceptRootMenu, event }: CloseLeafMenuEvent = {}): void {
     if (this.isDestroyingLeafMenu) {
       return;
     }
@@ -180,7 +195,12 @@ export class ContextMenuService {
 
     setTimeout(() => {
       const overlay = this.getLastAttachedOverlay();
-      if (this.overlays.length > (exceptRootMenu ? 1 : 0) && overlay) {
+      if (this.overlays.length > 1 && overlay) {
+        overlay.detach();
+        overlay.dispose();
+      }
+      if (!exceptRootMenu && this.overlays.length > 0 && overlay) {
+        this.close.next({ eventType: 'cancel', event });
         overlay.detach();
         overlay.dispose();
       }

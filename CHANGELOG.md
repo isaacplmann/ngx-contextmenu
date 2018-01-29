@@ -1,3 +1,12 @@
+<a name="4.1.2"></a>
+# [4.1.2](https://github.com/isaacplmann/ngx-contextmenu) (2018-01-29)
+
+
+### Fixes
+
+* **events:** Actually fire (close) event when the context menu closes
+
+
 <a name="4.1.1"></a>
 # [4.1.1](https://github.com/isaacplmann/ngx-contextmenu) (2017-12-21)
 

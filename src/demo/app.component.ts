@@ -80,8 +80,8 @@ export class AppComponent {
     $event.preventDefault();
   }
 
-  public showMessage(message: string): void {
-    console.log(message);
+  public showMessage(message: any, data?: any): void {
+    console.log(message, data);
   }
 
   public onlyJohn(item: any): boolean {
