@@ -84,6 +84,11 @@
             Bye, {{item?.name}}
           </ng-template>
         </context-menu>
+        <br>
+        <h3>Custom styling</h3>
+        <ul>
+          <li [contextMenu]="customClassMenu" [contextMenuSubject]="item">Right click to see styled menu</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -144,6 +149,19 @@
     </div>
   </div>
 </div>
+
+<context-menu #customClassMenu [menuClass]="'mystyle'" style="pointer-events:all">
+  <ng-template contextMenuItem (execute)="showMessage('Styled menu1')">
+    This menu is styled
+  </ng-template>
+  <ng-template contextMenuItem (execute)="showMessage('Styled menu2')">
+    with a custom class
+  </ng-template>
+  <ng-template contextMenuItem (execute)="showMessage('Styled menu3')">
+    that needs to be global
+  </ng-template>
+</context-menu>
+
 <div class="dashboardContainer" style="pointer-events: none">
   <div class="componentsContainer">
     <div class="componentContainer" *ngFor="let item of items" style="pointer-events: all" [ngStyle]="item.layout" [contextMenu]="componentMenu"

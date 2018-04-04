@@ -18,6 +18,7 @@ export interface IContextMenuClickEvent {
 }
 export interface IContextMenuContext extends IContextMenuClickEvent {
   menuItems: ContextMenuItemDirective[];
+  menuClass: string;
 }
 export interface CloseLeafMenuEvent {
   exceptRootMenu?: boolean;
@@ -118,7 +119,7 @@ export class ContextMenuService {
   }
 
   public attachContextMenu(overlay: OverlayRef, context: IContextMenuContext): void {
-    const { event, item, menuItems } = context;
+    const { event, item, menuItems, menuClass } = context;
 
     const contextMenuContent: ComponentRef<ContextMenuContentComponent> = overlay.attach(new ComponentPortal(ContextMenuContentComponent));
     contextMenuContent.instance.event = event;
@@ -126,6 +127,7 @@ export class ContextMenuService {
     contextMenuContent.instance.menuItems = menuItems;
     contextMenuContent.instance.overlay = overlay;
     contextMenuContent.instance.isLeaf = true;
+    contextMenuContent.instance.menuClass = menuClass;
     (<OverlayRefWithContextMenu>overlay).contextMenu = contextMenuContent.instance;
 
     const subscriptions: Subscription = new Subscription();

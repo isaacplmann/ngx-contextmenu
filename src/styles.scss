@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+.mystyle .dropdown-menu {
+  background-color: yellow;
+}
+.mystyle .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+  color: white;
+  background-color: black;
+}
