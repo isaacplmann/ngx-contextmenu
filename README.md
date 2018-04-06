@@ -1,10 +1,10 @@
 # ngx-contextmenu
 
-A context menu built with Angular (2+) inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/)
+A context menu built with Angular (5+) inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/)
 
 ## Installation
 
-- `npm install ngx-contextmenu @angular/cdk@2.0.0-beta.12`
+- `npm install ngx-contextmenu @angular/cdk`
 - import ContextMenuModule.forRoot() into your app module
 - Make sure to include `<!doctype html>` at the top of your `index.html`
 
@@ -294,6 +294,16 @@ export class AppModule {}
 ```html
 <context-menu [useBootstrap4]="true"></context-menu>
 ```
+
+## Different styling on menus
+
+If you want to style one menu differently than other menus, you can add a custom style to the menu.
+
+```html
+<context-menu [menuClass]="'mystyle'"></context-menu>
+```
+
+Please note that the style needs to be global to affect the menu, since the menu element is added to the page outside the component that triggers the menu.
 
 ## AutoFocus
 

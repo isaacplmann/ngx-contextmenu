@@ -56,6 +56,7 @@ export interface MouseLocation {
   template: ` `,
 })
 export class ContextMenuComponent implements OnDestroy {
+  @Input() public menuClass = "";
   @Input() public autoFocus = false;
   @Input() public useBootstrap4 = false;
   @Input() public disabled = false;
@@ -101,9 +102,9 @@ export class ContextMenuComponent implements OnDestroy {
     this.event = event;
     this.item = item;
     this.setVisibleMenuItems();
-    this._contextMenuService.openContextMenu({ ...menuEvent, menuItems: this.visibleMenuItems });
+    this._contextMenuService.openContextMenu({ ...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass });
     this._contextMenuService.close.asObservable().pipe(first()).subscribe(closeEvent => this.close.emit(closeEvent));
-    this.open.emit(menuEvent);
+    this.open.next(menuEvent);
   }
 
   public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {
