@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n.mystyle .dropdown-menu {\n  background-color: yellow; }\n\n.mystyle .dropdown-menu > li > a:focus, .mystyle .dropdown-menu > li > a:hover {\n  color: white;\n  background-color: black; }\n", ""]);
 
 // exports
 
