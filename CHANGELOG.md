@@ -1,3 +1,12 @@
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/isaacplmann/ngx-contextmenu) (2018-04-06)
+
+
+### Features
+
+* **style:** Add [menuClass] input to context-menu component
+
+
 <a name="4.1.2"></a>
 # [4.1.2](https://github.com/isaacplmann/ngx-contextmenu) (2018-01-29)
 
