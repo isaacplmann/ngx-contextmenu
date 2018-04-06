@@ -295,6 +295,16 @@ export class AppModule {}
 <context-menu [useBootstrap4]="true"></context-menu>
 ```
 
+## Different styling on menus
+
+If you want to style one menu differently than other menus, you can add a custom style to the menu.
+
+```html
+<context-menu [menuClass]="'mystyle'"></context-menu>
+```
+
+Please note that the style needs to be global to affect the menu, since the menu element is added to the page outside the component that triggers the menu.
+
 ## AutoFocus
 
 You can optionally set focus on the context menu whenever it opens.  This enables a user to easily tab through the context menu items and press enter to select them.

@@ -45,7 +45,7 @@ const ARROW_LEFT_KEYCODE = 37;
     }`,
   ],
   template:
-  `<div class="dropdown open show ngx-contextmenu" tabindex="0">
+  `<div class="dropdown open show ngx-contextmenu" [ngClass]="menuClass" tabindex="0">
       <ul #menu class="dropdown-menu show" style="position: static; float: none;" tabindex="0">
         <li #li *ngFor="let menuItem of menuItems; let i = index" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
@@ -73,6 +73,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   @Input() public item: any;
   @Input() public event: MouseEvent;
   @Input() public parentContextMenu: ContextMenuContentComponent;
+  @Input() public menuClass: string;
   @Input() public overlay: OverlayRef;
   @Input() public isLeaf = false;
   @Output() public execute: EventEmitter<{ event: Event, item: any, menuItem: ContextMenuItemDirective }> = new EventEmitter();
