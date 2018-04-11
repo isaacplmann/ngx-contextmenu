@@ -137,6 +137,18 @@ public isMenuItemOutsideValue(item: any): boolean {
 }
 ```
 
+Alternatively, use an arrow function.
+
+```html
+<ng-template ... [visible]="isMenuItemOutsideValueBound">
+```
+```js
+public outsideValue = "something";
+public isMenuItemOutsideValueBound = (item: any): boolean => {
+  return item.type === this.outsideValue;
+}
+```
+
 ## Multiple Context Menus
 You can use multiple context menus in the same component if you would like.
 
