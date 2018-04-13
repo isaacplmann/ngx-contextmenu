@@ -122,17 +122,16 @@ Notes:
 
 **Note:** The imperative way of declaring context menu items has been removed.  i.e. You can't pass an `actions` property to `contextMenuService.show.next()`.
 
-## Binding `this` for `visible` and `enabled` functions
+## Using `visible` and `enabled` functions
 
-If you need access to properties in your component from within the `enabled` or `visible` functions, you'll need to pass in a version of the function with `this` bound to your component.
+If you need access to properties in your component from within the `enabled` or `visible` functions, you can pass in an arrow function.
 
 ```html
-<ng-template ... [visible]="isMenuItemOutsideValueBound">
+<ng-template ... [visible]="isMenuItemOutsideValue">
 ```
 ```js
 public outsideValue = "something";
-public isMenuItemOutsideValueBound = this.isMenuItemOutsideValue.bind(this);
-public isMenuItemOutsideValue(item: any): boolean {
+public isMenuItemOutsideValue = (item: any): boolean => {
   return item.type === this.outsideValue;
 }
 ```
