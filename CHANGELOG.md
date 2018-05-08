@@ -1,3 +1,9 @@
+<a name="6.0.0"></a>
+# [6.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2018-05-07)
+
+### BREAKING CHANGES
+* **RxJS**: Upgrade library to work with rxjs@6 without rxjs-compat
+
 <a name="4.2.0"></a>
 # [4.2.0](https://github.com/isaacplmann/ngx-contextmenu) (2018-04-06)
 

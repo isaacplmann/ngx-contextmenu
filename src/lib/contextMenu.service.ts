@@ -1,8 +1,7 @@
 import { Overlay, OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef, Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { Subject, Subscription } from 'rxjs';
 
 import { ContextMenuComponent } from './contextMenu.component';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';

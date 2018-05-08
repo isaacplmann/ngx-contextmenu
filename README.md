@@ -1,6 +1,6 @@
-# ngx-contextmenu
+'# ngx-contextmenu
 
-A context menu built with Angular (5+) inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/)
+A context menu built with Angular (6) inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/)
 
 ## Installation
 
@@ -9,6 +9,10 @@ A context menu built with Angular (5+) inspired by [ui.bootstrap.contextMenu](ht
 - Make sure to include `<!doctype html>` at the top of your `index.html`
 
 ## Usage
+
+### Angular 5 support
+
+Please use ngx-contextmenu@4.2.0 with Angular 5 projects.
 
 ### Template
 
