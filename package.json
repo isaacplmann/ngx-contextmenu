@@ -32,7 +32,7 @@
     "e2e": "ng e2e",
     "pub": "npm run pub:lib && npm run pub:demo",
     "pub:demo": "npm run build:demo -- --base-href /ngx-contextmenu/ && gh-pages -d dist/demo",
-    "pub:lib": "npm run build:lib && npm publish dist",
+    "pub:lib": "npm run build:lib && npm publish dist/ngx-contextmenu",
     "pack:lib": "npm run build:lib && cd dist/ngx-contextmenu && npm pack && copyfiles *.tgz ../../ && cd ../.. && rimraf dist/ngx-contextmenu/*.tgz"
   },
   "private": false,
