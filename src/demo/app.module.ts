@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
-import { ContextMenuModule } from '../lib';
+import { ContextMenuModule } from 'ngx-contextmenu';
 import { AppComponent } from './app.component';
 import { ChildOneComponent } from './child1.component';
 import { ChildTwoComponent } from './child2.component';

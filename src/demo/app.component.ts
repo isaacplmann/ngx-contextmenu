@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ContextMenuService, ContextMenuComponent } from '../lib';
+import { ContextMenuService, ContextMenuComponent } from 'ngx-contextmenu';
 
 @Component({
   selector: 'ngx-context-menu-demo',
