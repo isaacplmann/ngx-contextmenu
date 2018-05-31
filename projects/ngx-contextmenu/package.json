@@ -1,6 +1,6 @@
 {
   "name": "ngx-contextmenu",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "An Angular component to show a context menu on an arbitrary component",
   "keywords": [
     "angular2",
