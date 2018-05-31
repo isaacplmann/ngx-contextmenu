@@ -1,3 +1,9 @@
+<a name="5.0.1"></a>
+# [5.0.1](https://github.com/isaacplmann/ngx-contextmenu) (2018-05-31)
+
+### Fixes
+* **CDK**: Support @angular/cdk@6.1
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2018-05-10)
 
