@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/isaac/Documents/Work/Contributions/ngx-contextmenu/src/styles.scss */"./src/styles.scss");
+module.exports = __webpack_require__(/*! /Users/isaac/Documents/Contributions/ngx-contextmenu/src/styles.scss */"./src/styles.scss");
 
 
 /***/ })
