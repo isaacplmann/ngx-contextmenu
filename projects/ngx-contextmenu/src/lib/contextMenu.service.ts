@@ -1,6 +1,6 @@
 import { Overlay, OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ComponentRef, Injectable } from '@angular/core';
+import { ComponentRef, Injectable, ElementRef } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 
 import { ContextMenuComponent } from './contextMenu.component';
@@ -80,7 +80,7 @@ export class ContextMenuService {
       });
       this.closeAllContextMenus({ eventType: 'cancel', event });
       const positionStrategy = this.overlay.position().connectedTo(
-        { nativeElement: anchorElement || this.fakeElement },
+        new ElementRef(anchorElement || this.fakeElement),
         { originX: 'start', originY: 'bottom' },
         { overlayX: 'start', overlayY: 'top' })
         .withFallbackPosition(
@@ -107,7 +107,7 @@ export class ContextMenuService {
       this.attachContextMenu(this.overlays[0], context);
     } else {
       const positionStrategy = this.overlay.position().connectedTo(
-        { nativeElement: event ? event.target : anchorElement },
+        new ElementRef(event ? event.target : anchorElement),
         { originX: 'end', originY: 'top' },
         { overlayX: 'start', overlayY: 'top' })
         .withFallbackPosition(
