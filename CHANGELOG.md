@@ -1,3 +1,9 @@
+<a name="5.0.2"></a>
+# [5.0.2](https://github.com/isaacplmann/ngx-contextmenu) (2018-06-28)
+
+### Fixes
+* **Change detection**: Force change detection when ContextMenuContent is created
+
 <a name="5.0.1"></a>
 # [5.0.1](https://github.com/isaacplmann/ngx-contextmenu) (2018-05-31)
 

@@ -164,6 +164,7 @@ export class ContextMenuService {
       menuItems.forEach(menuItem => menuItem.isActive = false);
       subscriptions.unsubscribe();
     });
+    contextMenuContent.changeDetectorRef.detectChanges();
   }
 
   public closeAllContextMenus(closeEvent: CloseContextMenuEvent): void {
