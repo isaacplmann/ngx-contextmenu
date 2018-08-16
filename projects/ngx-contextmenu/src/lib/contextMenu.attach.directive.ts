@@ -13,12 +13,14 @@ export class ContextMenuAttachDirective {
 
   @HostListener('contextmenu', ['$event'])
   public onContextMenu(event: MouseEvent): void {
-    this.contextMenuService.show.next({
-      contextMenu: this.contextMenu,
-      event,
-      item: this.contextMenuSubject,
-    });
-    event.preventDefault();
-    event.stopPropagation();
+    if (!this.contextMenu.disabled) {
+      this.contextMenuService.show.next({
+        contextMenu: this.contextMenu,
+        event,
+        item: this.contextMenuSubject,
+      });
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 }
