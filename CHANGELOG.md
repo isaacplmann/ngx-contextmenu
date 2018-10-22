@@ -1,3 +1,19 @@
+<a name="5.1.1"></a>
+
+# [5.1.1](https://github.com/isaacplmann/ngx-contextmenu) (2018-10-22)
+
+### Fixes
+
+- **Dependency**: Typo in peer dependency
+
+<a name="5.1.0"></a>
+
+# [5.1.0](https://github.com/isaacplmann/ngx-contextmenu) (2018-10-22)
+
+### Feature
+
+- **Dependency**: Allow Angular 7 dependency
+
 <a name="5.0.3"></a>
 
 # [5.0.3](https://github.com/isaacplmann/ngx-contextmenu) (2018-08-23)
