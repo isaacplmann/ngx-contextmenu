@@ -399,8 +399,3 @@ export class MyContextMenuClass {
       ];
 }
 ```
-
-## One on One Help
-
-I'm available for (paid) one on one sessions through Code Mentor. I'd love to help you with your app or library.
-[![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/isaacplmann?utm_source=github&utm_medium=button&utm_term=isaacplmann&utm_campaign=github)
