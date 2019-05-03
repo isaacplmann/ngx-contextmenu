@@ -1,3 +1,11 @@
+<a name="5.2.0"></a>
+
+# [5.2.0](https://github.com/isaacplmann/ngx-contextmenu) (2019-05-03)
+
+### Features
+
+- **Dependency**: Allow Angular 8
+
 <a name="5.1.1"></a>
 
 # [5.1.1](https://github.com/isaacplmann/ngx-contextmenu) (2018-10-22)
