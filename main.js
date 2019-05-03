@@ -916,7 +916,7 @@ function webpackEmptyAsyncContext(req) {
 	// Here Promise.resolve().then() is used instead of new Promise() to prevent
 	// uncaught exception popping up in devtools
 	return Promise.resolve().then(function() {
-		var e = new Error('Cannot find module "' + req + '".');
+		var e = new Error("Cannot find module '" + req + "'");
 		e.code = 'MODULE_NOT_FOUND';
 		throw e;
 	});
@@ -1283,7 +1283,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/isaac/Documents/Contributions/ngx-contextmenu/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/isaac/Documents/code/ngx-contextmenu/src/main.ts */"./src/main.ts");
 
 
 /***/ })
