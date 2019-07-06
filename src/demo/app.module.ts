@@ -18,6 +18,7 @@ import { ChildTwoComponent } from './child2.component';
     ContextMenuModule.forRoot({
       autoFocus: true,
       // useBootstrap4: true,
+      highlightParentItems: true
     }),
     RouterModule.forRoot([
       {

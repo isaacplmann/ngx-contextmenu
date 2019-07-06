@@ -16,6 +16,7 @@ export class ContextMenuItemDirective implements Highlightable {
 
   public currentItem: any;
   public isActive = false;
+  public isActiveParent = false;
   public get disabled() {
     return this.passive ||
       this.divider ||
@@ -36,6 +37,13 @@ export class ContextMenuItemDirective implements Highlightable {
   }
   public setInactiveStyles(): void {
     this.isActive = false;
+  }
+
+  public setActiveParentStyles(): void {
+    this.isActiveParent = true;
+  }
+  public setInActiveParentStyles(): void {
+    this.isActiveParent = false;
   }
 
   public triggerExecute(item: any, $event?: MouseEvent | KeyboardEvent): void {

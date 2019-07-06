@@ -42,6 +42,11 @@ const ARROW_LEFT_KEYCODE = 37;
     .hasSubMenu:before {
       content: "\u25B6";
       float: right;
+    }
+    .activeParent {
+    text-decoration: none;
+      color: #262626;
+      background-color: #f5f5f5;
     }`,
   ],
   template:
@@ -53,6 +58,7 @@ const ARROW_LEFT_KEYCODE = 37;
             [attr.role]="menuItem.divider ? 'separator' : undefined">
           <a *ngIf="!menuItem.divider && !menuItem.passive" href [class.dropdown-item]="useBootstrap4"
             [class.active]="menuItem.isActive && isMenuItemEnabled(menuItem)"
+            [class.activeParent]="highlightParentItems && menuItem.isActiveParent && isMenuItemEnabled(menuItem)"
             [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)" [class.hasSubMenu]="!!menuItem.subMenu"
             (click)="onMenuItemSelect(menuItem, $event)" (mouseenter)="onOpenSubMenu(menuItem, $event)">
             <ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
@@ -86,6 +92,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 
   public autoFocus = false;
   public useBootstrap4 = false;
+  public highlightParentItems = false;
   private _keyManager: ActiveDescendantKeyManager<ContextMenuItemDirective>;
   private subscription: Subscription = new Subscription();
   constructor(
@@ -98,6 +105,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (options) {
       this.autoFocus = options.autoFocus;
       this.useBootstrap4 = options.useBootstrap4;
+      this.highlightParentItems = options.highlightParentItems;
     }
   }
 
@@ -207,6 +215,9 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   public onOpenSubMenu(menuItem: ContextMenuItemDirective, event?: MouseEvent | KeyboardEvent): void {
     const anchorElementRef = this.menuItemElements.toArray()[this._keyManager.activeItemIndex];
     const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
+    if (this.highlightParentItems) { 
+      this.menuItems.forEach(item => item.isActiveParent = (item === menuItem && menuItem.subMenu) );
+    }
     this.openSubMenu.emit({
       anchorElement,
       contextMenu: menuItem.subMenu,
