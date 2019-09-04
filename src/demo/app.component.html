@@ -89,6 +89,59 @@
         <ul>
           <li [contextMenu]="customClassMenu" [contextMenuSubject]="item">Right click to see styled menu</li>
         </ul>
+        <br>
+        <h3>RTL</h3>
+        <ul>
+          <li [contextMenu]="rtlMenu" [contextMenuSubject]="item">Right click to see RTL menu</li>
+          <context-menu dir="rtl" #rtlMenu>
+            <ng-template contextMenuItem [subMenu]="hebrewSubMenu">
+              עברית
+            </ng-template>
+            <context-menu #hebrewSubMenu>
+              <ng-template contextMenuItem [subMenu]="hebrewSaySubMenu">
+                תגיד...
+              </ng-template>
+              <context-menu #hebrewSaySubMenu>
+                <ng-template contextMenuItem (execute)="showMessage('שלום, ' + $event.item.name)">
+                  ...שלום!
+                </ng-template>
+                <ng-template contextMenuItem (execute)="showMessage('היי, ' + $event.item.name)">
+                  ...היי!
+                </ng-template>
+              </context-menu>
+              <ng-template contextMenuItem (execute)="showMessage('כן!')">
+                אני תומך ב-RTL! נחמד, נכון?
+              </ng-template>
+              <ng-template contextMenuItem passive="true">
+                הזן משהו:
+                <input type="text">
+              </ng-template>
+            </context-menu>
+            <ng-template contextMenuItem [subMenu]="arabicSubMenu">
+              العربية
+            </ng-template>
+            <context-menu #arabicSubMenu>
+              <ng-template contextMenuItem [subMenu]="arabicSaySubMenu">
+                قل...
+              </ng-template>
+              <context-menu #arabicSaySubMenu>
+                <ng-template contextMenuItem (execute)="showMessage('שלום, ' + $event.item.name)">
+                  ...مرحبا!
+                </ng-template>
+                <ng-template contextMenuItem (execute)="showMessage('היי, ' + $event.item.name)">
+                  ...اهلا!
+                </ng-template>
+              </context-menu>
+              <ng-template contextMenuItem (execute)="showMessage('כן!')">
+                أنا أؤيد RTL! حق جميل؟
+              </ng-template>
+              <ng-template contextMenuItem passive="true">
+                إدخال شيء:
+                <input type="text">
+              </ng-template>
+            </context-menu>
+          </context-menu>
+        </ul>
       </div>
     </div>
   </div>
