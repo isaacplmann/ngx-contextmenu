@@ -11,7 +11,7 @@ Usage:
 In your module import set the highlightParentItems option to true:
   
 ```js 
-    ContextMenuModule.forRoot({ useBootstrap4: true }),
+    ContextMenuModule.forRoot({ highlightParentItems: true }),
 ```
 
 ToDo:
