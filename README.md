@@ -1,6 +1,21 @@
 # ngx-contextmenu
 
 A context menu built with Angular (6) inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/) [Stackblitz example](https://stackblitz.com/edit/ngx-contextmenu-example)
+Originally created by [Isaac Mann](isaacplmann@gmail.com), just slightly edited by me.
+Changes are:
+- Option to enable trace of selection path
+
+When selecting a subMenu item the parent item will stay highlighted.
+
+Usage:
+In your module import set the highlightParentItems option to true:
+  
+```js 
+    ContextMenuModule.forRoot({ useBootstrap4: true }),
+```
+
+ToDo:
+The component seems to "remember" the last selected item, so when the menu is closed and reopend the last selected menu  item is still highlighted.
 
 ## Installation
 
