@@ -69,9 +69,9 @@ export class AppComponent {
   ];
   public outsideValue = 'something';
 
-  @ViewChild('basicMenu') public basicMenu: ContextMenuComponent;
-  @ViewChild('enableAndVisible') public enableAndVisible: ContextMenuComponent;
-  @ViewChild('withFunctions') public withFunctions: ContextMenuComponent;
+  @ViewChild('basicMenu', { static: true }) public basicMenu: ContextMenuComponent;
+  @ViewChild('enableAndVisible', { static: true }) public enableAndVisible: ContextMenuComponent;
+  @ViewChild('withFunctions', { static: true }) public withFunctions: ContextMenuComponent;
 
   constructor(private contextMenuService: ContextMenuService) { }
 

@@ -133,7 +133,7 @@ export class ContextMenuContentComponent
   @Output() public closeAllMenus: EventEmitter<{
     event: MouseEvent;
   }> = new EventEmitter();
-  @ViewChild('menu') public menuElement: ElementRef;
+  @ViewChild('menu', { static: true }) public menuElement: ElementRef;
   @ViewChildren('li') public menuItemElements: QueryList<ElementRef>;
 
   public autoFocus = false;
