@@ -1,33 +1,30 @@
-import {
-  CloseLeafMenuEvent,
-  IContextMenuClickEvent
-} from './contextMenu.service';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { OverlayRef } from '@angular/cdk/overlay';
 import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
+  HostListener,
   Inject,
   Input,
+  OnDestroy,
+  OnInit,
   Optional,
+  Output,
+  QueryList,
   ViewChild,
   ViewChildren
 } from '@angular/core';
-import {
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-  QueryList,
-  HostListener
-} from '@angular/core';
 import { Subscription } from 'rxjs';
-
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { IContextMenuOptions } from './contextMenu.options';
+import {
+  CloseLeafMenuEvent,
+  IContextMenuClickEvent
+} from './contextMenu.service';
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;

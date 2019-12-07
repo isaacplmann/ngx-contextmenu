@@ -1,6 +1,6 @@
 {
   "name": "ngx-contextmenu-platform",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "description": "An Angular component to show a context menu on an arbitrary component",
   "keywords": [
     "angular2",
@@ -26,14 +26,14 @@
     "start": "ng serve",
     "build": "npm run build:lib && npm run build:demo",
     "build:demo": "rimraf dist/demo && ng build",
-    "build:lib": "ng build ngx-contextmenu --prod && copyfiles README.md LICENSE dist/ngx-contextmenu/",
+    "build:lib": "ng build ngx-contextmenu --prod && copyfiles README.md LICENSE dist/lib/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "pub": "npm run pub:lib && npm run pub:demo",
     "pub:demo": "npm run build:demo -- --base-href /ngx-contextmenu/ && gh-pages -d dist/demo",
-    "pub:lib": "npm run build:lib && npm publish dist/ngx-contextmenu",
-    "pack:lib": "npm run build:lib && cd dist/ngx-contextmenu && npm pack && copyfiles *.tgz ../../ && cd ../.. && rimraf dist/ngx-contextmenu/*.tgz"
+    "pub:lib": "npm run build:lib && npm publish dist/lib",
+    "pack:lib": "npm run build:lib && cd dist/lib && npm pack && copyfiles *.tgz ../../ && cd ../.. && rimraf dist/lib/*.tgz"
   },
   "private": false,
   "devDependencies": {
@@ -52,6 +52,7 @@
     "classlist.js": "^1.1.20150312",
     "codelyzer": "^5.0.1",
     "copyfiles": "^1.2.0",
+    "core-js": "^2.0.0",
     "gh-pages": "^2.0.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
@@ -64,7 +65,7 @@
     "ng-packagr": "^5.4.0",
     "protractor": "^5.4.1",
     "rimraf": "^2.6.2",
-    "rxjs": "^6.2.0",
+    "rxjs": "^6.4.0",
     "ts-node": "~5.0.1",
     "tsickle": "^0.37.0",
     "tslib": "^1.10.0",
