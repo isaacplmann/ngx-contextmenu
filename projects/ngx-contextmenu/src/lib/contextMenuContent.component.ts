@@ -8,7 +8,6 @@ import {
     Inject,
     Input,
     Optional,
-    Renderer,
     ViewChild,
     ViewChildren,
 } from '@angular/core';
@@ -93,7 +92,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     private elementRef: ElementRef,
     @Optional()
     @Inject(CONTEXT_MENU_OPTIONS) private options: IContextMenuOptions,
-    public renderer: Renderer,
   ) {
     if (options) {
       this.autoFocus = options.autoFocus;
