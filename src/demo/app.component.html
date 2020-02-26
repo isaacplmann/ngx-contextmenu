@@ -1,5 +1,6 @@
 <h1>Angular2 Context Menu Demo</h1>
-<div (click)="$event.preventDefault()" style="margin:20px; padding:20px">
+<button (click)="requestFullScreen()">fullscreen</button>
+<div (click)="$event.preventDefault()" style="margin:20px; padding:20px; background-color: white;" #wrapper>
   <div style="position: relative">
     <div style="margin:20px; padding:20px;transform: translate3d(0px, 0px, 0px)">
       <div (click)="$event.preventDefault()" style="transform: translate3d(10px, -10px, 0px)">
