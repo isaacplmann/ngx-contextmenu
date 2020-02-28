@@ -1,4 +1,4 @@
-import { OverlayModule } from '@angular/cdk/overlay';
+import { OverlayModule, FullscreenOverlayContainer, OverlayContainer, } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
@@ -31,7 +31,7 @@ import { ContextMenuContentComponent } from './contextMenuContent.component';
   ],
 })
 export class ContextMenuModule {
-  public static forRoot(options?: IContextMenuOptions): ModuleWithProviders {
+  public static forRoot(options?: IContextMenuOptions): ModuleWithProviders<ContextMenuModule> {
     return {
       ngModule: ContextMenuModule,
       providers: [
@@ -40,6 +40,7 @@ export class ContextMenuModule {
           provide: CONTEXT_MENU_OPTIONS,
           useValue: options,
         },
+        { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
       ],
     };
   }
