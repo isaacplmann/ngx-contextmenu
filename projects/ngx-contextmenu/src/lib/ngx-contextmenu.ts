@@ -1,4 +1,4 @@
-import { OverlayModule } from '@angular/cdk/overlay';
+import { OverlayModule, FullscreenOverlayContainer, OverlayContainer, } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
@@ -40,6 +40,7 @@ export class ContextMenuModule {
           provide: CONTEXT_MENU_OPTIONS,
           useValue: options,
         },
+        { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
       ],
     };
   }
