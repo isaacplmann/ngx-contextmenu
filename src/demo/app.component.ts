@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ContextMenuService, ContextMenuComponent } from 'ngx-contextmenu';
 
 @Component({
@@ -23,6 +23,9 @@ position: absolute; }
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+
+  @ViewChild('wrapper')
+  private wrapper: ElementRef<HTMLDivElement>;
 
   public disableBasicMenu = false;
   public items: any[] = [
@@ -74,6 +77,18 @@ export class AppComponent {
   @ViewChild('withFunctions') public withFunctions: ContextMenuComponent;
 
   constructor(private contextMenuService: ContextMenuService) { }
+
+  public canUseFullScreen(): boolean {
+    return !!this.wrapper.nativeElement.requestFullscreen;
+  }
+
+  public requestFullScreen(): void {
+    if (this.canUseFullScreen()) {
+      this.wrapper.nativeElement.requestFullscreen();
+    } else {
+      console.log('cant use fullscreen');
+    }
+  }
 
   public onContextMenu($event: MouseEvent, item: any): void {
     this.contextMenuService.show.next({ event: $event, item: item });
