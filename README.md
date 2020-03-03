@@ -327,14 +327,14 @@ export class AppModule {}
 
 You can use the keyboard to manipulate the context menu.  Note: Keyboard navigation should be used in conjunction with `autoFocus`, since key events are only captured when the context menu is focused.
 
-| Key            | Action                                         |
-|:--------------:|------------------------------------------------|
-| ArrowDown      | Move to next menu item (wrapping)              |
-| ArrowUp        | Move to previous menu item (wrapping)          |
-| ArrowRight     | Open submenu of current menu item if present   |
-| ArrowLeft      | Close current menu unless already at root menu |
-| Enter \| Space | Open submenu or execute current menu item      |
-| Esc            | Close current menu                             |
+| Key                             | Action                                         |
+|:-------------------------------:|------------------------------------------------|
+| Arrow Down                      | Move to next menu item (wrapping)              |
+| Arrow Up                        | Move to previous menu item (wrapping)          |
+| Arrow Right (LTR) \/ Left (RTL) | Open submenu of current menu item if present   |
+| Arrow Left (LTR) \/ Right (RTL) | Close current menu unless already at root menu |
+| Enter \/ Space                  | Open submenu or execute current menu item      |
+| Escape                          | Close current menu                             |
 
 ## Disable Context Menu
 

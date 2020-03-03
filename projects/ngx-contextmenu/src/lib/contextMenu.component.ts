@@ -1,18 +1,19 @@
+import { Directionality } from '@angular/cdk/bidi';
 import {
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Inject,
-    Input,
-    OnDestroy,
-    Optional,
-    Output,
-    QueryList,
-    ViewChild,
-    ViewEncapsulation,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Input,
+  OnDestroy,
+  Optional,
+  Output,
+  QueryList,
+  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -75,6 +76,7 @@ export class ContextMenuComponent implements OnDestroy {
     private _contextMenuService: ContextMenuService,
     private changeDetector: ChangeDetectorRef,
     private elementRef: ElementRef,
+    public directionality: Directionality,
     @Optional()
     @Inject(CONTEXT_MENU_OPTIONS) private options: IContextMenuOptions,
   ) {
@@ -102,7 +104,12 @@ export class ContextMenuComponent implements OnDestroy {
     this.event = event;
     this.item = item;
     this.setVisibleMenuItems();
-    this._contextMenuService.openContextMenu({ ...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass });
+    this._contextMenuService.openContextMenu({
+      ...menuEvent,
+      menuItems: this.visibleMenuItems,
+      menuClass: this.menuClass,
+      directionality: this.directionality,
+    });
     this._contextMenuService.close.asObservable().pipe(first()).subscribe(closeEvent => this.close.emit(closeEvent));
     this.open.next(menuEvent);
   }

@@ -1,31 +1,37 @@
-import { CloseLeafMenuEvent, IContextMenuClickEvent } from './contextMenu.service';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
+import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, SPACE, ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayRef } from '@angular/cdk/overlay';
 import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    Inject,
-    Input,
-    Optional,
-    ViewChild,
-    ViewChildren,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Output,
+  QueryList,
+  Renderer,
+  ViewChild,
+  ViewChildren,
 } from '@angular/core';
-import { EventEmitter, OnDestroy, OnInit, Output, QueryList, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { IContextMenuOptions } from './contextMenu.options';
+import { CloseLeafMenuEvent, IContextMenuClickEvent } from './contextMenu.service';
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
   enabled?: (item: any) => boolean;
   html: (item: any) => string;
 }
-
-const ARROW_LEFT_KEYCODE = 37;
 
 @Component({
   selector: 'context-menu-content',
@@ -38,13 +44,23 @@ const ARROW_LEFT_KEYCODE = 37;
        line-height: @line-height-base;
        white-space: nowrap;
      }
-    .hasSubMenu:before {
+    :dir(ltr) .hasSubMenu:before {
       content: "\u25B6";
       float: right;
+    }
+    :dir(rtl) .dropdown {
+      direction: rtl;
+    }
+    :dir(rtl) .dropdown-menu {
+      text-align: right;
+    }
+    :dir(rtl) .hasSubMenu:before {
+      content: "\u25C0";
+      float: left;
     }`,
   ],
   template:
-  `<div class="dropdown open show ngx-contextmenu" [ngClass]="menuClass" tabindex="0">
+    `<div class="dropdown open show ngx-contextmenu" [ngClass]="menuClass" tabindex="0">
       <ul #menu class="dropdown-menu show" style="position: static; float: none;" tabindex="0">
         <li #li *ngFor="let menuItem of menuItems; let i = index" [class.disabled]="!isMenuItemEnabled(menuItem)"
             [class.divider]="menuItem.divider" [class.dropdown-divider]="useBootstrap4 && menuItem.divider"
@@ -64,8 +80,7 @@ const ARROW_LEFT_KEYCODE = 37;
           </span>
         </li>
       </ul>
-    </div>
-  `,
+    </div>`,
 })
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() public menuItems: ContextMenuItemDirective[] = [];
@@ -87,11 +102,14 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   public useBootstrap4 = false;
   private _keyManager: ActiveDescendantKeyManager<ContextMenuItemDirective>;
   private subscription: Subscription = new Subscription();
+
   constructor(
     private changeDetector: ChangeDetectorRef,
     private elementRef: ElementRef,
     @Optional()
     @Inject(CONTEXT_MENU_OPTIONS) private options: IContextMenuOptions,
+    public renderer: Renderer,
+    public directionality: Directionality,
   ) {
     if (options) {
       this.autoFocus = options.autoFocus;
@@ -149,48 +167,31 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     return link.enabled && !link.enabled(this.item);
   }
 
-  @HostListener('window:keydown.ArrowDown', ['$event'])
-  @HostListener('window:keydown.ArrowUp', ['$event'])
-  public onKeyEvent(event: KeyboardEvent): void {
-    if (!this.isLeaf) {
-      return;
+  @HostListener('window:keydown', ['$event'])
+  public onKeydownEvent(event: KeyboardEvent): void {
+    const openSubMenuArrowKeyCode = this.directionality.value === 'ltr' ? RIGHT_ARROW : LEFT_ARROW;
+    const closeLeafMenuArrowKeyCode = this.directionality.value === 'ltr' ? LEFT_ARROW : RIGHT_ARROW;
+    switch (event.keyCode) {
+      case UP_ARROW:
+      case DOWN_ARROW: {
+        this.onKeyEvent(event);
+        break;
+      }
+      case ENTER:
+      case SPACE: {
+        this.keyboardMenuItemSelect(event);
+        break;
+      }
+      case openSubMenuArrowKeyCode: {
+        this.keyboardOpenSubMenu(event);
+        break;
+      }
+      case ESCAPE:
+      case closeLeafMenuArrowKeyCode: {
+        this.onCloseLeafMenu(event);
+        break;
+      }
     }
-    this._keyManager.onKeydown(event);
-  }
-
-  @HostListener('window:keydown.ArrowRight', ['$event'])
-  public keyboardOpenSubMenu(event?: KeyboardEvent): void {
-    if (!this.isLeaf) {
-      return;
-    }
-    this.cancelEvent(event);
-    const menuItem = this.menuItems[this._keyManager.activeItemIndex];
-    if (menuItem) {
-      this.onOpenSubMenu(menuItem);
-    }
-  }
-
-  @HostListener('window:keydown.Enter', ['$event'])
-  @HostListener('window:keydown.Space', ['$event'])
-  public keyboardMenuItemSelect(event?: KeyboardEvent): void {
-    if (!this.isLeaf) {
-      return;
-    }
-    this.cancelEvent(event);
-    const menuItem = this.menuItems[this._keyManager.activeItemIndex];
-    if (menuItem) {
-      this.onMenuItemSelect(menuItem, event);
-    }
-  }
-
-  @HostListener('window:keydown.Escape', ['$event'])
-  @HostListener('window:keydown.ArrowLeft', ['$event'])
-  public onCloseLeafMenu(event: KeyboardEvent): void {
-    if (!this.isLeaf) {
-      return;
-    }
-    this.cancelEvent(event);
-    this.closeLeafMenu.emit({ exceptRootMenu: event.keyCode === ARROW_LEFT_KEYCODE, event });
   }
 
   @HostListener('document:click', ['$event'])
@@ -221,6 +222,43 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     if (!menuItem.subMenu) {
       menuItem.triggerExecute(this.item, event);
     }
+  }
+
+  private onKeyEvent(event: KeyboardEvent): void {
+    if (!this.isLeaf) {
+      return;
+    }
+    this._keyManager.onKeydown(event);
+  }
+
+  private keyboardOpenSubMenu(event?: KeyboardEvent): void {
+    if (!this.isLeaf) {
+      return;
+    }
+    this.cancelEvent(event);
+    const menuItem = this.menuItems[this._keyManager.activeItemIndex];
+    if (menuItem) {
+      this.onOpenSubMenu(menuItem);
+    }
+  }
+
+  private keyboardMenuItemSelect(event?: KeyboardEvent): void {
+    if (!this.isLeaf) {
+      return;
+    }
+    this.cancelEvent(event);
+    const menuItem = this.menuItems[this._keyManager.activeItemIndex];
+    if (menuItem) {
+      this.onMenuItemSelect(menuItem, event);
+    }
+  }
+
+  private onCloseLeafMenu(event: KeyboardEvent): void {
+    if (!this.isLeaf) {
+      return;
+    }
+    this.cancelEvent(event);
+    this.closeLeafMenu.emit({ exceptRootMenu: event.keyCode === LEFT_ARROW, event });
   }
 
   private cancelEvent(event): void {

@@ -1,4 +1,5 @@
-import { OverlayModule, FullscreenOverlayContainer, OverlayContainer, } from '@angular/cdk/overlay';
+import { BidiModule } from '@angular/cdk/bidi';
+import { FullscreenOverlayContainer, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
@@ -28,6 +29,7 @@ import { ContextMenuContentComponent } from './contextMenuContent.component';
   imports: [
     CommonModule,
     OverlayModule,
+    BidiModule,
   ],
 })
 export class ContextMenuModule {

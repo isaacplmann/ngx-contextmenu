@@ -1,3 +1,4 @@
+import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef, Injectable, ElementRef } from '@angular/core';
@@ -18,6 +19,7 @@ export interface IContextMenuClickEvent {
 export interface IContextMenuContext extends IContextMenuClickEvent {
   menuItems: ContextMenuItemDirective[];
   menuClass: string;
+  directionality: Directionality;
 }
 export interface CloseLeafMenuEvent {
   exceptRootMenu?: boolean;
@@ -66,7 +68,7 @@ export class ContextMenuService {
   ) { }
 
   public openContextMenu(context: IContextMenuContext) {
-    const { anchorElement, event, parentContextMenu } = context;
+    const { anchorElement, event, parentContextMenu, directionality } = context;
 
     if (!parentContextMenu) {
       const mouseEvent = event as MouseEvent;
@@ -103,6 +105,7 @@ export class ContextMenuService {
         positionStrategy,
         panelClass: 'ngx-contextmenu',
         scrollStrategy: this.scrollStrategy.close(),
+        direction: directionality,
       })];
       this.attachContextMenu(this.overlays[0], context);
     } else {
@@ -124,6 +127,7 @@ export class ContextMenuService {
         positionStrategy,
         panelClass: 'ngx-contextmenu',
         scrollStrategy: this.scrollStrategy.close(),
+        direction: directionality,
       });
       this.destroySubMenus(parentContextMenu);
       this.overlays = this.overlays.concat(newOverlay);
