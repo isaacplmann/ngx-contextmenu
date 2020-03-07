@@ -59,6 +59,7 @@ export class ContextMenuComponent implements OnDestroy {
   @Input() public menuClass = "";
   @Input() public autoFocus = false;
   @Input() public useBootstrap4 = false;
+  @Input() public highlightParentItems = false;
   @Input() public disabled = false;
   @Output() public close: EventEmitter<CloseContextMenuEvent> = new EventEmitter();
   @Output() public open: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
@@ -81,6 +82,7 @@ export class ContextMenuComponent implements OnDestroy {
     if (options) {
       this.autoFocus = options.autoFocus;
       this.useBootstrap4 = options.useBootstrap4;
+      this.highlightParentItems = options.highlightParentItems;
     }
     this.subscription.add(_contextMenuService.show.subscribe(menuEvent => {
       this.onMenuEvent(menuEvent);
