@@ -5,7 +5,12 @@
   To learn more about this file see: https://angular.io/config/solution-tsconfig.
 */
 {
-  "files": [],
+  // "files": [],
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowJs": true
+  },
   "references": [
     {
       "path": "./src/tsconfig.app.json"
