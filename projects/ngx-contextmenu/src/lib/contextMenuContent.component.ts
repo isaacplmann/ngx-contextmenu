@@ -80,7 +80,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   @Output() public openSubMenu: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
   @Output() public closeLeafMenu: EventEmitter<CloseLeafMenuEvent> = new EventEmitter();
   @Output() public closeAllMenus: EventEmitter<{ event: MouseEvent }> = new EventEmitter();
-  @ViewChild('menu') public menuElement: ElementRef;
+  @ViewChild('menu', { static: true }) public menuElement: ElementRef;
   @ViewChildren('li') public menuItemElements: QueryList<ElementRef>;
 
   public autoFocus = false;

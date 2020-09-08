@@ -63,7 +63,7 @@ export class ContextMenuComponent implements OnDestroy {
   @Output() public close: EventEmitter<CloseContextMenuEvent> = new EventEmitter();
   @Output() public open: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
   @ContentChildren(ContextMenuItemDirective) public menuItems: QueryList<ContextMenuItemDirective>;
-  @ViewChild('menu') public menuElement: ElementRef;
+  @ViewChild('menu', { static: false }) public menuElement: ElementRef;
   public visibleMenuItems: ContextMenuItemDirective[] = [];
 
   public links: ILinkConfig[] = [];
