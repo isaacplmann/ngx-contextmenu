@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/demo",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -27,6 +28,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -129,7 +136,8 @@
           "configurations": {
             "production": {
               "project": "projects/ngx-contextmenu/ng-package.prod.json"
-            }
+            ,              "tsConfig": "projects/ngx-contextmenu/tsconfig.lib.prod.json"
+}
           }
         },
         "test": {
@@ -159,7 +167,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "yal",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "yal"
