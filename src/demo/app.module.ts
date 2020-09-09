@@ -1,8 +1,8 @@
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Scroll } from '@angular/router';
 
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { AppComponent } from './app.component';
@@ -29,7 +29,7 @@ import { ChildTwoComponent } from './child2.component';
         component: ChildOneComponent,
       }
     ]),
-    ScrollDispatchModule,
+    ScrollingModule,
   ],
   providers: [/* TODO: Providers go here */],
 })
