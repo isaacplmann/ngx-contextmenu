@@ -27,11 +27,11 @@ export class ChildOneComponent {
 
   constructor(private router: Router) { }
 
-  showMessage(message: any) {
+  showMessage(message: any): void {
     console.log(message);
   }
 
-  go(item: any) {
+  go(item: any): void {
     this.router.navigateByUrl(item.url);
   }
 

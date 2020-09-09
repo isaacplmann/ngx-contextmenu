@@ -1,11 +1,11 @@
-import { browser, element, by } from 'protractor';
+import { browser, by, element } from 'protractor';
 
 export class NgrxQueryCliPage {
-  navigateTo() {
-    return browser.get('/');
+  navigateTo(): Promise<unknown> {
+    return browser.get('/') as Promise<unknown>;
   }
 
-  getParagraphText() {
-    return element(by.css('ngx-context-menu-demo h1')).getText();
+  getParagraphText(): Promise<string> {
+    return element(by.css('ngx-context-menu-demo h1')).getText() as Promise<string>;
   }
 }

@@ -64,7 +64,7 @@ export class AppComponent {
       },
       actions: [{
         enabled: true,
-        execute: (item: any): void => { (<any>window).fake.doesntexist = 2; },
+        execute: (item: any): void => { (window as any).fake.doesntexist = 2; },
         html: (item: any): string => `Joe something: ${item.name}`,
         visible: true,
       }],
@@ -91,7 +91,7 @@ export class AppComponent {
   }
 
   public onContextMenu($event: MouseEvent, item: any): void {
-    this.contextMenuService.show.next({ event: $event, item: item });
+    this.contextMenuService.show.next({ event: $event, item });
     $event.preventDefault();
   }
 

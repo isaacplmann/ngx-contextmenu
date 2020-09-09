@@ -56,7 +56,7 @@ export interface MouseLocation {
   template: ` `,
 })
 export class ContextMenuComponent implements OnDestroy {
-  @Input() public menuClass = "";
+  @Input() public menuClass = '';
   @Input() public autoFocus = false;
   @Input() public useBootstrap4 = false;
   @Input() public disabled = false;
@@ -72,7 +72,7 @@ export class ContextMenuComponent implements OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
-    private _contextMenuService: ContextMenuService,
+    private contextMenuService: ContextMenuService,
     private changeDetector: ChangeDetectorRef,
     private elementRef: ElementRef,
     @Optional()
@@ -82,7 +82,7 @@ export class ContextMenuComponent implements OnDestroy {
       this.autoFocus = options.autoFocus;
       this.useBootstrap4 = options.useBootstrap4;
     }
-    this.subscription.add(_contextMenuService.show.subscribe(menuEvent => {
+    this.subscription.add(contextMenuService.show.subscribe(menuEvent => {
       this.onMenuEvent(menuEvent);
     }));
   }
@@ -102,8 +102,8 @@ export class ContextMenuComponent implements OnDestroy {
     this.event = event;
     this.item = item;
     this.setVisibleMenuItems();
-    this._contextMenuService.openContextMenu({ ...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass });
-    this._contextMenuService.close.asObservable().pipe(first()).subscribe(closeEvent => this.close.emit(closeEvent));
+    this.contextMenuService.openContextMenu({ ...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass });
+    this.contextMenuService.close.asObservable().pipe(first()).subscribe(closeEvent => this.close.emit(closeEvent));
     this.open.next(menuEvent);
   }
 

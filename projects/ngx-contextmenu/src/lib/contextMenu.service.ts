@@ -1,6 +1,6 @@
-import { Overlay, OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { ConnectionPositionPair, Overlay, OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ComponentRef, Injectable, ElementRef } from '@angular/core';
+import { ComponentRef, ElementRef, Injectable } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 
 import { ContextMenuComponent } from './contextMenu.component';
@@ -15,14 +15,17 @@ export interface IContextMenuClickEvent {
   item: any;
   activeMenuItemIndex?: number;
 }
+
 export interface IContextMenuContext extends IContextMenuClickEvent {
   menuItems: ContextMenuItemDirective[];
   menuClass: string;
 }
+
 export interface CloseLeafMenuEvent {
   exceptRootMenu?: boolean;
   event?: MouseEvent | KeyboardEvent;
 }
+
 export interface OverlayRefWithContextMenu extends OverlayRef {
   contextMenu?: ContextMenuContentComponent;
 }
@@ -31,12 +34,14 @@ export interface CancelContextMenuEvent {
   eventType: 'cancel';
   event?: MouseEvent | KeyboardEvent;
 }
+
 export interface ExecuteContextMenuEvent {
   eventType: 'execute';
   event?: MouseEvent | KeyboardEvent;
   item: any;
   menuItem: ContextMenuItemDirective;
 }
+
 export type CloseContextMenuEvent = ExecuteContextMenuEvent | CancelContextMenuEvent;
 
 @Injectable()
@@ -63,9 +68,10 @@ export class ContextMenuService {
   constructor(
     private overlay: Overlay,
     private scrollStrategy: ScrollStrategyOptions,
-  ) { }
+  ) {
+  }
 
-  public openContextMenu(context: IContextMenuContext) {
+  public openContextMenu(context: IContextMenuContext): void {
     const { anchorElement, event, parentContextMenu } = context;
 
     if (!parentContextMenu) {
@@ -79,47 +85,53 @@ export class ContextMenuService {
         width: 0,
       });
       this.closeAllContextMenus({ eventType: 'cancel', event });
-      const positionStrategy = this.overlay.position().connectedTo(
-        new ElementRef(anchorElement || this.fakeElement),
-        { originX: 'start', originY: 'bottom' },
-        { overlayX: 'start', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'top' },
-        { overlayX: 'start', overlayY: 'bottom' })
-        .withFallbackPosition(
-        { originX: 'end', originY: 'top' },
-        { overlayX: 'start', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'top' },
-        { overlayX: 'end', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'end', originY: 'center' },
-        { overlayX: 'start', overlayY: 'center' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'center' },
-        { overlayX: 'end', overlayY: 'center' })
-        ;
-      this.overlays = [this.overlay.create({
+      const positionStrategy = this.overlay.position().flexibleConnectedTo(
+        new ElementRef(anchorElement || this.fakeElement))
+        .withPositions([
+          new ConnectionPositionPair(
+            { originX: 'start', originY: 'bottom' },
+            { overlayX: 'start', overlayY: 'top' }),
+          new ConnectionPositionPair(
+            { originX: 'start', originY: 'top' },
+            { overlayX: 'start', overlayY: 'bottom' }),
+          new ConnectionPositionPair(
+            { originX: 'end', originY: 'top' },
+            { overlayX: 'start', overlayY: 'top' }),
+          new ConnectionPositionPair(
+            { originX: 'start', originY: 'top' },
+            { overlayX: 'end', overlayY: 'top' }),
+          new ConnectionPositionPair(
+            { originX: 'end', originY: 'center' },
+            { overlayX: 'start', overlayY: 'center' }),
+          new ConnectionPositionPair(
+            { originX: 'start', originY: 'center' },
+            { overlayX: 'end', overlayY: 'center' })
+        ]);
+
+      this.overlays = [ this.overlay.create({
         positionStrategy,
         panelClass: 'ngx-contextmenu',
         scrollStrategy: this.scrollStrategy.close(),
-      })];
+      }) ];
       this.attachContextMenu(this.overlays[0], context);
     } else {
-      const positionStrategy = this.overlay.position().connectedTo(
-        new ElementRef(event ? event.target : anchorElement),
-        { originX: 'end', originY: 'top' },
-        { overlayX: 'start', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'top' },
-        { overlayX: 'end', overlayY: 'top' })
-        .withFallbackPosition(
-        { originX: 'end', originY: 'bottom' },
-        { overlayX: 'start', overlayY: 'bottom' })
-        .withFallbackPosition(
-        { originX: 'start', originY: 'bottom' },
-        { overlayX: 'end', overlayY: 'bottom' })
-        ;
+      const positionStrategy = this.overlay.position().flexibleConnectedTo(
+        new ElementRef(event ? event.target : anchorElement))
+        .withPositions([
+          new ConnectionPositionPair(
+            { originX: 'end', originY: 'top' },
+            { overlayX: 'start', overlayY: 'top' }),
+          new ConnectionPositionPair(
+            { originX: 'start', originY: 'top' },
+            { overlayX: 'end', overlayY: 'top' }),
+          new ConnectionPositionPair(
+            { originX: 'end', originY: 'bottom' },
+            { overlayX: 'start', overlayY: 'bottom' }),
+          new ConnectionPositionPair(
+            { originX: 'start', originY: 'bottom' },
+            { overlayX: 'end', overlayY: 'bottom' }),
+        ]);
+
       const newOverlay = this.overlay.create({
         positionStrategy,
         panelClass: 'ngx-contextmenu',
@@ -141,7 +153,7 @@ export class ContextMenuService {
     contextMenuContent.instance.overlay = overlay;
     contextMenuContent.instance.isLeaf = true;
     contextMenuContent.instance.menuClass = menuClass;
-    (<OverlayRefWithContextMenu>overlay).contextMenu = contextMenuContent.instance;
+    (overlay as OverlayRefWithContextMenu).contextMenu = contextMenuContent.instance;
 
     const subscriptions: Subscription = new Subscription();
     subscriptions.add(contextMenuContent.instance.execute.asObservable()

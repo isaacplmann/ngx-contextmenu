@@ -16,7 +16,7 @@ export class ContextMenuItemDirective implements Highlightable {
 
   public currentItem: any;
   public isActive = false;
-  public get disabled() {
+  public get disabled(): boolean {
     return this.passive ||
       this.divider ||
       !this.evaluateIfFunction(this.enabled, this.currentItem);
