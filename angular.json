@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "your-awesome-library": {
+    "demo": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -15,7 +15,7 @@
             "outputPath": "dist/demo",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "tsConfig": "tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
@@ -75,7 +75,7 @@
             "main": "src/test.ts",
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
+            "tsConfig": "tsconfig.spec.json",
             "scripts": [],
             "styles": [
               "src/styles.scss"
@@ -90,15 +90,15 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "tsconfig.app.json",
+              "tsconfig.spec.json"
             ],
             "exclude": []
           }
         }
       }
     },
-    "your-awesome-library-e2e": {
+    "demo-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -135,9 +135,9 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/ngx-contextmenu/ng-package.prod.json"
-            ,              "tsConfig": "projects/ngx-contextmenu/tsconfig.lib.prod.json"
-}
+              "project": "projects/ngx-contextmenu/ng-package.prod.json",
+              "tsConfig": "projects/ngx-contextmenu/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -163,14 +163,10 @@
       }
     }
   },
-  "defaultProject": "your-awesome-library",
+  "defaultProject": "demo",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "yal",
       "style": "scss"
-    },
-    "@schematics/angular:directive": {
-      "prefix": "yal"
     }
   }
 }

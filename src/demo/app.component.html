@@ -72,7 +72,9 @@
         </div>
         <h3>Enabled and Visible as Functions</h3>
         <ul>
-          <li *ngFor="let item of items" [contextMenu]="withFunctions" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+          <ng-container *ngFor="let item of items" >
+            <li [contextMenu]="withFunctions" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+          </ng-container>
         </ul>
         <context-menu #withFunctions>
           <ng-template contextMenuItem [enabled]="onlyJohn" (execute)="showMessage('Hi, ' + $event.item.name)">
@@ -88,7 +90,9 @@
         <br>
         <h3>Custom styling</h3>
         <ul>
-          <li [contextMenu]="customClassMenu" [contextMenuSubject]="item">Right click to see styled menu</li>
+          <ng-container *ngFor="let item of items" >
+            <li [contextMenu]="customClassMenu" [contextMenuSubject]="item">Right click to see styled menu</li>
+          </ng-container>
         </ul>
       </div>
     </div>
