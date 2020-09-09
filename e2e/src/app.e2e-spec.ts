@@ -9,6 +9,6 @@ describe('ngrx-query App', () => {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('nq works!');
+    expect(page.getParagraphText()).toEqual('Angular2 Context Menu Demo');
   });
 });

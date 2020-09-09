@@ -6,6 +6,6 @@ export class NgrxQueryCliPage {
   }
 
   getParagraphText() {
-    return element(by.css('nq-root h1')).getText();
+    return element(by.css('ngx-context-menu-demo h1')).getText();
   }
 }

@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git+ssh://git@github.com/isaacplmann/ngx-contextmenu.git"
   },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "peerDependencies": {
     "@angular/cdk": ">=6.0.0 <9.0.0",
     "@angular/common": ">=6.0.0 <9.0.0",
