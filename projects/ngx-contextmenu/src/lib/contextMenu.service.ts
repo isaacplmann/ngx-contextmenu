@@ -1,11 +1,13 @@
 import { Overlay, OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ComponentRef, Injectable, ElementRef } from '@angular/core';
+import { ComponentRef, Injectable, ElementRef, Inject } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 
 import { ContextMenuComponent } from './contextMenu.component';
 import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { ContextMenuContentComponent } from './contextMenuContent.component';
+import { IContextMenuOptions } from './contextMenu.options';
+import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
 
 export interface IContextMenuClickEvent {
   anchorElement?: Element | EventTarget;
@@ -63,6 +65,7 @@ export class ContextMenuService {
   constructor(
     private overlay: Overlay,
     private scrollStrategy: ScrollStrategyOptions,
+    @Inject(CONTEXT_MENU_OPTIONS) private options: IContextMenuOptions
   ) { }
 
   public openContextMenu(context: IContextMenuContext) {
@@ -103,6 +106,8 @@ export class ContextMenuService {
         positionStrategy,
         panelClass: 'ngx-contextmenu',
         scrollStrategy: this.scrollStrategy.close(),
+        hasBackdrop: this.options.useBackdrop,
+        backdropClass: this.options.backdropClass === undefined ? '' :  this.options.backdropClass,
       })];
       this.attachContextMenu(this.overlays[0], context);
     } else {
@@ -124,6 +129,7 @@ export class ContextMenuService {
         positionStrategy,
         panelClass: 'ngx-contextmenu',
         scrollStrategy: this.scrollStrategy.close(),
+        hasBackdrop: false,
       });
       this.destroySubMenus(parentContextMenu);
       this.overlays = this.overlays.concat(newOverlay);
