@@ -4,10 +4,10 @@ import { ComponentRef, Injectable, ElementRef, Inject } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 
 import { ContextMenuComponent } from './contextMenu.component';
-import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { ContextMenuContentComponent } from './contextMenuContent.component';
 import { IContextMenuOptions } from './contextMenu.options';
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
+import { ContextMenuItemInterface } from './contextMenu.item.interface';
 
 export interface IContextMenuClickEvent {
   anchorElement?: Element | EventTarget;
@@ -18,7 +18,7 @@ export interface IContextMenuClickEvent {
   activeMenuItemIndex?: number;
 }
 export interface IContextMenuContext extends IContextMenuClickEvent {
-  menuItems: ContextMenuItemDirective[];
+  menuItems: ContextMenuItemInterface[];
   menuClass: string;
 }
 export interface CloseLeafMenuEvent {
@@ -37,7 +37,7 @@ export interface ExecuteContextMenuEvent {
   eventType: 'execute';
   event?: MouseEvent | KeyboardEvent;
   item: any;
-  menuItem: ContextMenuItemDirective;
+  menuItem: ContextMenuItemInterface;
 }
 export type CloseContextMenuEvent = ExecuteContextMenuEvent | CancelContextMenuEvent;
 
