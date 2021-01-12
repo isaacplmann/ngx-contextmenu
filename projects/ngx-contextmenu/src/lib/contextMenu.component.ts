@@ -21,6 +21,7 @@ import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { IContextMenuOptions } from './contextMenu.options';
 import { ContextMenuService, IContextMenuClickEvent, CloseContextMenuEvent } from './contextMenu.service';
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
+import { ContextMenuItemInterface } from './contextMenu.item.interface';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -62,9 +63,9 @@ export class ContextMenuComponent implements OnDestroy {
   @Input() public disabled = false;
   @Output() public close: EventEmitter<CloseContextMenuEvent> = new EventEmitter();
   @Output() public open: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
-  @ContentChildren(ContextMenuItemDirective) public menuItems: QueryList<ContextMenuItemDirective>;
+  @ContentChildren(ContextMenuItemDirective) public menuItems: QueryList<ContextMenuItemInterface>;
   @ViewChild('menu') public menuElement: ElementRef;
-  public visibleMenuItems: ContextMenuItemDirective[] = [];
+  public visibleMenuItems: ContextMenuItemInterface[] = [];
 
   public links: ILinkConfig[] = [];
   public item: any;
@@ -107,7 +108,7 @@ export class ContextMenuComponent implements OnDestroy {
     this.open.next(menuEvent);
   }
 
-  public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {
+  public isMenuItemVisible(menuItem: ContextMenuItemInterface): boolean {
     return this.evaluateIfFunction(menuItem.visible);
   }
 

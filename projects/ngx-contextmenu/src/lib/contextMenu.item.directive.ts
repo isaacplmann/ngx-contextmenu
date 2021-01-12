@@ -38,7 +38,7 @@ export class ContextMenuItemDirective implements ContextMenuItemInterface {
     this.isActive = false;
   }
 
-  public triggerExecute(item: any, $event?: MouseEvent | KeyboardEvent): void {
+  public callback(item: any, $event?: MouseEvent | KeyboardEvent): void {
     if (!this.evaluateIfFunction(this.enabled, item)) {
       return;
     }

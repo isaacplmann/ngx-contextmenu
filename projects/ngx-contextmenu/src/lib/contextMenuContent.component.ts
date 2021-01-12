@@ -54,13 +54,13 @@ const ARROW_LEFT_KEYCODE = 37;
             [class.active]="menuItem.isActive && isMenuItemEnabled(menuItem)"
             [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)" [class.hasSubMenu]="!!menuItem.subMenu"
             (click)="onMenuItemSelect(menuItem, $event)" (mouseenter)="onOpenSubMenu(menuItem, $event)">
-            <ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+            <ng-template *ngIf="menuItem.template" [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>{{menuItem.text}}
           </a>
 
           <span (click)="stopEvent($event)" (contextmenu)="stopEvent($event)" class="passive"
                 *ngIf="!menuItem.divider && menuItem.passive" [class.dropdown-item]="useBootstrap4"
                 [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)">
-            <ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+            <ng-template *ngIf="menuItem.template" [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>{{menuItem.text}}
           </span>
         </li>
       </ul>
@@ -102,7 +102,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
   ngOnInit(): void {
     this.menuItems.forEach(menuItem => {
       menuItem.currentItem = this.item;
-      this.subscription.add(menuItem.execute.subscribe(event => this.execute.emit({ ...event, menuItem })));
     });
     const queryList = new QueryList<ContextMenuItemInterface>();
     queryList.reset(this.menuItems);
@@ -218,8 +217,9 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
     event.preventDefault();
     event.stopPropagation();
     this.onOpenSubMenu(menuItem, event);
-    if (!menuItem.subMenu) {
-      menuItem.triggerExecute(this.item, event);
+    if (!menuItem.subMenu && !menuItem.disabled) {
+      menuItem.callback(this.item, event);
+      this.execute.emit({ item: this.item, event: event, menuItem })
     }
   }
 
