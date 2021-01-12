@@ -1,24 +1,25 @@
 import { Overlay, OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ComponentRef, Injectable, ElementRef, Inject } from '@angular/core';
+import { ComponentRef, Injectable, ElementRef, Inject, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 
 import { ContextMenuComponent } from './contextMenu.component';
-import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { ContextMenuContentComponent } from './contextMenuContent.component';
 import { IContextMenuOptions } from './contextMenu.options';
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
+import { ContextMenuItemInterface } from './contextMenu.item.interface';
+import { ContextMenu } from './contextMenu';
 
 export interface IContextMenuClickEvent {
   anchorElement?: Element | EventTarget;
-  contextMenu?: ContextMenuComponent;
+  contextMenu?: ContextMenuComponent | ContextMenu;
   event?: MouseEvent | KeyboardEvent;
   parentContextMenu?: ContextMenuContentComponent;
   item: any;
   activeMenuItemIndex?: number;
 }
 export interface IContextMenuContext extends IContextMenuClickEvent {
-  menuItems: ContextMenuItemDirective[];
+  menuItems: ContextMenuItemInterface[];
   menuClass: string;
 }
 export interface CloseLeafMenuEvent {
@@ -37,12 +38,12 @@ export interface ExecuteContextMenuEvent {
   eventType: 'execute';
   event?: MouseEvent | KeyboardEvent;
   item: any;
-  menuItem: ContextMenuItemDirective;
+  menuItem: ContextMenuItemInterface;
 }
 export type CloseContextMenuEvent = ExecuteContextMenuEvent | CancelContextMenuEvent;
 
 @Injectable()
-export class ContextMenuService {
+export class ContextMenuService implements OnDestroy{
   public isDestroyingLeafMenu = false;
 
   public show: Subject<IContextMenuClickEvent> = new Subject<IContextMenuClickEvent>();
@@ -66,9 +67,15 @@ export class ContextMenuService {
     private overlay: Overlay,
     private scrollStrategy: ScrollStrategyOptions,
     @Inject(CONTEXT_MENU_OPTIONS) private options: IContextMenuOptions
-  ) { }
+  ) {
+    this.show.asObservable().subscribe((event => {
+      if (event.contextMenu instanceof  ContextMenu) {
+        this.showWithoutComponent(event.contextMenu, event);
+      }
+    }));
+  }
 
-  public openContextMenu(context: IContextMenuContext) {
+  public openContextMenu(context: IContextMenuContext): OverlayRefWithContextMenu {
     const { anchorElement, event, parentContextMenu } = context;
 
     if (!parentContextMenu) {
@@ -110,6 +117,7 @@ export class ContextMenuService {
         backdropClass: this.options.backdropClass === undefined ? '' :  this.options.backdropClass,
       })];
       this.attachContextMenu(this.overlays[0], context);
+      return this.overlays[0];
     } else {
       const positionStrategy = this.overlay.position().connectedTo(
         new ElementRef(event ? event.target : anchorElement),
@@ -134,6 +142,7 @@ export class ContextMenuService {
       this.destroySubMenus(parentContextMenu);
       this.overlays = this.overlays.concat(newOverlay);
       this.attachContextMenu(newOverlay, context);
+      return newOverlay;
     }
   }
 
@@ -234,5 +243,24 @@ export class ContextMenuService {
   public isLeafMenu(contextMenuContent: ContextMenuContentComponent): boolean {
     const overlay = this.getLastAttachedOverlay();
     return contextMenuContent.overlay === overlay;
+  }
+
+
+  private showWithoutComponent(contextMenu: ContextMenu, event: IContextMenuClickEvent): void {
+    const ctx = this.openContextMenu({
+      ...event,
+      menuItems: contextMenu.items.filter(a => this.evaluateIfFunction(a.visible, event.item)), menuClass: contextMenu.menuClass
+    });
+  }
+
+  private evaluateIfFunction(value: any, item): any {
+    if (value instanceof Function) {
+      return value(item);
+    }
+    return value;
+  }
+
+  ngOnDestroy(): void {
+    this.show.complete();
   }
 }

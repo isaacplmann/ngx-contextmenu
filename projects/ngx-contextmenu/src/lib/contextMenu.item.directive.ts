@@ -1,18 +1,18 @@
-import { Highlightable } from '@angular/cdk/a11y';
 import { Directive, ElementRef, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ContextMenuItemInterface } from './contextMenu.item.interface';
 
 @Directive({
   /* tslint:disable:directive-selector-type */
   selector: '[contextMenuItem]',
   /* tslint:enable:directive-selector-type */
 })
-export class ContextMenuItemDirective implements Highlightable {
+export class ContextMenuItemDirective implements ContextMenuItemInterface {
   @Input() public subMenu: any;
   @Input() public divider = false;
   @Input() public enabled: boolean | ((item: any) => boolean) = true;
   @Input() public passive = false;
   @Input() public visible: boolean | ((item: any) => boolean) = true;
-  @Output() public execute: EventEmitter<{ event: Event, item: any }> = new EventEmitter();
+  @Output() public execute: EventEmitter<{ event: MouseEvent | KeyboardEvent, item: any }> = new EventEmitter();
 
   public currentItem: any;
   public isActive = false;
@@ -38,7 +38,7 @@ export class ContextMenuItemDirective implements Highlightable {
     this.isActive = false;
   }
 
-  public triggerExecute(item: any, $event?: MouseEvent | KeyboardEvent): void {
+  public callback(item: any, $event?: MouseEvent | KeyboardEvent): void {
     if (!this.evaluateIfFunction(this.enabled, item)) {
       return;
     }
