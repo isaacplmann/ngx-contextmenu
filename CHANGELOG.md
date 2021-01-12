@@ -1,11 +1,10 @@
 <a name="5.3.0"></a>
 
-# [5.3.0](https://github.com/isaacplmann/ngx-contextmenu) (2019-12-07)
+# [5.3.0](https://github.com/isaacplmann/ngx-contextmenu) (2020-08-19)
 
 ### Features
 
-- **Dependency**: Allow Ivy Renderer
-- **Dependency**: Allow Angular 9.x
+- **Dependency**: Allow Angular 10
 
 <a name="5.2.0"></a>
 

@@ -1,4 +1,4 @@
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+// import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,8 +28,7 @@ import { ChildTwoComponent } from './child2.component';
         path: '**',
         component: ChildOneComponent
       }
-    ]),
-    ScrollDispatchModule
+    ])
   ],
   providers: [
     /* TODO: Providers go here */

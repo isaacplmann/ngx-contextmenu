@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "outDir": "/dist/out-tsc",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "stripInternal": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "ngx-contextmenu": [
+        "dist/ngx-contextmenu",
+        "dist/ngx-contextmenu"
+      ],
+      "ngx-contextmenu/*": [
+        "dist/ngx-contextmenu/*",
+        "dist/ngx-contextmenu/*"
+      ]
+    }
+  },
+  "files": [
+    "lib/ngx-contextmenu"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "enableIvy": false
+  }
+}

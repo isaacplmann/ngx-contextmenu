@@ -164,5 +164,8 @@
     "@schematics/angular:directive": {
       "prefix": "yal"
     }
+  },
+  "cli": {
+    "analytics": "99bf42c0-6fd3-4aba-8ed9-380d4d37fc27"
   }
 }
