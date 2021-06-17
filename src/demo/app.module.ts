@@ -16,22 +16,25 @@ import { ChildTwoComponent } from './child2.component';
     BrowserModule,
     CommonModule,
     ContextMenuModule.forRoot({
-      autoFocus: true
+      autoFocus: true,
       // useBootstrap4: true,
     }),
-    RouterModule.forRoot([
-      {
-        path: 'two',
-        component: ChildTwoComponent
-      },
-      {
-        path: '**',
-        component: ChildOneComponent
-      }
-    ])
+    RouterModule.forRoot(
+      [
+        {
+          path: 'two',
+          component: ChildTwoComponent,
+        },
+        {
+          path: '**',
+          component: ChildOneComponent,
+        },
+      ],
+      { relativeLinkResolution: 'legacy' }
+    ),
   ],
   providers: [
     /* TODO: Providers go here */
-  ]
+  ],
 })
 export class AppModule {}
