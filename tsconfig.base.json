@@ -19,11 +19,9 @@
     ],
     "paths": {
       "ngx-contextmenu": [
-        "dist/ngx-contextmenu",
         "dist/ngx-contextmenu"
       ],
       "ngx-contextmenu/*": [
-        "dist/ngx-contextmenu/*",
         "dist/ngx-contextmenu/*"
       ]
     }
