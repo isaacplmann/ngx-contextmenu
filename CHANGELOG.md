@@ -1,3 +1,11 @@
+<a name="6.0.0"></a>
+
+# [6.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2020-08-19)
+
+### BREAKING CHANGES
+
+- **Dependency**: Require Angular 12
+
 <a name="5.3.0"></a>
 
 # [5.3.0](https://github.com/isaacplmann/ngx-contextmenu) (2020-08-19)
