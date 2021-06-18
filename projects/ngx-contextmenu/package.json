@@ -18,8 +18,8 @@
     "url": "git+ssh://git@github.com/isaacplmann/ngx-contextmenu.git"
   },
   "peerDependencies": {
-    "@angular/cdk": ">=6.0.0 <10.0.0",
-    "@angular/common": ">=6.0.0 <10.0.0",
-    "@angular/core": ">=6.0.0 <10.0.0"
+    "@angular/cdk": "^11.2.13",
+    "@angular/common": "^11.2.14",
+    "@angular/core": "^11.2.14"
   }
 }
