@@ -213,6 +213,11 @@ export class ContextMenuContentComponent
       return;
     }
     this._keyManager.onKeydown(event);
+    const activeItemIndex = this._keyManager.activeItemIndex;
+    const menuItemElement = this.menuItemElements.toArray()[activeItemIndex];
+    if (menuItemElement) {
+      menuItemElement.nativeElement.scrollIntoViewIfNeeded();
+    }
   }
 
   @HostListener('window:keydown.ArrowRight', ['$event'])
