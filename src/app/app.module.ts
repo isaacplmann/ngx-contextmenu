@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { AppComponent } from './app.component';
-import { ChildOneComponent } from './child1.component';
-import { ChildTwoComponent } from './child2.component';
+import { ChildOneComponent } from './components/child1.component';
+import { ChildTwoComponent } from './components/child2.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -16,25 +15,22 @@ import { ChildTwoComponent } from './child2.component';
     BrowserModule,
     CommonModule,
     ContextMenuModule.forRoot({
-      autoFocus: true,
+      autoFocus: true
       // useBootstrap4: true,
     }),
-    RouterModule.forRoot(
-      [
-        {
-          path: 'two',
-          component: ChildTwoComponent,
-        },
-        {
-          path: '**',
-          component: ChildOneComponent,
-        },
-      ],
-      { relativeLinkResolution: 'legacy' }
-    ),
+    RouterModule.forRoot([
+      {
+        path: 'two',
+        component: ChildTwoComponent
+      },
+      {
+        path: '**',
+        component: ChildOneComponent
+      }
+    ])
   ],
   providers: [
     /* TODO: Providers go here */
-  ],
+  ]
 })
 export class AppModule {}

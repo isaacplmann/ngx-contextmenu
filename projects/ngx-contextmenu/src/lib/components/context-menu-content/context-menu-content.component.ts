@@ -2,7 +2,6 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { OverlayRef } from '@angular/cdk/overlay';
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -15,16 +14,16 @@ import {
   Output,
   QueryList,
   ViewChild,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ContextMenuItemDirective } from './contextMenu.item.directive';
-import { IContextMenuOptions } from './contextMenu.options';
+import { IContextMenuOptions } from '../../context-menu.options';
+import { CONTEXT_MENU_OPTIONS } from '../../context-menu.tokens';
+import { ContextMenuItemDirective } from '../../directives/context-menu-item/context-menu-item.directive';
 import {
   CloseLeafMenuEvent,
-  IContextMenuClickEvent
-} from './contextMenu.service';
-import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
+  IContextMenuClickEvent,
+} from '../../services/context-menu/context-menu.service';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -50,7 +49,7 @@ const ARROW_LEFT_KEYCODE = 37;
         content: '\u25B6';
         float: right;
       }
-    `
+    `,
   ],
   template: `
     <div
@@ -105,41 +104,44 @@ const ARROW_LEFT_KEYCODE = 37;
         </li>
       </ul>
     </div>
-  `
+  `,
 })
 export class ContextMenuContentComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, AfterViewInit
+{
   @Input() public menuItems: ContextMenuItemDirective[] = [];
   @Input() public item: any;
-  @Input() public event: MouseEvent | KeyboardEvent;
-  @Input() public parentContextMenu: ContextMenuContentComponent;
-  @Input() public menuClass: string;
-  @Input() public overlay: OverlayRef;
+  @Input()
+  public event!: MouseEvent | KeyboardEvent;
+  @Input()
+  public parentContextMenu!: ContextMenuContentComponent;
+  @Input()
+  public menuClass!: string;
+  @Input()
+  public overlay!: OverlayRef;
   @Input() public isLeaf = false;
   @Output() public execute: EventEmitter<{
     event: MouseEvent | KeyboardEvent;
     item: any;
     menuItem: ContextMenuItemDirective;
   }> = new EventEmitter();
-  @Output() public openSubMenu: EventEmitter<
-    IContextMenuClickEvent
-  > = new EventEmitter();
-  @Output() public closeLeafMenu: EventEmitter<
-    CloseLeafMenuEvent
-  > = new EventEmitter();
+  @Output() public openSubMenu: EventEmitter<IContextMenuClickEvent> =
+    new EventEmitter();
+  @Output() public closeLeafMenu: EventEmitter<CloseLeafMenuEvent> =
+    new EventEmitter();
   @Output() public closeAllMenus: EventEmitter<{
     event: MouseEvent;
   }> = new EventEmitter();
-  @ViewChild('menu', { static: true }) public menuElement: ElementRef;
-  @ViewChildren('li') public menuItemElements: QueryList<ElementRef>;
+  @ViewChild('menu', { static: true })
+  public menuElement!: ElementRef;
+  @ViewChildren('li')
+  public menuItemElements!: QueryList<ElementRef>;
 
-  public autoFocus = false;
-  public useBootstrap4 = false;
-  private _keyManager: ActiveDescendantKeyManager<ContextMenuItemDirective>;
+  public autoFocus?: boolean = false;
+  public useBootstrap4?: boolean = false;
+  private _keyManager!: ActiveDescendantKeyManager<ContextMenuItemDirective>;
   private subscription: Subscription = new Subscription();
   constructor(
-    private changeDetector: ChangeDetectorRef,
-    private elementRef: ElementRef,
     @Optional()
     @Inject(CONTEXT_MENU_OPTIONS)
     private options: IContextMenuOptions
@@ -151,10 +153,10 @@ export class ContextMenuContentComponent
   }
 
   ngOnInit(): void {
-    this.menuItems.forEach(menuItem => {
+    this.menuItems.forEach((menuItem) => {
       menuItem.currentItem = this.item;
       this.subscription.add(
-        menuItem.execute.subscribe(event =>
+        menuItem.execute.subscribe((event) =>
           this.execute.emit({ ...event, menuItem })
         )
       );
@@ -203,7 +205,7 @@ export class ContextMenuContentComponent
   }
 
   public isDisabled(link: ILinkConfig): boolean {
-    return link.enabled && !link.enabled(this.item);
+    return !!link.enabled && !link.enabled(this.item);
   }
 
   @HostListener('window:keydown.ArrowDown', ['$event'])
@@ -216,21 +218,21 @@ export class ContextMenuContentComponent
   }
 
   @HostListener('window:keydown.ArrowRight', ['$event'])
-  public keyboardOpenSubMenu(event?: KeyboardEvent): void {
-    if (!this.isLeaf) {
+  public keyboardOpenSubMenu(event: KeyboardEvent): void {
+    if (!this.isLeaf || this._keyManager.activeItemIndex === null) {
       return;
     }
     this.cancelEvent(event);
     const menuItem = this.menuItems[this._keyManager.activeItemIndex];
     if (menuItem) {
-      this.onOpenSubMenu(menuItem);
+      this.onOpenSubMenu(menuItem, event);
     }
   }
 
   @HostListener('window:keydown.Enter', ['$event'])
   @HostListener('window:keydown.Space', ['$event'])
-  public keyboardMenuItemSelect(event?: KeyboardEvent): void {
-    if (!this.isLeaf) {
+  public keyboardMenuItemSelect(event: KeyboardEvent): void {
+    if (!this.isLeaf || this._keyManager.activeItemIndex === null) {
       return;
     }
     this.cancelEvent(event);
@@ -249,7 +251,7 @@ export class ContextMenuContentComponent
     this.cancelEvent(event);
     this.closeLeafMenu.emit({
       exceptRootMenu: event.keyCode === ARROW_LEFT_KEYCODE,
-      event
+      event,
     });
   }
 
@@ -264,18 +266,21 @@ export class ContextMenuContentComponent
 
   public onOpenSubMenu(
     menuItem: ContextMenuItemDirective,
-    event?: MouseEvent | KeyboardEvent
+    event: MouseEvent | KeyboardEvent
   ): void {
-    const anchorElementRef = this.menuItemElements.toArray()[
-      this._keyManager.activeItemIndex
-    ];
+    if (this._keyManager.activeItemIndex === null) {
+      return;
+    }
+
+    const anchorElementRef =
+      this.menuItemElements.toArray()[this._keyManager.activeItemIndex];
     const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
     this.openSubMenu.emit({
       anchorElement,
       contextMenu: menuItem.subMenu,
       event,
       item: this.item,
-      parentContextMenu: this
+      parentContextMenu: this,
     });
   }
 
@@ -291,12 +296,12 @@ export class ContextMenuContentComponent
     }
   }
 
-  private cancelEvent(event): void {
-    if (!event) {
+  private cancelEvent(event?: KeyboardEvent): void {
+    if (!event || !event.target) {
       return;
     }
 
-    const target: HTMLElement = event.target;
+    const target = event.target as HTMLElement;
     if (
       ['INPUT', 'TEXTAREA', 'SELECT'].indexOf(target.tagName) > -1 ||
       target.isContentEditable
