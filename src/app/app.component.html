@@ -88,7 +88,7 @@
         <br>
         <h3>Custom styling</h3>
         <ul>
-          <li [contextMenu]="customClassMenu" [contextMenuSubject]="item">Right click to see styled menu</li>
+          <li *ngFor="let item of items" [contextMenu]="customClassMenu" [contextMenuSubject]="item">Right click to see styled menu</li>
         </ul>
       </div>
     </div>
@@ -141,7 +141,7 @@
           <ng-template contextMenuItem (execute)="showMessage('Simple')">
             Simple
           </ng-template>
-          <ng-template contextMenuItem passive="true">
+          <ng-template contextMenuItem [passive]="true">
             Input something:
             <input type="text">
           </ng-template>
