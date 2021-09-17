@@ -169,7 +169,7 @@ If your `<context-menu>` component is in a different component from your list, y
 
 ```html
 <ul>
-    <li *ngFor="let item of items" (contextmenu)="onContextMenu($event, item)">Right Click: {{item.name}}</li>
+    <li *ngFor="let item of items" (contextMenu)="onContextMenu($event, item)">Right Click: {{item.name}}</li>
 </ul>
 ```
 
