@@ -15,12 +15,18 @@ import {
   /* tslint:enable:directive-selector-type */
 })
 export class ContextMenuItemDirective implements Highlightable {
-  @Input() public subMenu: any;
-  @Input() public divider = false;
-  @Input() public enabled: boolean | ((item: any) => boolean) = true;
-  @Input() public passive = false;
-  @Input() public visible: boolean | ((item: any) => boolean) = true;
-  @Output() public execute: EventEmitter<{
+  @Input()
+  public subMenu: any;
+  @Input()
+  public divider = false;
+  @Input()
+  public enabled: boolean | ((item: any) => boolean) = true;
+  @Input()
+  public passive = false;
+  @Input()
+  public visible: boolean | ((item: any) => boolean) = true;
+  @Output()
+  public execute: EventEmitter<{
     event: MouseEvent | KeyboardEvent;
     item: any;
   }> = new EventEmitter();

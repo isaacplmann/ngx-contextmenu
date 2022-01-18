@@ -1,12 +1,14 @@
 # CHANGELOG
 
-## [6.0.0-alpha.0](https://github.com/PerfectMemory/ngx-contextmenu) (2022-01-20)
-
-Project forked from https://github.com/isaacplmann/ngx-contextmenu
+## [7.0.0-alpha.0](https://github.com/PerfectMemory/ngx-contextmenu) (2022-01-20)
 
 ### BREAKING CHANGES
 
 - **Dependency**: Require Angular 13
+
+## [6.0.0-alpha.0](https://github.com/PerfectMemory/ngx-contextmenu) (2022-01-20)
+
+- Project forked from https://github.com/isaacplmann/ngx-contextmenu
 
 ## [6.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2020-08-19)
 

@@ -48,21 +48,21 @@ export type CloseContextMenuEvent =
 export class ContextMenuService {
   public isDestroyingLeafMenu = false;
 
-  public show: Subject<IContextMenuClickEvent> =
-    new Subject<IContextMenuClickEvent>();
+  public show: Subject<IContextMenuClickEvent> = new Subject();
   public triggerClose: Subject<ContextMenuContentComponent> = new Subject();
   public close: Subject<CloseContextMenuEvent> = new Subject();
 
   private overlays: OverlayRef[] = [];
-  private fakeElement: any = {
-    getBoundingClientRect: (): ClientRect => ({
-      bottom: 0,
-      height: 0,
-      left: 0,
-      right: 0,
-      top: 0,
-      width: 0,
-    }),
+  private fakeElement: {
+    width?: number;
+    height?: number;
+    x: number;
+    y: number;
+  } = {
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
   };
 
   constructor(
@@ -75,42 +75,56 @@ export class ContextMenuService {
 
     if (!parentContextMenu) {
       const mouseEvent = event as MouseEvent;
-      this.fakeElement.getBoundingClientRect = (): ClientRect => ({
-        bottom: mouseEvent.clientY,
+      this.fakeElement = {
         height: 0,
-        left: mouseEvent.clientX,
-        right: mouseEvent.clientX,
-        top: mouseEvent.clientY,
         width: 0,
-      });
+        x: mouseEvent.clientX,
+        y: mouseEvent.clientY,
+      };
       this.closeAllContextMenus({ eventType: 'cancel', event });
       const positionStrategy = this.overlay
         .position()
-        .connectedTo(
-          new ElementRef(anchorElement || this.fakeElement),
-          { originX: 'start', originY: 'bottom' },
-          { overlayX: 'start', overlayY: 'top' }
+        .flexibleConnectedTo(
+          anchorElement ? new ElementRef(anchorElement) : this.fakeElement
         )
-        .withFallbackPosition(
-          { originX: 'start', originY: 'top' },
-          { overlayX: 'start', overlayY: 'bottom' }
-        )
-        .withFallbackPosition(
-          { originX: 'end', originY: 'top' },
-          { overlayX: 'start', overlayY: 'top' }
-        )
-        .withFallbackPosition(
-          { originX: 'start', originY: 'top' },
-          { overlayX: 'end', overlayY: 'top' }
-        )
-        .withFallbackPosition(
-          { originX: 'end', originY: 'center' },
-          { overlayX: 'start', overlayY: 'center' }
-        )
-        .withFallbackPosition(
-          { originX: 'start', originY: 'center' },
-          { overlayX: 'end', overlayY: 'center' }
-        );
+        .withPositions([
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top',
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'bottom',
+          },
+          {
+            originX: 'end',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'top',
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'end',
+            overlayY: 'top',
+          },
+          {
+            originX: 'end',
+            originY: 'center',
+            overlayX: 'start',
+            overlayY: 'center',
+          },
+          {
+            originX: 'start',
+            originY: 'center',
+            overlayX: 'end',
+            overlayY: 'center',
+          },
+        ]);
       this.overlays = [
         this.overlay.create({
           positionStrategy,
@@ -122,23 +136,35 @@ export class ContextMenuService {
     } else {
       const positionStrategy = this.overlay
         .position()
-        .connectedTo(
-          new ElementRef(event ? event.target : anchorElement),
-          { originX: 'end', originY: 'top' },
-          { overlayX: 'start', overlayY: 'top' }
+        .flexibleConnectedTo(
+          new ElementRef(event ? event.target : anchorElement)
         )
-        .withFallbackPosition(
-          { originX: 'start', originY: 'top' },
-          { overlayX: 'end', overlayY: 'top' }
-        )
-        .withFallbackPosition(
-          { originX: 'end', originY: 'bottom' },
-          { overlayX: 'start', overlayY: 'bottom' }
-        )
-        .withFallbackPosition(
-          { originX: 'start', originY: 'bottom' },
-          { overlayX: 'end', overlayY: 'bottom' }
-        );
+        .withPositions([
+          {
+            originX: 'end',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'top',
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'end',
+            overlayY: 'top',
+          },
+          {
+            originX: 'end',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'bottom',
+          },
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'end',
+            overlayY: 'bottom',
+          },
+        ]);
       const newOverlay = this.overlay.create({
         positionStrategy,
         panelClass: 'ngx-contextmenu',

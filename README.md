@@ -2,7 +2,9 @@
 
 An Angular based context menu module inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu) and forked from original work of [Isaac Mann](https://github.com/isaacplmann/ngx-contextmenu.git).
 
-A context menu built with Angular (12) inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/) [Stackblitz example](https://stackblitz.com/edit/ngx-contextmenu-example)
+## Note
+
+This project has just been forked to make it possible to port it to Angular 13. There is no breaking changes in version 7 appart from being compatible with Angular 13. However there might be changes in future releases. The rest of the current README is still the one from the original repository.
 
 ## Installation
 

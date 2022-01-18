@@ -29,8 +29,5 @@ import { ChildTwoComponent } from './components/child2.component';
       },
     ]),
   ],
-  providers: [
-    /* TODO: Providers go here */
-  ],
 })
 export class AppModule {}

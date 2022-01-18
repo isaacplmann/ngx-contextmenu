@@ -6,8 +6,11 @@ import { ContextMenuService } from '../../services/context-menu/context-menu.ser
   selector: '[contextMenu]',
 })
 export class ContextMenuAttachDirective {
-  @Input() public contextMenuSubject: any;
-  @Input() public contextMenu?: ContextMenuComponent;
+  @Input()
+  public contextMenuSubject: any;
+
+  @Input()
+  public contextMenu?: ContextMenuComponent;
 
   constructor(private contextMenuService: ContextMenuService) {}
 

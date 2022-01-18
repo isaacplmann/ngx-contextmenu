@@ -109,31 +109,48 @@ const ARROW_LEFT_KEYCODE = 37;
 export class ContextMenuContentComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
-  @Input() public menuItems: ContextMenuItemDirective[] = [];
-  @Input() public item: any;
+  @Input()
+  public menuItems: ContextMenuItemDirective[] = [];
+
+  @Input()
+  public item: any;
+
   @Input()
   public event!: MouseEvent | KeyboardEvent;
+
   @Input()
   public parentContextMenu!: ContextMenuContentComponent;
+
   @Input()
   public menuClass!: string;
+
   @Input()
   public overlay!: OverlayRef;
-  @Input() public isLeaf = false;
-  @Output() public execute: EventEmitter<{
+
+  @Input()
+  public isLeaf = false;
+
+  @Output()
+  public execute: EventEmitter<{
     event: MouseEvent | KeyboardEvent;
     item: any;
     menuItem: ContextMenuItemDirective;
   }> = new EventEmitter();
-  @Output() public openSubMenu: EventEmitter<IContextMenuClickEvent> =
-    new EventEmitter();
-  @Output() public closeLeafMenu: EventEmitter<CloseLeafMenuEvent> =
-    new EventEmitter();
-  @Output() public closeAllMenus: EventEmitter<{
+
+  @Output()
+  public openSubMenu: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
+
+  @Output()
+  public closeLeafMenu: EventEmitter<CloseLeafMenuEvent> = new EventEmitter();
+
+  @Output()
+  public closeAllMenus: EventEmitter<{
     event: MouseEvent;
   }> = new EventEmitter();
+
   @ViewChild('menu', { static: true })
   public menuElement!: ElementRef;
+
   @ViewChildren('li')
   public menuItemElements!: QueryList<ElementRef>;
 
@@ -152,7 +169,7 @@ export class ContextMenuContentComponent
     }
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.menuItems.forEach((menuItem) => {
       menuItem.currentItem = this.item;
       this.subscription.add(
@@ -168,24 +185,24 @@ export class ContextMenuContentComponent
     ).withWrap();
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit() {
     if (this.autoFocus) {
       setTimeout(() => this.focus());
     }
     this.overlay.updatePosition();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  focus(): void {
+  public focus(): void {
     if (this.autoFocus) {
       this.menuElement.nativeElement.focus();
     }
   }
 
-  stopEvent($event: MouseEvent) {
+  public stopEvent($event: MouseEvent) {
     $event.stopPropagation();
   }
 

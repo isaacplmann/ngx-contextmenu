@@ -6,33 +6,43 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <h3>Routing One</h3>
     <ul>
-      <li *ngFor="let item of items" [contextMenu]="routingMenu" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+      <li
+        *ngFor="let item of items"
+        [contextMenu]="routingMenu"
+        [contextMenuSubject]="item"
+      >
+        Right Click: {{ item?.name }}
+      </li>
     </ul>
     <context-menu #routingMenu>
-      <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name); go($event.item)">
+      <ng-template
+        contextMenuItem
+        (execute)="showMessage('Hi, ' + $event.item.name); go($event.item)"
+      >
         Go!
       </ng-template>
     </context-menu>
-  `
+  `,
 })
-
 export class ChildOneComponent {
-  public items: any[] = [{
-    name: 'One',
-    url: '/one',
-  }, {
-    name: 'Two',
-    url: '/two',
-  }];
+  public items: any[] = [
+    {
+      name: 'One',
+      url: '/one',
+    },
+    {
+      name: 'Two',
+      url: '/two',
+    },
+  ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
-  showMessage(message: any) {
+  public showMessage(message: any) {
     console.log(message);
   }
 
-  go(item: any) {
+  public go(item: any) {
     this.router.navigateByUrl(item.url);
   }
-
 }
