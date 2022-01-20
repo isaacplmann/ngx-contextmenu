@@ -1,4 +1,6 @@
-# ngx-contextmenu
+# @perfectmemory/ngx-contextmenu
+
+An Angular based context menu module inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu) and forked from original work of [Isaac Mann](https://github.com/isaacplmann/ngx-contextmenu.git).
 
 A context menu built with Angular (12) inspired by [ui.bootstrap.contextMenu](https://github.com/Templarian/ui.bootstrap.contextMenu).  Bootstrap classes are included in the markup, but there is no explicit dependency on Bootstrap. [Demo](https://isaacplmann.github.io/ngx-contextmenu/) [Stackblitz example](https://stackblitz.com/edit/ngx-contextmenu-example)
 
@@ -174,7 +176,7 @@ If your `<context-menu>` component is in a different component from your list, y
 ```
 
 ```js
-import { ContextMenuService } from 'ngx-contextmenu';
+import { ContextMenuService } from '@perfectmemory/ngx-contextmenu';
 
 @Component({
   ...

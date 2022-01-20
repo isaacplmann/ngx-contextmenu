@@ -1,5 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ContextMenuService, ContextMenuComponent } from 'ngx-contextmenu';
+import {
+  ContextMenuService,
+  ContextMenuComponent,
+} from '@perfectmemory/ngx-contextmenu';
 
 @Component({
   selector: 'ngx-context-menu-demo',

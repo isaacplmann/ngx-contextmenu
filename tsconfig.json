@@ -12,20 +12,14 @@
     "declaration": false,
     "downlevelIteration": true,
     "paths": {
-      "ngx-contextmenu": [
-        "dist/ngx-contextmenu/ngx-contextmenu",
-        "dist/ngx-contextmenu"
-      ]
+      "@perfectmemory/ngx-contextmenu": ["projects/ngx-contextmenu/src/public-api.ts"]
     },
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
