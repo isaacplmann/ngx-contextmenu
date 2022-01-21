@@ -1,4 +1,9 @@
 # CHANGELOG
+## [7.0.0-alpha.1](https://github.com/PerfectMemory/ngx-contextmenu) (2022-01-20)
+
+### Fixes
+
+- Fix README for proper installation instructions
 
 ## [7.0.0-alpha.0](https://github.com/PerfectMemory/ngx-contextmenu) (2022-01-20)
 
