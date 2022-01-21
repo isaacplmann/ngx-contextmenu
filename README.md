@@ -8,15 +8,12 @@ This project has just been forked to make it possible to port it to Angular 13. 
 
 ## Installation
 
-- `npm install ngx-contextmenu @angular/cdk`
-- import ContextMenuModule.forRoot() into your app module
+- `npm install @perfectmemory/ngx-contextmenu @angular/cdk`
+- import `ContextMenuModule.forRoot()` into your app module
 - Make sure to include `<!doctype html>` at the top of your `index.html`
+- Import CDK in your styles `@import '@angular/cdk/overlay-prebuilt.css';`
 
 ## Usage
-
-### Angular 5 support
-
-Please use ngx-contextmenu@4.2.0 with Angular 5 projects.
 
 ### Template
 
