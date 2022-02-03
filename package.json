@@ -1,6 +1,6 @@
 {
   "name": "@perfectmemory/ngx-contextmenu",
-  "version": "6.0.0-alpha.0",
+  "version": "6.0.0-alpha.1",
   "description": "An Angular component to show a context menu on an arbitrary component",
   "keywords": [
     "angular2",
@@ -27,11 +27,15 @@
     "build:demo": "rimraf dist/demo && ng build",
     "build:lib": "ng build ngx-contextmenu && copyfiles README.md LICENSE dist/ngx-contextmenu/",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test ngx-contextmenu --code-coverage",
+    "ci:test": "ng test ngx-contextmenu --browsers=ChromeHeadless --watch=false --code-coverage",
     "pub": "npm run pub:lib && npm run pub:demo",
     "pub:demo": "npm run build:demo -- --base-href /ngx-contextmenu/ && gh-pages -d dist/demo",
-    "pub:lib": "npm run build:lib && npm publish dist/ngx-contextmenu",
-    "pack:lib": "npm run build:lib && cd dist/ngx-contextmenu && npm pack && copyfiles *.tgz ../../ && cd ../.. && rimraf dist/ngx-contextmenu/*.tgz"
+    "pub:lib": "npm run build:lib && npm publish ./dist/ngx-contextmenu",
+    "pack:lib": "npm run build:lib && cd dist/ngx-contextmenu && npm pack && copyfiles *.tgz ../../ && cd ../.. && rimraf dist/ngx-contextmenu/*.tgz",
+    "preversion": "keepachangelog display unreleased && keepachangelog confirm $npm_new_version --current-version $npm_old_version",
+    "version": "keepachangelog release $npm_new_version && git add ./CHANGELOG.md",
+    "postversion": "git push origin HEAD && git push origin v$npm_new_version"
   },
   "private": false,
   "dependencies": {
@@ -44,6 +48,7 @@
     "@angular/platform-browser": "~12.0.5",
     "@angular/platform-browser-dynamic": "~12.0.5",
     "@angular/router": "~12.0.5",
+    "@vtabary/keepachangelog-cli": "^0.4.0",
     "copyfiles": "^2.4.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.1",
