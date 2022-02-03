@@ -2,16 +2,16 @@ name: Test
 on:
   push:
     branches:
-      - fix/release-6.0
+      - master
   pull_request:
 
 jobs:
-  main:
+  master:
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'pull_request' }}
     steps:
       - uses: actions/checkout@v2
-        name: Checkout [main]
+        name: Checkout [master]
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v1
