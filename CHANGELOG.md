@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [6.0.0] - 2022-02-03
+
 - Improve README
 - Setup github workflows
 
