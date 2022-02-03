@@ -20,6 +20,9 @@
     "type": "git",
     "url": "git+ssh://git@github.com:PerfectMemory/ngx-contextmenu.git"
   },
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -34,7 +37,7 @@
     "pub:lib": "npm run build:lib && npm publish ./dist/ngx-contextmenu",
     "pack:lib": "npm run build:lib && cd dist/ngx-contextmenu && npm pack && copyfiles *.tgz ../../ && cd ../.. && rimraf dist/ngx-contextmenu/*.tgz",
     "preversion": "keepachangelog display unreleased && keepachangelog confirm $npm_new_version --current-version $npm_old_version",
-    "version": "keepachangelog release $npm_new_version && git add ./CHANGELOG.md",
+    "version": "keepachangelog release $npm_new_version && npm --prefix ./projects/ngx-contextmenu pkg set version=$npm_new_version && git add ./CHANGELOG.md ./projects/ngx-contextmenu/package.json",
     "postversion": "git push origin HEAD && git push origin v$npm_new_version"
   },
   "private": false,
@@ -60,6 +63,7 @@
     "@angular/compiler-cli": "~12.0.5",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.20.42",
+    "dot-json": "^1.2.2",
     "jasmine-core": "~3.7.0",
     "karma": "^6.3.11",
     "karma-chrome-launcher": "~3.1.0",
