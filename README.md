@@ -265,8 +265,8 @@ import { ContextMenuService } from '@perfectmemory/ngx-contextmenu';
 })
 export class MyContextMenuClass {
   public items = [
-      { name: 'John', otherProperty: 'Foo' },
-      { name: 'Joe', otherProperty: 'Bar' }
+    { name: 'John', otherProperty: 'Foo' },
+    { name: 'Joe', otherProperty: 'Bar' }
   ];
 
   // Optional
@@ -275,23 +275,22 @@ export class MyContextMenuClass {
 
   constructor(private contextMenuService: ContextMenuService) {}
 
-  public onContextMenu($event: MouseEvent, item: any): void {
+  public onContextMenu(event: MouseEvent, item: any): void {
     this.contextMenuService.show.next({
       // Optional - if unspecified, all context menu components will open
       contextMenu: this.contextMenu,
-      event: $event,
+      event,
       item: item,
     });
-    $event.preventDefault();
-    $event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
   }
 }
 ```
 
 ### Triggering the context menu with a different Event
 
-The context menu can be triggered at any point using the method above. For instance, to trigger the context menu
-with a left click instead of a right click, use this html:
+The context menu can be triggered at any point using the method above. For instance, to trigger the context menu with a left click instead of a right click, use this html:
 
 ```html
 <ul>
@@ -309,16 +308,16 @@ If you want to override the context menu positioning to be appended to an elemen
 provide an `anchorElement` to the `contextMenuService`. This makes sense if you want to trigger the context menu with a non-MouseEvent.
 
 ```ts
-public onContextMenu($event: KeyboardEvent, item: any): void {
+public onContextMenu(event: KeyboardEvent, item: any): void {
   this.contextMenuService.show.next({
-    anchorElement: $event.target,
+    anchorElement: event.target,
     // Optional - if unspecified, all context menu components will open
     contextMenu: this.contextMenu,
-    event: <any>$event,
+    event: <any>event,
     item: item,
   });
-  $event.preventDefault();
-  $event.stopPropagation();
+  event.preventDefault();
+  event.stopPropagation();
 }
 ```
 
@@ -393,7 +392,7 @@ export class AppModule {}
 If you want to style one menu differently than other menus, you can add a custom style to the menu.
 
 ```html
-<context-menu menuClass="'custom-class'"></context-menu>
+<context-menu menuClass="custom-class"></context-menu>
 ```
 
 > Please note that the style needs to be global to affect the menu, since the menu element is added to the page outside the component that triggers the menu.
