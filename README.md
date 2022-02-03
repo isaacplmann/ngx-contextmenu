@@ -38,6 +38,7 @@ export class AppModule {}
 | Angular   | @perfectmemory/ngx-contextmenu |
 | --------- | ------------------------------ |
 | `^12.0.0` | `^6.0.0`                       |
+| `^13.0.0` | `^7.0.0-alpha.0`               |
 
 ## Usage
 
