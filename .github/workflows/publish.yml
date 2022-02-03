@@ -1,4 +1,4 @@
-name: Published to NPM
+name: Publish to NPM
 on:
   push:
     tags:
