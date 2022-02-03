@@ -1,7 +1,7 @@
 {
   "name": "@perfectmemory/ngx-contextmenu",
   "version": "7.0.0-alpha.1",
-  "description": "An Angular component to show a context menu on an arbitrary component",
+  "description": "A context menu component for Angular",
   "keywords": [
     "angular2",
     "contextmenu",
