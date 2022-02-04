@@ -169,6 +169,9 @@ export class ContextMenuContentComponent
     }
   }
 
+  /**
+   * @internal
+   */
   public ngOnInit(): void {
     this.menuItems.forEach((menuItem) => {
       menuItem.currentItem = this.item;
@@ -185,13 +188,19 @@ export class ContextMenuContentComponent
     ).withWrap();
   }
 
+  /**
+   * @internal
+   */
   public ngAfterViewInit() {
     if (this.autoFocus) {
       setTimeout(() => this.focus());
     }
-    this.overlay.updatePosition();
+    this.overlay?.updatePosition();
   }
 
+  /**
+   * @internal
+   */
   public ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -202,8 +211,8 @@ export class ContextMenuContentComponent
     }
   }
 
-  public stopEvent($event: MouseEvent) {
-    $event.stopPropagation();
+  public stopEvent(event: MouseEvent) {
+    event.stopPropagation();
   }
 
   public isMenuItemEnabled(menuItem: ContextMenuItemDirective): boolean {
