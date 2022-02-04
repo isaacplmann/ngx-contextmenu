@@ -1,7 +1,6 @@
 # Angular library @perfectmemory/ngx-contextmenu
 
-[![Test](https://github.com/PerfectMemory/ngx-contextmenu/actions/workflows/test.yml/badge.svg)](https://github.com/PerfectMemory/ngx-contextmenu/actions/workflows/test.yml)
-[![Published to NPM](https://github.com/PerfectMemory/ngx-contextmenu/actions/workflows/publish.yml/badge.svg)](https://github.com/PerfectMemory/ngx-contextmenu/actions/workflows/publish.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Test](https://github.com/PerfectMemory/ngx-contextmenu/actions/workflows/test.yml/badge.svg)](https://github.com/PerfectMemory/ngx-contextmenu/actions/workflows/test.yml) [![codecov](https://codecov.io/gh/PerfectMemory/ngx-contextmenu/branch/master/graph/badge.svg?token=5DSYMY9C9A)](https://codecov.io/gh/PerfectMemory/ngx-contextmenu) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A context menu component for Angular.
 

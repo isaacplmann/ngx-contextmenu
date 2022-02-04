@@ -105,6 +105,9 @@ export class ContextMenuComponent implements OnDestroy {
     );
   }
 
+  /**
+   * @internal
+   */
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

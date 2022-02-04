@@ -20,6 +20,12 @@ jobs:
       - run: npm install
       - run: npm run build:lib
       - run: npm run ci:test
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/@perfectmemory/ngx-contextmenu/lcov.info
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
   pr:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
