@@ -177,62 +177,62 @@ export class ContextMenuService {
   }
 
   public attachContextMenu(
-    overlay: OverlayRef,
+    overlayRef: OverlayRef,
     context: IContextMenuContext
   ): void {
     const { event, item, menuItems, menuClass } = context;
-
-    const contextMenuContent: ComponentRef<ContextMenuContentComponent> =
-      overlay.attach(new ComponentPortal(ContextMenuContentComponent));
-    contextMenuContent.instance.event = event;
-    contextMenuContent.instance.item = item;
-    contextMenuContent.instance.menuItems = menuItems;
-    contextMenuContent.instance.overlay = overlay;
-    contextMenuContent.instance.isLeaf = true;
-    contextMenuContent.instance.menuClass = menuClass;
-    (<OverlayRefWithContextMenu>overlay).contextMenu =
-      contextMenuContent.instance;
+    const contextMenuContentRef = overlayRef.attach(
+      new ComponentPortal(ContextMenuContentComponent)
+    );
+    contextMenuContentRef.instance.event = event;
+    contextMenuContentRef.instance.item = item;
+    contextMenuContentRef.instance.menuItems = menuItems;
+    contextMenuContentRef.instance.overlay = overlayRef;
+    contextMenuContentRef.instance.isLeaf = true;
+    contextMenuContentRef.instance.menuClass = menuClass;
+    (<OverlayRefWithContextMenu>overlayRef).contextMenu =
+      contextMenuContentRef.instance;
 
     const subscriptions: Subscription = new Subscription();
     subscriptions.add(
-      contextMenuContent.instance.execute
+      contextMenuContentRef.instance.execute
         .asObservable()
         .subscribe((executeEvent) =>
           this.closeAllContextMenus({ eventType: 'execute', ...executeEvent })
         )
     );
     subscriptions.add(
-      contextMenuContent.instance.closeAllMenus
+      contextMenuContentRef.instance.closeAllMenus
         .asObservable()
         .subscribe((closeAllEvent) =>
           this.closeAllContextMenus({ eventType: 'cancel', ...closeAllEvent })
         )
     );
     subscriptions.add(
-      contextMenuContent.instance.closeLeafMenu
+      contextMenuContentRef.instance.closeLeafMenu
         .asObservable()
         .subscribe((closeLeafMenuEvent) =>
           this.destroyLeafMenu(closeLeafMenuEvent)
         )
     );
     subscriptions.add(
-      contextMenuContent.instance.openSubMenu
+      contextMenuContentRef.instance.openSubMenu
         .asObservable()
         .subscribe((subMenuEvent: IContextMenuClickEvent) => {
-          this.destroySubMenus(contextMenuContent.instance);
+          this.destroySubMenus(contextMenuContentRef.instance);
           if (!subMenuEvent.contextMenu) {
-            contextMenuContent.instance.isLeaf = true;
+            contextMenuContentRef.instance.isLeaf = true;
             return;
           }
-          contextMenuContent.instance.isLeaf = false;
+          contextMenuContentRef.instance.isLeaf = false;
           this.show.next(subMenuEvent);
         })
     );
-    contextMenuContent.onDestroy(() => {
+    contextMenuContentRef.onDestroy(() => {
       menuItems.forEach((menuItem) => (menuItem.isActive = false));
       subscriptions.unsubscribe();
     });
-    contextMenuContent.changeDetectorRef.detectChanges();
+    contextMenuContentRef.changeDetectorRef.detectChanges();
   }
 
   public closeAllContextMenus(closeEvent: CloseContextMenuEvent): void {

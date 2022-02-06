@@ -1,8 +1,17 @@
-# Angular library @perfectmemory/ngx-contextmenu
+# Context menu for Angular
 
+![Angular](https://img.shields.io/badge/Angular-B52E31?logo=angular)
 [![Test](https://github.com/PerfectMemory/ngx-contextmenu/actions/workflows/test.yml/badge.svg)](https://github.com/PerfectMemory/ngx-contextmenu/actions/workflows/test.yml) [![codecov](https://codecov.io/gh/PerfectMemory/ngx-contextmenu/branch/master/graph/badge.svg?token=5DSYMY9C9A)](https://codecov.io/gh/PerfectMemory/ngx-contextmenu) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A context menu component for Angular.
+
+## Plans
+- :heavy_check_mark: Fork the project from an unmaintained repository
+- :heavy_check_mark: Support Angular 12 and the following releases
+- :chart_with_upwards_trend: Increase the code coverage to have a better deep understanding of the code base
+  - the original repo had no tests at all and now [![codecov](https://codecov.io/gh/PerfectMemory/ngx-contextmenu/branch/master/graph/badge.svg?token=5DSYMY9C9A)](https://codecov.io/gh/PerfectMemory/ngx-contextmenu)
+- [ ] Cleanup and reduce the public API as well as properly document it
+- [ ] Provide better demo
 
 ## Installation
 
@@ -30,6 +39,12 @@ import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
   ...
 })
 export class AppModule {}
+```
+
+- Import Angular CDK prebuilt in your styles
+
+```scss
+@import '@angular/cdk/overlay-prebuilt.css';
 ```
 
 ## Angular compatibility
