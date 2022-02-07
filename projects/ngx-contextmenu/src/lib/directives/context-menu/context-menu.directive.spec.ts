@@ -34,6 +34,10 @@ describe('Directive: ContextMenuAttachDirective', () => {
     contextMenuService.show.subscribe(show);
   });
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   describe('#new', () => {
     it('should create an instance', () => {
       expect(directive).toBeTruthy();

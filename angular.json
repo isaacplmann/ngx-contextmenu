@@ -94,7 +94,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "@angular/cdk/overlay-prebuilt.css"
             ],
             "scripts": []
           }
