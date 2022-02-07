@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [7.0.0] - 2022-02-07
+
 - Create tests and add code coverage
 
 ## 7.0.0-alpha.0 - (2022-01-20)
