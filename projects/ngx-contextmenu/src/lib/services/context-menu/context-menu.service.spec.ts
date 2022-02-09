@@ -246,7 +246,7 @@ describe('Service: ContextMenuService', () => {
     });
 
     describe('with parent context menu', () => {
-      it('should get a position strategy with event target and create an overlay from it', () => {
+      it('should get a position strategy with MouseEvent target and create an overlay from it', () => {
         spyOn(service, 'destroySubMenus');
         spyOn(service, 'attachContextMenu');
         const target = document.createElement('div');
@@ -317,6 +317,70 @@ describe('Service: ContextMenuService', () => {
         const anchorElement = document.createElement('div');
         const context = {
           event: undefined,
+          item: {},
+          menuClass: '',
+          menuItems: [],
+          parentContextMenu: contextMenuContentComponent,
+          anchorElement,
+        } as unknown as IContextMenuContext;
+        service.openContextMenu(context);
+
+        expect(overlayPosition).toHaveBeenCalled();
+        expect(overlayFlexibleConnectedTo).toHaveBeenCalledWith(
+          jasmine.any(ElementRef)
+        );
+        expect(overlayFlexibleConnectedTo).toHaveBeenCalledWith(
+          jasmine.objectContaining({
+            nativeElement: anchorElement,
+          })
+        );
+        expect(overlayWithPositions).toHaveBeenCalledWith([
+          {
+            originX: 'end',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'top',
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'end',
+            overlayY: 'top',
+          },
+          {
+            originX: 'end',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'bottom',
+          },
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'end',
+            overlayY: 'bottom',
+          },
+        ]);
+        expect(overlayCreate).toHaveBeenCalledWith({
+          positionStrategy,
+          panelClass: 'ngx-contextmenu',
+          scrollStrategy: closeScrollStrategy,
+        });
+
+        expect(service.attachContextMenu).toHaveBeenCalledWith(
+          overlayRef,
+          context
+        );
+        expect(service.destroySubMenus).toHaveBeenCalledWith(
+          contextMenuContentComponent
+        );
+      });
+
+      it('should get a position strategy with anchorElement with KeyboardEvent and create an overlay from it', () => {
+        spyOn(service, 'destroySubMenus');
+        spyOn(service, 'attachContextMenu');
+        const anchorElement = document.createElement('div');
+        const context = {
+          event: new KeyboardEvent('down'),
           item: {},
           menuClass: '',
           menuItems: [],
