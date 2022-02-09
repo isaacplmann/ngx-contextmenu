@@ -123,7 +123,9 @@ export class ContextMenuService {
       const positionStrategy = this.overlay
         .position()
         .connectedTo(
-          new ElementRef(event ? event.target : anchorElement),
+          new ElementRef(
+            event instanceof MouseEvent ? event.target : anchorElement
+          ),
           { originX: 'end', originY: 'top' },
           { overlayX: 'start', overlayY: 'top' }
         )
