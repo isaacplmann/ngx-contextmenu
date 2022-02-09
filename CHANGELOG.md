@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [7.0.1] - 2022-02-09
+
+### Fixed
+
+- Fix opening submenu with the keyboard would not always properly position it next to its parent menu
+
 ## [7.0.0] - 2022-02-07
 
 - Create tests and add code coverage

@@ -137,7 +137,9 @@ export class ContextMenuService {
       const positionStrategy = this.overlay
         .position()
         .flexibleConnectedTo(
-          new ElementRef(event ? event.target : anchorElement)
+          new ElementRef(
+            event instanceof MouseEvent ? event.target : anchorElement
+          )
         )
         .withPositions([
           {
