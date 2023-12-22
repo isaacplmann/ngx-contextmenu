@@ -18,13 +18,13 @@ import {
   ViewChildren
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ContextMenuItemDirective } from './contextMenu.item.directive';
 import { IContextMenuOptions } from './contextMenu.options';
 import {
   CloseLeafMenuEvent,
   IContextMenuClickEvent
 } from './contextMenu.service';
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
+import {ContextMenuItemInterface} from './contextMenu.item.interface';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -84,9 +84,10 @@ const ARROW_LEFT_KEYCODE = 37;
             (mouseenter)="onOpenSubMenu(menuItem, $event)"
           >
             <ng-template
+              *ngIf="menuItem.template"
               [ngTemplateOutlet]="menuItem.template"
               [ngTemplateOutletContext]="{ $implicit: item }"
-            ></ng-template>
+            ></ng-template>{{menuItem.text}}
           </a>
 
           <span
@@ -98,9 +99,10 @@ const ARROW_LEFT_KEYCODE = 37;
             [class.disabled]="useBootstrap4 && !isMenuItemEnabled(menuItem)"
           >
             <ng-template
+              *ngIf="menuItem.template"
               [ngTemplateOutlet]="menuItem.template"
               [ngTemplateOutletContext]="{ $implicit: item }"
-            ></ng-template>
+            ></ng-template>{{menuItem.text}}
           </span>
         </li>
       </ul>
@@ -109,7 +111,7 @@ const ARROW_LEFT_KEYCODE = 37;
 })
 export class ContextMenuContentComponent
   implements OnInit, OnDestroy, AfterViewInit {
-  @Input() public menuItems: ContextMenuItemDirective[] = [];
+  @Input() public menuItems: ContextMenuItemInterface[] = [];
   @Input() public item: any;
   @Input() public event: MouseEvent | KeyboardEvent;
   @Input() public parentContextMenu: ContextMenuContentComponent;
@@ -119,7 +121,7 @@ export class ContextMenuContentComponent
   @Output() public execute: EventEmitter<{
     event: MouseEvent | KeyboardEvent;
     item: any;
-    menuItem: ContextMenuItemDirective;
+    menuItem: ContextMenuItemInterface;
   }> = new EventEmitter();
   @Output() public openSubMenu: EventEmitter<
     IContextMenuClickEvent
@@ -135,7 +137,7 @@ export class ContextMenuContentComponent
 
   public autoFocus = false;
   public useBootstrap4 = false;
-  private _keyManager: ActiveDescendantKeyManager<ContextMenuItemDirective>;
+  private _keyManager: ActiveDescendantKeyManager<ContextMenuItemInterface>;
   private subscription: Subscription = new Subscription();
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -153,15 +155,10 @@ export class ContextMenuContentComponent
   ngOnInit(): void {
     this.menuItems.forEach(menuItem => {
       menuItem.currentItem = this.item;
-      this.subscription.add(
-        menuItem.execute.subscribe(event =>
-          this.execute.emit({ ...event, menuItem })
-        )
-      );
     });
-    const queryList = new QueryList<ContextMenuItemDirective>();
+    const queryList = new QueryList<ContextMenuItemInterface>();
     queryList.reset(this.menuItems);
-    this._keyManager = new ActiveDescendantKeyManager<ContextMenuItemDirective>(
+    this._keyManager = new ActiveDescendantKeyManager<ContextMenuItemInterface>(
       queryList
     ).withWrap();
   }
@@ -187,11 +184,11 @@ export class ContextMenuContentComponent
     $event.stopPropagation();
   }
 
-  public isMenuItemEnabled(menuItem: ContextMenuItemDirective): boolean {
+  public isMenuItemEnabled(menuItem: ContextMenuItemInterface): boolean {
     return this.evaluateIfFunction(menuItem && menuItem.enabled);
   }
 
-  public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {
+  public isMenuItemVisible(menuItem: ContextMenuItemInterface): boolean {
     return this.evaluateIfFunction(menuItem && menuItem.visible);
   }
 
@@ -263,7 +260,7 @@ export class ContextMenuContentComponent
   }
 
   public onOpenSubMenu(
-    menuItem: ContextMenuItemDirective,
+    menuItem: ContextMenuItemInterface,
     event?: MouseEvent | KeyboardEvent
   ): void {
     const anchorElementRef = this.menuItemElements.toArray()[
@@ -280,14 +277,15 @@ export class ContextMenuContentComponent
   }
 
   public onMenuItemSelect(
-    menuItem: ContextMenuItemDirective,
+    menuItem: ContextMenuItemInterface,
     event: MouseEvent | KeyboardEvent
   ): void {
     event.preventDefault();
     event.stopPropagation();
     this.onOpenSubMenu(menuItem, event);
-    if (!menuItem.subMenu) {
-      menuItem.triggerExecute(this.item, event);
+    if (!menuItem.subMenu && !menuItem.disabled) {
+      menuItem.callback(this.item, event);
+      this.execute.emit({ item: this.item, event: event, menuItem })
     }
   }
 
