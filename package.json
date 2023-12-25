@@ -1,5 +1,5 @@
 {
-  "name": "@perfectmemory/ngx-contextmenu",
+  "name": "@argentumcode/ngx-contextmenu",
   "version": "7.0.1",
   "description": "Context menu for Angular",
   "keywords": [
@@ -18,7 +18,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:PerfectMemory/ngx-contextmenu.git"
+    "url": "git+ssh://git@github.com:argentumcode/ngx-contextmenu.git"
   },
   "engines": {
     "node": ">=16"

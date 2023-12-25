@@ -1,3 +1,7 @@
+# @argentumcode/ngx-contextmenu
+
+This library is a fork of [ngx-contextmenu](https://github.com/isaacplmann/ngx-contextmenu).
+
 # Context menu for Angular
 
 ![Angular](https://img.shields.io/badge/Angular-B52E31?logo=angular)

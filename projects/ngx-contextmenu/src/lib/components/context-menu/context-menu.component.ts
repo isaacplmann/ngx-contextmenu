@@ -22,6 +22,7 @@ import {
   ContextMenuService,
   IContextMenuClickEvent,
 } from '../../services/context-menu/context-menu.service';
+import { ContextMenuItemInterface } from '../../context-menu-item.interface';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -78,11 +79,11 @@ export class ContextMenuComponent implements OnDestroy {
   public open: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
 
   @ContentChildren(ContextMenuItemDirective)
-  public menuItems!: QueryList<ContextMenuItemDirective>;
+  public menuItems!: QueryList<ContextMenuItemInterface>;
 
   @ViewChild('menu', { static: false })
   public menuElement!: ElementRef;
-  public visibleMenuItems: ContextMenuItemDirective[] = [];
+  public visibleMenuItems: ContextMenuItemInterface[] = [];
   public links: ILinkConfig[] = [];
   public item: any;
   public event?: MouseEvent | KeyboardEvent;
@@ -135,7 +136,7 @@ export class ContextMenuComponent implements OnDestroy {
     this.open.next(menuEvent);
   }
 
-  public isMenuItemVisible(menuItem: ContextMenuItemDirective): boolean {
+  public isMenuItemVisible(menuItem: ContextMenuItemInterface): boolean {
     return this.evaluateIfFunction(menuItem.visible);
   }
 

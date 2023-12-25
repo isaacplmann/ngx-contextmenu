@@ -20,3 +20,5 @@ export * from './lib/services/context-menu/context-menu.service';
  * Models
  */
 export * from './lib/context-menu.options';
+export * from './lib/context-menu';
+export * from './lib/context-menu-item';

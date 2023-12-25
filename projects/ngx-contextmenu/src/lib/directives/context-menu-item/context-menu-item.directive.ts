@@ -1,4 +1,3 @@
-import { Highlightable } from '@angular/cdk/a11y';
 import {
   Directive,
   ElementRef,
@@ -8,11 +7,12 @@ import {
   Output,
   TemplateRef,
 } from '@angular/core';
+import { ContextMenuItemInterface } from '../../context-menu-item.interface';
 
 @Directive({
   selector: '[contextMenuItem]',
 })
-export class ContextMenuItemDirective implements Highlightable {
+export class ContextMenuItemDirective implements ContextMenuItemInterface {
   @Input()
   public subMenu: any;
 
@@ -63,7 +63,7 @@ export class ContextMenuItemDirective implements Highlightable {
     this.isActive = false;
   }
 
-  public triggerExecute(item: any, $event: MouseEvent | KeyboardEvent): void {
+  public callback(item: any, $event: MouseEvent | KeyboardEvent): void {
     if (!this.evaluateIfFunction(this.enabled, item)) {
       return;
     }

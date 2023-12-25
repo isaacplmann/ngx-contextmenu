@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import {
+  ContextMenu,
+  ContextMenuItem,
   ContextMenuService,
   ContextMenuComponent,
 } from '@perfectmemory/ngx-contextmenu';
@@ -126,5 +128,40 @@ export class AppComponent {
 
   public log(message: any): void {
     console.log(message);
+  }
+
+  showContextMenuFromCode(event: MouseEvent) {
+    const item = new ContextMenuItem({
+      text: 'hogehoge',
+      executeFunction: () => {
+        console.log(`Clicked`);
+      },
+    });
+    this.contextMenuService.show.next({
+      event: event,
+      item: { item: 'hogehoge' },
+      contextMenu: new ContextMenu({
+        menuClass: '',
+        items: [
+          item,
+          new ContextMenuItem({
+            text: 'submenu',
+            subMenu: new ContextMenu({
+              menuClass: '',
+              items: [
+                new ContextMenuItem({
+                  text: 'submenu item1',
+                  executeFunction: (i) => {
+                    console.log(`clicked ${i.item}`);
+                  },
+                }),
+              ],
+            }),
+          }),
+        ],
+      }),
+    });
+    event.preventDefault();
+    event.stopPropagation();
   }
 }
