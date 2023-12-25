@@ -1,4 +1,4 @@
-import {ContextMenuItemInterface} from './contextMenu.item.interface';
+import { ContextMenuItemInterface } from './contextMenu.item.interface';
 
 export class ContextMenuItem implements ContextMenuItemInterface {
   currentItem: any = undefined;
@@ -14,7 +14,18 @@ export class ContextMenuItem implements ContextMenuItemInterface {
   text: string;
 
   constructor(
-    props: Partial<Pick<ContextMenuItem, 'divider' | 'enabled'  | 'passive' | 'subMenu' | 'visible' | 'text' | 'executeFunction'>>
+    props: Partial<
+      Pick<
+        ContextMenuItem,
+        | 'divider'
+        | 'enabled'
+        | 'passive'
+        | 'subMenu'
+        | 'visible'
+        | 'text'
+        | 'executeFunction'
+      >
+    >
   ) {
     if (props.divider !== undefined) {
       this.divider = props.divider;
@@ -40,9 +51,11 @@ export class ContextMenuItem implements ContextMenuItemInterface {
   }
 
   get disabled() {
-    return this.passive ||
+    return (
+      this.passive ||
       this.divider ||
-      !this.evaluateIfFunction(this.enabled, this.currentItem);
+      !this.evaluateIfFunction(this.enabled, this.currentItem)
+    );
   }
 
   public evaluateIfFunction(value: any, item: any): any {

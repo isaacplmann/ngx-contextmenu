@@ -1,6 +1,6 @@
-import {Highlightable} from '@angular/cdk/a11y';
-import {Observable} from 'rxjs';
-import {TemplateRef} from '@angular/core';
+import { Highlightable } from '@angular/cdk/a11y';
+import { Observable } from 'rxjs';
+import { TemplateRef } from '@angular/core';
 
 export interface ContextMenuItemInterface extends Highlightable {
   divider: boolean;

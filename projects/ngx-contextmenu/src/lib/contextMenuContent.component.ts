@@ -24,7 +24,7 @@ import {
   IContextMenuClickEvent
 } from './contextMenu.service';
 import { CONTEXT_MENU_OPTIONS } from './contextMenu.tokens';
-import {ContextMenuItemInterface} from './contextMenu.item.interface';
+import { ContextMenuItemInterface } from './contextMenu.item.interface';
 
 export interface ILinkConfig {
   click: (item: any, $event?: MouseEvent) => void;
@@ -87,7 +87,8 @@ const ARROW_LEFT_KEYCODE = 37;
               *ngIf="menuItem.template"
               [ngTemplateOutlet]="menuItem.template"
               [ngTemplateOutletContext]="{ $implicit: item }"
-            ></ng-template>{{menuItem.text}}
+            ></ng-template
+            >{{ menuItem.text }}
           </a>
 
           <span
@@ -102,7 +103,8 @@ const ARROW_LEFT_KEYCODE = 37;
               *ngIf="menuItem.template"
               [ngTemplateOutlet]="menuItem.template"
               [ngTemplateOutletContext]="{ $implicit: item }"
-            ></ng-template>{{menuItem.text}}
+            ></ng-template
+            >{{ menuItem.text }}
           </span>
         </li>
       </ul>
@@ -285,7 +287,7 @@ export class ContextMenuContentComponent
     this.onOpenSubMenu(menuItem, event);
     if (!menuItem.subMenu && !menuItem.disabled) {
       menuItem.callback(this.item, event);
-      this.execute.emit({ item: this.item, event: event, menuItem })
+      this.execute.emit({ item: this.item, event: event, menuItem });
     }
   }
 

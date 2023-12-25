@@ -1,5 +1,5 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {ContextMenu, ContextMenuComponent, ContextMenuItem, ContextMenuService} from 'ngx-contextmenu';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ContextMenu, ContextMenuComponent, ContextMenuItem, ContextMenuService } from 'ngx-contextmenu';
 
 @Component({
   selector: 'ngx-context-menu-demo',
@@ -113,32 +113,34 @@ export class AppComponent {
 
   showContextMenuFromCode(event: MouseEvent) {
     const item = new ContextMenuItem({
-      text: 'hogehoge', executeFunction: () => {
+      text: 'hogehoge',
+      executeFunction: () => {
         console.log(`Clicked`);
-      }
+      },
     });
     this.contextMenuService.show.next({
       event: event,
-      item: {item: 'hogehoge'},
+      item: { item: 'hogehoge' },
       contextMenu: new ContextMenu({
         menuClass: '',
         items: [
           item,
           new ContextMenuItem({
-            text: 'submenu', subMenu: new ContextMenu({
+            text: 'submenu',
+            subMenu: new ContextMenu({
               menuClass: '',
               items: [
                 new ContextMenuItem({
                   text: 'submenu item1',
                   executeFunction: (i) => {
                     console.log(`clicked ${i.item}`);
-                  }
-                })
-              ]
-            })
+                  },
+                }),
+              ],
+            }),
           }),
-        ]
-      })
+        ],
+      }),
     });
     event.preventDefault();
     event.stopPropagation();

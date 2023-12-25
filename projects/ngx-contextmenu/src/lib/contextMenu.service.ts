@@ -245,11 +245,16 @@ export class ContextMenuService implements OnDestroy{
     return contextMenuContent.overlay === overlay;
   }
 
-
-  private showWithoutComponent(contextMenu: ContextMenu, event: IContextMenuClickEvent): void {
+  private showWithoutComponent(
+    contextMenu: ContextMenu,
+    event: IContextMenuClickEvent
+  ): void {
     const ctx = this.openContextMenu({
       ...event,
-      menuItems: contextMenu.items.filter(a => this.evaluateIfFunction(a.visible, event.item)), menuClass: contextMenu.menuClass
+      menuItems: contextMenu.items.filter((a) =>
+        this.evaluateIfFunction(a.visible, event.item)
+      ),
+      menuClass: contextMenu.menuClass,
     });
   }
 
