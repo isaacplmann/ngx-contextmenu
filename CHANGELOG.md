@@ -57,6 +57,14 @@
 * version 1.0.0 ([49ef5c1](https://github.com/isaacplmann/ngx-contextmenu/commit/49ef5c13d09d523dd6214e41f29ab0c88c74ac47))
 
 
+<a name="6.0.0"></a>
+
+# [6.0.0](https://github.com/isaacplmann/ngx-contextmenu) (2020-08-19)
+
+### BREAKING CHANGES
+
+- **Dependency**: Require Angular 12
+
 <a name="5.3.0"></a>
 
 # [5.3.0](https://github.com/isaacplmann/ngx-contextmenu) (2020-08-19)
@@ -64,7 +72,7 @@
 ### Features
 
 - **Dependency**: Allow Angular 10
-  
+
 <a name="5.2.0"></a>
 
 # [5.2.0](https://github.com/isaacplmann/ngx-contextmenu) (2019-05-03)
