@@ -5,6 +5,7 @@ import { ContextMenuComponent } from '../../components/context-menu/context-menu
 import { ContextMenuItemDirective } from '../../directives/context-menu-item/context-menu-item.directive';
 import { ContextMenuService } from '../../services/context-menu/context-menu.service';
 import { ContextMenuAttachDirective } from './context-menu.directive';
+import { CONTEXT_MENU_OPTIONS } from '../../context-menu.tokens';
 
 describe('Integ: ContextMenuAttachDirective', () => {
   let host: SpectatorHost<ContextMenuAttachDirective>;
@@ -16,7 +17,13 @@ describe('Integ: ContextMenuAttachDirective', () => {
       ContextMenuComponent,
       ContextMenuContentComponent,
     ],
-    providers: [ContextMenuService],
+    providers: [
+      ContextMenuService,
+      {
+          provide: CONTEXT_MENU_OPTIONS,
+          useValue: {},
+      },
+    ],
     imports: [OverlayModule],
     shallow: false,
     detectChanges: true,

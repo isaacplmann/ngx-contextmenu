@@ -17,6 +17,7 @@ import {
   IContextMenuClickEvent,
   IContextMenuContext,
 } from './context-menu.service';
+import { CONTEXT_MENU_OPTIONS } from '../../context-menu.tokens';
 
 describe('Service: ContextMenuService', () => {
   let service: ContextMenuService;
@@ -84,6 +85,10 @@ describe('Service: ContextMenuService', () => {
       imports: [OverlayModule],
       providers: [
         ContextMenuService,
+        {
+          provide: CONTEXT_MENU_OPTIONS,
+          useValue: {},
+        },
         {
           provide: Overlay,
           useValue: {
@@ -167,6 +172,8 @@ describe('Service: ContextMenuService', () => {
           positionStrategy,
           panelClass: 'ngx-contextmenu',
           scrollStrategy: closeScrollStrategy,
+          hasBackdrop: undefined,
+          backdropClass: ''
         });
 
         expect(service.attachContextMenu).toHaveBeenCalledWith(
@@ -236,6 +243,8 @@ describe('Service: ContextMenuService', () => {
           positionStrategy,
           panelClass: 'ngx-contextmenu',
           scrollStrategy: closeScrollStrategy,
+          hasBackdrop: undefined,
+          backdropClass: ''
         });
 
         expect(service.attachContextMenu).toHaveBeenCalledWith(
@@ -300,6 +309,7 @@ describe('Service: ContextMenuService', () => {
           positionStrategy,
           panelClass: 'ngx-contextmenu',
           scrollStrategy: closeScrollStrategy,
+          hasBackdrop: false,
         });
 
         expect(service.attachContextMenu).toHaveBeenCalledWith(
@@ -364,6 +374,7 @@ describe('Service: ContextMenuService', () => {
           positionStrategy,
           panelClass: 'ngx-contextmenu',
           scrollStrategy: closeScrollStrategy,
+          hasBackdrop: false,
         });
 
         expect(service.attachContextMenu).toHaveBeenCalledWith(
@@ -428,6 +439,7 @@ describe('Service: ContextMenuService', () => {
           positionStrategy,
           panelClass: 'ngx-contextmenu',
           scrollStrategy: closeScrollStrategy,
+          hasBackdrop: false,
         });
 
         expect(service.attachContextMenu).toHaveBeenCalledWith(

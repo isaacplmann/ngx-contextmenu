@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContextMenuItemDirective } from '../../directives/context-menu-item/context-menu-item.directive';
 import { ContextMenuService } from '../../services/context-menu/context-menu.service';
 import { ContextMenuComponent } from './context-menu.component';
+import { CONTEXT_MENU_OPTIONS } from '../../context-menu.tokens';
 
 describe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
@@ -13,7 +14,13 @@ describe('ContextMenuComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [OverlayModule],
-      providers: [ContextMenuService],
+      providers: [
+        ContextMenuService,
+        {
+          provide: CONTEXT_MENU_OPTIONS,
+          useValue: {},
+        },
+      ],
       declarations: [ContextMenuComponent],
     }).compileComponents();
   });

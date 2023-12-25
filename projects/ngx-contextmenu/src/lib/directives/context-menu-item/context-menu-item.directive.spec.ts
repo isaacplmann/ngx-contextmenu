@@ -106,7 +106,7 @@ describe('Directive: ContextMenuItemDirective', () => {
     });
   });
 
-  describe('#triggerExecute', () => {
+  describe('#callback', () => {
     let subscriber: jasmine.Spy<jasmine.Func>;
 
     beforeEach(() => {
@@ -118,7 +118,7 @@ describe('Directive: ContextMenuItemDirective', () => {
       const item = { id: 'item' };
       directive.enabled = jasmine.createSpy('enabled').and.returnValue(true);
       const event = new MouseEvent('click');
-      directive.triggerExecute(item, event);
+      directive.callback(item, event);
       expect(subscriber).toHaveBeenCalledWith({ event, item });
     });
 
@@ -126,7 +126,7 @@ describe('Directive: ContextMenuItemDirective', () => {
       const item = { id: 'item' };
       directive.enabled = true;
       const event = new MouseEvent('click');
-      directive.triggerExecute(item, event);
+      directive.callback(item, event);
       expect(subscriber).toHaveBeenCalledWith({ event, item });
     });
 
@@ -134,7 +134,7 @@ describe('Directive: ContextMenuItemDirective', () => {
       const item = { id: 'item' };
       directive.enabled = false;
       const event = new MouseEvent('click');
-      directive.triggerExecute(item, event);
+      directive.callback(item, event);
       expect(subscriber).not.toHaveBeenCalled();
     });
 
@@ -142,7 +142,7 @@ describe('Directive: ContextMenuItemDirective', () => {
       const item = { id: 'item' };
       directive.enabled = jasmine.createSpy('enabled').and.returnValue(false);
       const event = new MouseEvent('click');
-      directive.triggerExecute(item, event);
+      directive.callback(item, event);
       expect(subscriber).not.toHaveBeenCalled();
     });
   });

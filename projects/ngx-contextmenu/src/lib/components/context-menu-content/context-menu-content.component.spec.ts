@@ -10,6 +10,7 @@ import { ContextMenuItemDirective } from 'dist/ngx-contextmenu/public-api';
 import { Subject } from 'rxjs';
 import { ContextMenuService } from '../../services/context-menu/context-menu.service';
 import { ContextMenuContentComponent } from './context-menu-content.component';
+import { CONTEXT_MENU_OPTIONS } from '../../context-menu.tokens';
 
 describe('Component: ContextMenuContentComponent', () => {
   let component: ContextMenuContentComponent;
@@ -18,7 +19,13 @@ describe('Component: ContextMenuContentComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [OverlayModule],
-      providers: [ContextMenuService],
+      providers: [
+        ContextMenuService,
+        {
+          provide: CONTEXT_MENU_OPTIONS,
+          useValue: {},
+        },
+      ],
       declarations: [ContextMenuContentComponent],
     }).compileComponents();
   });
@@ -54,43 +61,34 @@ describe('Component: ContextMenuContentComponent', () => {
       const execute = jasmine.createSpy('execute');
       component.execute.subscribe(execute);
 
-      const emitterA = new EventEmitter();
-      const emitterB = new EventEmitter();
-      const emitterC = new EventEmitter();
-
       const menuA: ContextMenuItemDirective = {
         currentItem: undefined,
-        execute: emitterA,
-      } as ContextMenuItemDirective;
+        callback: jasmine.createSpy('callbackA'),
+        enabled: true,
+      } as unknown as ContextMenuItemDirective;
       const menuB: ContextMenuItemDirective = {
         currentItem: undefined,
-        execute: emitterB,
-      } as ContextMenuItemDirective;
+        callback: jasmine.createSpy('callbackB'),
+        enabled: true,
+      } as unknown as ContextMenuItemDirective;
       const menuC: ContextMenuItemDirective = {
         currentItem: undefined,
-        execute: emitterC,
-      } as ContextMenuItemDirective;
+        callback: jasmine.createSpy('callbackC'),
+        enabled: true,
+      } as unknown as ContextMenuItemDirective;
       component.menuItems = [menuA, menuB, menuC];
-
+      fixture.detectChanges();
       component.ngOnInit();
-      const eventA = {
-        event: new MouseEvent('click'),
-        item: { id: 'a' },
-      };
-      const eventB = {
-        event: new MouseEvent('click'),
-        item: { id: 'a' },
-      };
-      const eventC = {
-        event: new MouseEvent('click'),
-        item: { id: 'a' },
-      };
-      emitterA.emit(eventA);
-      expect(execute).toHaveBeenCalledWith({ ...eventA, menuItem: menuA });
-      emitterB.emit(eventB);
-      expect(execute).toHaveBeenCalledWith({ ...eventB, menuItem: menuB });
-      emitterC.emit(eventC);
-      expect(execute).toHaveBeenCalledWith({ ...eventC, menuItem: menuC });
+
+      fixture.debugElement.nativeElement.querySelector('li:nth-child(1) > a').click();
+      expect(menuA.callback).toHaveBeenCalled();
+      expect(execute).toHaveBeenCalledWith({ item: undefined, event: jasmine.anything(), menuItem: menuA });
+      fixture.debugElement.nativeElement.querySelector('li:nth-child(2) > a').click();
+      expect(menuB.callback).toHaveBeenCalled();
+      expect(execute).toHaveBeenCalledWith({ item: undefined, event: jasmine.anything(), menuItem: menuB });
+      fixture.debugElement.nativeElement.querySelector('li:nth-child(3) > a').click();
+      expect(menuC.callback).toHaveBeenCalled();
+      expect(execute).toHaveBeenCalledWith({ item: undefined, event: jasmine.anything(), menuItem: menuC });
       expect(execute).toHaveBeenCalledTimes(3);
     });
   });
@@ -474,7 +472,7 @@ describe('Component: ContextMenuContentComponent', () => {
     beforeEach(() => {
       spyOn(component, 'onOpenSubMenu');
       component.item = { id: 'a' };
-      menu = jasmine.createSpyObj('menu', ['triggerExecute']);
+      menu = jasmine.createSpyObj('menu', ['callback']);
       event = jasmine.createSpyObj('event', [
         'stopPropagation',
         'preventDefault',
@@ -498,13 +496,13 @@ describe('Component: ContextMenuContentComponent', () => {
 
     it('should execute if there is no sub menu', () => {
       component.onMenuItemSelect(menu, event);
-      expect(menu.triggerExecute).toHaveBeenCalledWith(component.item, event);
+      expect(menu.callback).toHaveBeenCalledWith(component.item, event);
     });
 
     it('should not execute if there is sub menu', () => {
       menu.subMenu = {};
       component.onMenuItemSelect(menu, event);
-      expect(menu.triggerExecute).not.toHaveBeenCalled();
+      expect(menu.callback).not.toHaveBeenCalled();
     });
   });
 });

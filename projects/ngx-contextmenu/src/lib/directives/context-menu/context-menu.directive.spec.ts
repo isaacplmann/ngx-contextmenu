@@ -1,10 +1,11 @@
 import { OverlayModule } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
+import { Component, QueryList } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ContextMenuComponent } from '../../components/context-menu/context-menu.component';
 import { ContextMenuService } from '../../services/context-menu/context-menu.service';
 import { ContextMenuAttachDirective } from './context-menu.directive';
+import { CONTEXT_MENU_OPTIONS } from '../../context-menu.tokens';
 
 @Component({
   template: '<div contextMenu></div>',
@@ -20,7 +21,13 @@ describe('Directive: ContextMenuAttachDirective', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [OverlayModule],
-      providers: [ContextMenuService],
+      providers: [
+        ContextMenuService,
+        {
+          provide: CONTEXT_MENU_OPTIONS,
+          useValue: {},
+        },
+      ],
       declarations: [ContextMenuAttachDirective, TestHostComponent],
     });
 
@@ -47,6 +54,7 @@ describe('Directive: ContextMenuAttachDirective', () => {
   describe('#onContextMenu', () => {
     it('should show attached context menu', () => {
       directive.contextMenu = new ContextMenuComponent(contextMenuService, {});
+      directive.contextMenu.menuItems = new QueryList();
       directive.contextMenuSubject = { id: 'a' };
       const event = new MouseEvent('contextmenu');
       directive.onContextMenu(event);
