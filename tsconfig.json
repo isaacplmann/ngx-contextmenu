@@ -12,7 +12,7 @@
     "declaration": false,
     "downlevelIteration": true,
     "paths": {
-      "@perfectmemory/ngx-contextmenu": ["projects/ngx-contextmenu/src/public-api.ts"]
+      "@argentumcode/ngx-contextmenu": ["projects/ngx-contextmenu/src/public-api.ts"]
     },
     "experimentalDecorators": true,
     "moduleResolution": "node",

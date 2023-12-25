@@ -27,7 +27,7 @@ module.exports = function (config) {
     coverageReporter: {
       dir: require('path').join(
         __dirname,
-        '../../coverage/@perfectmemory/ngx-contextmenu'
+        '../../coverage/@argentumcode/ngx-contextmenu'
       ),
       subdir: '.',
       reporters: [

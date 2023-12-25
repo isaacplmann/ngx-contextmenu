@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
+import { ContextMenuModule } from '@argentumcode/ngx-contextmenu';
 import { AppComponent } from './app.component';
 import { ChildOneComponent } from './components/child1.component';
 import { ChildTwoComponent } from './components/child2.component';

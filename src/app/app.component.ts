@@ -4,7 +4,7 @@ import {
   ContextMenuItem,
   ContextMenuService,
   ContextMenuComponent,
-} from '@perfectmemory/ngx-contextmenu';
+} from '@argentumcode/ngx-contextmenu';
 
 @Component({
   selector: 'ngx-context-menu-demo',

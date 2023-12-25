@@ -23,7 +23,7 @@ jobs:
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/@perfectmemory/ngx-contextmenu/lcov.info
+          files: ./coverage/@argentumcode/ngx-contextmenu/lcov.info
           fail_ci_if_error: true # optional (default = false)
           verbose: true # optional (default = false)
   pr:
