@@ -26,7 +26,7 @@
     "start": "ng serve",
     "build": "npm run build:lib && npm run build:demo",
     "build:demo": "rimraf dist/demo && ng build",
-    "build:lib": "ng build ngx-contextmenu --prod && copyfiles README.md LICENSE dist/ngx-contextmenu/",
+    "build:lib": "ng build ngx-contextmenu --configuration production && copyfiles README.md LICENSE dist/ngx-contextmenu/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
