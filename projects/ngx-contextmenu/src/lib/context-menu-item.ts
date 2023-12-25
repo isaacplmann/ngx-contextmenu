@@ -4,14 +4,14 @@ export class ContextMenuItem implements ContextMenuItemInterface {
   currentItem: any = undefined;
   divider = false;
   enabled: boolean | ((item: any) => boolean) = true;
-  isActive: boolean;
+  isActive: boolean = false;
   passive = false;
   subMenu: any = undefined;
   visible: boolean | ((item: any) => boolean) = true;
 
-  executeFunction?: (item: any, event: MouseEvent | KeyboardEvent) => void;
+  executeFunction?: (item: any, event?: MouseEvent | KeyboardEvent) => void;
 
-  text: string;
+  text?: string;
 
   constructor(
     props: Partial<

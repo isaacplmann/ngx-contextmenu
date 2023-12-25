@@ -331,7 +331,7 @@ export class ContextMenuService implements OnDestroy {
     });
   }
 
-  private evaluateIfFunction(value: any, item): any {
+  private evaluateIfFunction(value: any, item: any): any {
     if (value instanceof Function) {
       return value(item);
     }
