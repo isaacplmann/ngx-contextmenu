@@ -1,0 +1,268 @@
+<h1>Angular Context Menu Demo</h1>
+<button (click)="requestFullScreen()">fullscreen</button>
+<div (click)="$event.preventDefault()" style="margin:20px; padding:20px; background-color: white;" #wrapper>
+  <div style="position: relative">
+    <div style="margin:20px; padding:20px;transform: translate3d(0px, 0px, 0px)">
+      <div (click)="$event.preventDefault()" style="transform: translate3d(10px, -10px, 0px)">
+        <h3>Base Case</h3>
+        <ul>
+          <li *ngFor="let item of items" [contextMenu]="basicMenu" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+        </ul>
+        <a href (click)="disableBasicMenu = !disableBasicMenu">{{ disableBasicMenu ? 'enable' : 'disable'}} basic menu</a>
+        <h3>Static</h3>
+        <ul>
+          <li *ngFor="let item of items" [contextMenu]="static">Right Click: {{item?.name}}</li>
+        </ul>
+        <context-menu #static (close)="showMessage('closed static', $event)" (open)="showMessage('open', $event)">
+          <ng-template contextMenuItem [visible]="true" [enabled]="false" (execute)="showMessage('Hi, someone')">
+            Say hi
+          </ng-template>
+          <ng-template contextMenuItem [visible]="false" (execute)="showMessage('Hi, someone')">
+            This will never show...
+          </ng-template>
+          <ng-template contextMenuItem [divider]="true"></ng-template>
+          <ng-template contextMenuItem [visible]="true" [enabled]="true" (execute)="showMessage('Someone said: something')">
+            Bye, someone
+          </ng-template>
+        </context-menu>
+        <div style="height: 100px; border: solid 1px #ccc; overflow: auto;" cdkScrollable>
+          <h3>Enabled and Visible</h3>
+          <ul>
+            <li *ngFor="let item of items" [contextMenu]="enableAndVisible" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+          </ul>
+          <context-menu #enableAndVisible (close)="showMessage('closed enableAndVisible', $event)">
+            <ng-template contextMenuItem let-item [visible]="true" [enabled]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
+              Say hi, {{item?.name}}! With access to the outside context: {{ outsideValue }}
+            </ng-template>
+            <ng-template contextMenuItem [visible]="false" (execute)="showMessage('Hi, ' + $event.item.name)">
+              This will never show...
+            </ng-template>
+            <ng-template contextMenuItem [divider]="true"></ng-template>
+            <ng-template contextMenuItem let-item [visible]="true" [enabled]="true" (execute)="showMessage($event.item.name + ' said: ' + $event.item.otherProperty)">
+              Bye, {{item?.name}}
+            </ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+            <ng-template contextMenuItem>Filler</ng-template>
+          </context-menu>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </div>
+        <h3>Enabled and Visible as Functions</h3>
+        <ul>
+          <li *ngFor="let item of items" [contextMenu]="withFunctions" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+        </ul>
+        <context-menu #withFunctions>
+          <ng-template contextMenuItem [enabled]="onlyJohn" (execute)="showMessage('Hi, ' + $event.item.name)">
+            Say hi! (enabled for John)
+          </ng-template>
+          <ng-template contextMenuItem [visible]="onlyJoe" (execute)="showMessage('Hi, ' + $event.item.name)">
+            Say hi! (visible for Joe)
+          </ng-template>
+          <ng-template contextMenuItem let-item (execute)="showMessage($event.item.name + ' said: ' + $event.item.otherProperty)">
+            Bye, {{item?.name}}
+          </ng-template>
+        </context-menu>
+        <br>
+        <h3>Custom styling</h3>
+        <ul>
+          <li *ngFor="let item of items" [contextMenu]="customClassMenu" [contextMenuSubject]="item">Right click to see styled menu</li>
+        </ul>
+        <h3>ContextMenu without template</h3>
+        <ul>
+          <li (contextmenu)="showContextMenuFromCode($event)">Right click to show context menu without Template</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position:fixed;top:35px;height:100%;width:100%;display:table; border-collapse: collapse;border:none;outline:none; pointer-events: none">
+  <div style="display: table-cell;width:200px;vertical-align: top">
+    <div style="position:absolute; top: 20px;">
+      <div style="position:fixed;top:200px;left:-200px">
+        <context-menu #basicMenu [disabled]="disableBasicMenu" style="pointer-events:all">
+          <ng-template contextMenuItem [subMenu]="saySubMenu">
+            Say...
+          </ng-template>
+          <context-menu #saySubMenu>
+            <ng-template contextMenuItem [subMenu]="sayHiSubMenu">
+              ...hi!
+            </ng-template>
+            <context-menu #sayHiSubMenu>
+              <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
+                ...hi!
+              </ng-template>
+              <ng-template contextMenuItem (execute)="showMessage('Hola, ' + $event.item.name)">
+                ...hola!
+              </ng-template>
+              <ng-template contextMenuItem (execute)="showMessage('Salut, ' + $event.item.name)">
+                ...salut!
+              </ng-template>
+            </context-menu>
+            <ng-template contextMenuItem (execute)="showMessage('Hola, ' + $event.item.name)">
+              ...hola!
+            </ng-template>
+            <ng-template contextMenuItem (execute)="showMessage('Salut, ' + $event.item.name)">
+              ...salut!
+            </ng-template>
+          </context-menu>
+          <ng-template contextMenuItem let-item [subMenu]="byeSubMenu">
+            Bye, {{item?.name}}
+          </ng-template>
+          <context-menu #byeSubMenu>
+            <ng-template contextMenuItem (execute)="showMessage('Bye, ' + $event.item.name)">
+              ...bye!
+            </ng-template>
+            <ng-template contextMenuItem (execute)="showMessage('Ciao, ' + $event.item.name)">
+              ...ciao!
+            </ng-template>
+            <ng-template contextMenuItem (execute)="showMessage('Au revoir, ' + $event.item.name)">
+              ...au revoir!
+            </ng-template>
+          </context-menu>
+          <ng-template contextMenuItem (execute)="showMessage('Simple')">
+            Simple
+          </ng-template>
+          <ng-template contextMenuItem [passive]="true">
+            Input something:
+            <input type="text">
+          </ng-template>
+        </context-menu>
+      </div>
+    </div>
+  </div>
+</div>
+
+<context-menu #customClassMenu [menuClass]="'mystyle'" style="pointer-events:all">
+  <ng-template contextMenuItem (execute)="showMessage('Styled menu1')">
+    This menu is styled
+  </ng-template>
+  <ng-template contextMenuItem (execute)="showMessage('Styled menu2')">
+    with a custom class
+  </ng-template>
+  <ng-template contextMenuItem (execute)="showMessage('Styled menu3')">
+    that needs to be global
+  </ng-template>
+</context-menu>
+
+<div class="dashboardContainer" style="pointer-events: none">
+  <div class="componentsContainer">
+    <div class="componentContainer" *ngFor="let item of items" style="pointer-events: all" [ngStyle]="item.layout" [contextMenu]="componentMenu"
+      [contextMenuSubject]="item">
+      {{ item.name }}
+    </div>
+    <context-menu #componentMenu>
+      <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
+        Say hi!
+      </ng-template>
+      <ng-template contextMenuItem let-item (execute)="showMessage($event.event)">
+        Bye, {{item?.name}}
+      </ng-template>
+    </context-menu>
+  </div>
+</div>
+<ul>
+  <li *ngFor="let item of items" [contextMenu]="itemContextMenu" [contextMenuSubject]="item">
+    {{item.name}}
+    <context-menu #itemContextMenu>
+      <ng-template *ngFor="let action of item.actions" contextMenuItem let-item [visible]="action.visible" [enabled]="action.enabled"
+        [divider]="action.divider" (execute)="action.execute($event.item)">
+        {{ action.html(item) }}
+      </ng-template>
+      <ng-template contextMenuItem [subMenu]="someSubMenu">
+        Submenu
+      </ng-template>
+      <context-menu #someSubMenu>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+        <ng-template contextMenuItem>Filler</ng-template>
+      </context-menu>
+    </context-menu>
+  </li>
+</ul>
+<router-outlet></router-outlet>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

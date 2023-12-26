@@ -1,0 +1,21 @@
+name: Publish to NPM
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+          registry-url: 'https://registry.npmjs.org/'
+      - run: npm ci --legacy-peer-deps
+      - run: npm run build:lib
+      - run: npm publish ./dist/ngx-contextmenu
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

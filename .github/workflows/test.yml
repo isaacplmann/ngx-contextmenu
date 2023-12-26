@@ -1,0 +1,20 @@
+name: Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+      - run: npm ci --legacy-peer-deps
+      - run: npm run build:lib
+      - run: npm run ci:test
