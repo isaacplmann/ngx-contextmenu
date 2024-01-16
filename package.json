@@ -63,7 +63,6 @@
     "@angular/compiler-cli": "^14.3.0",
     "@ngneat/spectator": "^10.0.0",
     "@types/jasmine": "~4.0.0",
-    "@types/node": "^12.20.42",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
