@@ -262,11 +262,11 @@ describe('Component: ContextMenuContentComponent', () => {
     });
   });
 
-  describe('#onKeyEvent', () => {});
+  // describe('#onKeyEvent', () => {});
 
-  describe('#keyboardOpenSubMenu', () => {});
+  // describe('#keyboardOpenSubMenu', () => {});
 
-  describe('#keyboardMenuItemSelect', () => {});
+  // describe('#keyboardMenuItemSelect', () => {});
 
   describe('#onCloseLeafMenu', () => {
     let event: KeyboardEvent;
@@ -463,7 +463,7 @@ describe('Component: ContextMenuContentComponent', () => {
     });
   });
 
-  describe('#onOpenSubMenu', () => {});
+  // describe('#onOpenSubMenu', () => {});
 
   describe('#onMenuItemSelect', () => {
     let menu: ContextMenuItemDirective;
